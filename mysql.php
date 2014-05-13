@@ -1,9 +1,9 @@
 ﻿<?php
   //   header("Content-type:text/html;charset=GB2312");
-     $ip="202.85.209.109";
-     $user="wraith";
-     $pwd="tengyewudi2012@)!@";
-     $db="wraith";
+     $ip="42.62.78.249";
+     $user="tkp";
+     $pwd="qepapap";
+     $db="cdopr";
       
       
       $mysqli = new mysqli($ip, $user, $pwd, $db);
