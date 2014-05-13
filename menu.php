@@ -1,24 +1,3 @@
-<?php 
-	include("check.php"); 
-	
-	$sql="set names utf8";
-	mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
-	$sql="select * from wraith_menu";
-	$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
-	while($row=mysqli_fetch_assoc($result))
-	{
-		if($row['parent'] == 0)
-		{
-			$parent[] = $row;
-		}
-		else
-		{
-			$childs[] = $row;
-		}
-	}
-	mysqli_free_result($result);
-?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML><HEAD>
 <META http-equiv=Content-Type content="text/html; charset=utf-8">
@@ -41,6 +20,27 @@
 </SCRIPT>
 </HEAD>
 <BODY>
+<span style="display:none">
+<?php 
+	include("check.php"); 
+	$sql="set names utf8";
+	mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	$sql="select * from wraith_menu";
+	$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	while($row=mysqli_fetch_assoc($result))
+	{
+		if($row['parent'] == 0)
+		{
+			$parent[] = $row;
+		}
+		else
+		{
+			$childs[] = $row;
+		}
+	}
+	mysqli_free_result($result);
+?>
+</span>
 <TABLE height="100%" cellSpacing=0 cellPadding=0 width=170 
 background=images/menu_bg.jpg border=0>
   <TR>
