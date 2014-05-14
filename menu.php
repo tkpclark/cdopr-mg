@@ -232,13 +232,36 @@ background=images/menu_bg.jpg border=0>
           <TD></TD></TR></TABLE>
       <TABLE id=child0 style="DISPLAY: none" cellSpacing=0 cellPadding=0 
       width=150 border=0>
-        
         <TR height=20>
           <TD align=middle width=30><IMG height=9 
             src="images/menu_icon.gif" width=9></TD>
           <TD><A class=menuChild 
-            href="#" 
-            target=main>修改口令</A></TD></TR>
+            href="create_account.php" 
+            target=main>添加用户</A></TD></TR>
+		<TR height=20>
+          <TD align=middle width=30><IMG height=9 
+            src="images/menu_icon.gif" width=9></TD>
+          <TD><A class=menuChild 
+            href="account_list.php" 
+            target=main>用户列表</A></TD></TR>
+		<TR height=20>
+          <TD align=middle width=30><IMG height=9 
+            src="images/menu_icon.gif" width=9></TD>
+          <TD><A class=menuChild 
+            href="add_role.php" 
+            target=main>添加角色</A></TD></TR>
+		<TR height=20>
+          <TD align=middle width=30><IMG height=9 
+            src="images/menu_icon.gif" width=9></TD>
+          <TD><A class=menuChild 
+            href="role_list.php" 
+            target=main>角色列表</A></TD></TR>
+		 <TR height=20>
+          <TD align=middle width=30><IMG height=9 
+            src="images/menu_icon.gif" width=9></TD>
+          <TD><A class=menuChild 
+            href="update_account.php" 
+            target=main>修改资料</A></TD></TR>
         <TR height=20>
           <TD align=middle width=30><IMG height=9 
             src="images/menu_icon.gif" width=9></TD>

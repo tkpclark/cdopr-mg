@@ -1,6 +1,16 @@
 ﻿<?php 
 	include("check.php"); 
 	include("style.php");
+
+	$sql="set names utf8";
+	mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	$sql="select * from wraith_role";
+	$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	while($row=mysqli_fetch_assoc($result))
+	{
+		$rows[] = $row;
+	}
+	mysqli_free_result($result);
 ?>
 <script language="Javascript">
 function checkpwd()
@@ -28,44 +38,32 @@ function checkpwd()
 		document.form1.position.focus();
 		return false;
 	}
-	if((document.form1.position.value=="worker")&&(document.form1.member_name.value==""))
+	if(document.form1.member_name.value=="")
 	{
-		alert("请选择大小工姓名");
+		alert("请选择员工姓名");
 		return false;
 	}
 	
 }
 
 </script>
-<font size=4 color=red>创建新帐号：</font>
-<br><br><br><br><br><br>
+<font size=4 color=red>添加用户：</font>
+<br><br>
 <center>
 
 <table border="1" cellspacing="0" cellpadding="1" width="410" >
-<form action=ps_create_accounts.php name=form1 method=post onsubmit="return checkpwd();">
+<form action=create_accountpro.php name=form1 method=post onsubmit="return checkpwd();">
 <tr height="30"><td align=center><font size=2 color=red>用户名：&nbsp;&nbsp;<input type=text name=name></td></tr>
 <tr height="30"><td align=center><font size=2 color=red>密码：&nbsp;&nbsp;&nbsp;&nbsp;<input type=password name=pwd1></td></tr>
 <tr height="30"><td align=center><font size=2 color=red>重复输入：<input type=password name=pwd2></td></tr>
 <tr height="30"><td align=center><font size=2 color=red>请选择帐号的类型：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
-<tr height="30"><td align=center><input type=radio name=position value=admin><font size=2 color=red>管理员&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
-<tr height="30"><td align=center><input type=radio name=position value=counter><font size=2 color=red>前台&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
-<tr height="30"><td align=center><input type=radio name=position value=manage><font size=2 color=red>后台管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
-<tr height="30"><td align=center><input type=radio name=position value=finance><font size=2 color=red>财务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
-<tr height="30"><td align=center><input type=radio name=position value=worker><font size=2 color=red>大小工&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
-<tr height="30"><td align=center> 
-<select name="member_name">
-<option value=""><font size=2 color=red>请选择使用员工的姓名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
 <?php
-   
-   $sql="select name from member";
-   $result=mysql_query($sql);
-   while($row=mysql_fetch_row($result))
-   {      
-	echo"<option value=$row[0]>$row[0]</option>";
-   }	
-?>		  
-</select>
-</td>
+foreach($rows as $v){
+	echo "<tr height='30'><td align=center><input type=radio name=role value=$v[id]><font size=2 color=red>$v[name]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>";
+
+}
+?>
+<tr height="30"><td align=center><font size=2 color=red>员工姓名：<input type=text name=member_name></td></tr>
 <tr><td align=center><input type=submit value=确定></td></tr>
 </table>
 

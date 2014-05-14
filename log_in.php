@@ -3,15 +3,19 @@
   $username=$_POST['name'];
   $password=$_POST['pass'];
   $md5_password=md5($password);
-  $sql="select type from wraith_users where username='$username' and password='$md5_password'";
+  $sql="select ID , type , membername ,role from wraith_users where username='$username' and password='$md5_password'";
   
   $result=mysqli_query($mysqli,$sql);
   if(mysqli_num_rows($result)==1)
   {
      setcookie("username",$username);
      setcookie("password",$md5_password);
-     $row=mysqli_fetch_row($result);
-     setcookie("type",$row[0]);
+     $row=mysqli_fetch_assoc($result);
+
+     setcookie("type",$row['type']);
+	 setcookie("role",$row['role']);
+	 setcookie("id",$row['ID']);
+	 setcookie("membername",$row['membername']);
      //record
      $sql="insert into wraith_login_history(username,action,time) values('$username','1',NOW())";
      if(!exsql($sql))
