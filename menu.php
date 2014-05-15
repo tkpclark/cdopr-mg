@@ -81,12 +81,12 @@ background=images/menu_bg.jpg border=0>
           <TD colSpan=2></TD></TR></TABLE>-->
           
           
- <?php	
+ <?php
 	if(!empty($parent))
 	{
 		foreach($parent as $v)
-		{
-			if(in_array($v['id'],explode(',',$role['menus']))){
+		{	
+			if(in_array($v['id'],explode(',',$role['menus'])) || $role['menus']==='0'){
 ?>
 			<TABLE cellSpacing=0 cellPadding=0 width=150 border=0>
 			<TR height=22>
@@ -105,7 +105,7 @@ background=images/menu_bg.jpg border=0>
 					{
 						if($c['parent'] == $v['id'])
 						{
-							if(in_array($c['id'],explode(',',$role['menus']))){
+							if(in_array($c['id'],explode(',',$role['menus'])) || $role['menus']==='0'){
 ?>							
 							<TR height=20>
 							  <TD align=middle width=30><IMG height=9 
