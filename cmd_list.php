@@ -36,11 +36,11 @@ setTable:function () {
 			//var cmd_id=$(this).text();
 			//alert(cmd_id);
 			$.get("cmd_display_deduction.php?cmd_id="+cmd_id,function(result){
-				$(cmd).parent().children("display_deduction").replaceWith(result);
+				$(cmd).prev().replaceWith(result);
 				});
 			});
-
-		$("see_deduction").click();
+		
+		//$("see_deduction").click();
 
 
 		$("add_deduction").click(function(){
@@ -155,8 +155,8 @@ while($row=mysqli_fetch_row($result))
 	echo "<display_deduction></display_deduction>";
 
 	////////////
-	echo "<add_deduction><a href='#'>添加扣量</a></add_deduction>";
-	echo "<see_deduction style='visibility:hidden'><a href='#'>查看扣量</a></see_deduction>";
+	//echo "<add_deduction><a href='#'>添加扣量</a></add_deduction>";
+	echo "<see_deduction style=''><a href='#'>查看扣量</a></see_deduction>";
 	//	echo "&nbsp;";
 	//	echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
 	echo "</td>";
