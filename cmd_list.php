@@ -1,4 +1,4 @@
-﻿	<script Language="JavaScript">
+﻿<script Language="JavaScript">
 function ask(id)
 {
 	var str=
@@ -87,49 +87,59 @@ setTable:function () {
 <?php
 echo "<body>";
 echo "<font size=4><caption>指令列表>></caption></font>
-<br><br><br>
-<font size=1>
+<br><br>
+<font size=3><a href='cmd_edit.php'>添加</a></font><br>
 
 <table border='1' cellspacing='0' cellpadding='1' width='90%' class='tabs'>
 
 <tr>
 <th>序号</th>
-<th>cp名称</th>
 <th>指令</th>
-<th>收费</th>
-<th>通道</th>
-<th>信息类型</th>
+<th>所属业务</th>
+<th>资费</th>
+<th>使用渠道</th>
 <th>扣量</th>
-<th>url</th>
 <th>状态</th>
 <th>编辑</th>
 <th>删除</th>
 </tr>";
-$buf= "SELECT t1.ID, t2.cpname, t1.spnumber, t1.mocmd, t3.spnumber, t3.mocmd,t3.msgtype, t1.status, t1.url, t1.fee
-FROM mtrs_cmd t1, mtrs_cp t2, mtrs_channel t3 
-where t1.cpID=t2.ID and t1.channelID=t3.ID;";
+$buf= "SELECT * FROM mtrs_cmd";
 //echo $buf;
-$result=mysql_query($buf) or die (mysql_error());
-echo "<div align=left><font size=2>共<font color=red>".mysql_num_rows($result)."</font>条记录";
-while($row=mysql_fetch_row($result))
+$result=exsql($buf);
+
+echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
+while($row=mysqli_fetch_row($result))
 {
 	echo"<tr>";
 	//seq
 	echo "<td align=center><font size=2>$row[0]</td>";
 
-	//cp name
-	echo "<td align=center><font size=2>$row[1]</td>";
-
 	//cmd(spnumber+mocmd)precise
-	echo "<td align=center><font size=2>$row[2]+$row[3]</td>";
+	echo "<td align=center><font size=2>$row[1]+$row[2]</td>";
 
+	//service
+	$s = "select spnumber,mocmd,name,fee from mtrs_service where id=$row[4]";
+	$r = exsql($s);
+	$ro = mysqli_fetch_row($r);
+	if(mysqli_num_rows($r))
+		echo "<td align=center><font size=2>$ro[2] $ro[0]+$ro[1]</td>";
+	else
+		echo "<td align=center><font size=2></td>";
 	//fee
-	echo "<td align=center><font size=2>$row[9]</td>";
+	echo "<td align=center><font size=2>$ro[3]</td>";
 	
-	//channel
-	echo "<td align=center><font size=2>$row[4]+$row[5]</td>";
-	
+	//cp name
+	$s = "select cpname from mtrs_cp where id=$row[3]";
+	$r = exsql($s);
+	$ro = mysqli_fetch_row($r);
 
+	echo "<td align=center><font size=2>$ro[0]</td>";
+	
+	
+	
+	
+	
+    /*
 	//msgtype
 	if($row[6]==1)
 		echo "<td align=center><font size=2>短信</td>";
@@ -137,7 +147,7 @@ while($row=mysql_fetch_row($result))
 		echo "<td align=center><font size=2>彩信</td>";
 	else
 		echo "<td align=center><font size=2>数据异常</td>";
-
+	*/
 	//deduction
 
 	echo "<td align=center>";
@@ -151,13 +161,10 @@ while($row=mysql_fetch_row($result))
 	//	echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
 	echo "</td>";
 
-	//url
-	echo "<td align=center><font size=2>$row[8]</td>";
-
 	//状态
-	if($row[7]==1)
+	if($row[5]==1)
 		echo "<td align=center><font size=2>正常</td>";
-	else if($row[7]==2)
+	else if($row[5]==2)
 		echo "<td align=center><font size=2>关闭</td>";
 	else
 		echo "<td align=center><font size=2>数据异常</td>";
@@ -171,7 +178,7 @@ while($row=mysql_fetch_row($result))
 	echo "<td align=center onclick=\"return ask($row[0]);\" ><font size=2><a href=\"cmd_del.php?cmdid=$row[0]\" >删除</a>&nbsp;</td>";
 	echo"</tr>";
 }
-mysql_free_result($result);
+mysqli_free_result($result);
 echo "</table>";
 echo "</font>";
 

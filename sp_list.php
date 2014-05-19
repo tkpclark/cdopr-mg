@@ -14,9 +14,9 @@ include("check.php");
 include("style.php");
 ?>
 <body>
-<font size=4><caption>sp列表>></caption></font>
-<br><br><br>
-<font size=1>
+<font size=4><caption>SP列表>></caption></font>
+<br><br>
+<font size=3><a href='sp_edit.php'>添加</a></font><br>
 
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
@@ -25,9 +25,9 @@ include("style.php");
 <?php
 
   $buf= "select * from mtrs_sp";
-  $result=mysql_query($buf) or die (mysql_error());
-  echo "<div align=left><font size=2>共<font color=red>".mysql_num_rows($result)."</font>条记录";
-  while($row=mysql_fetch_row($result))
+  $result=exsql($buf);;
+  echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
+  while($row=mysqli_fetch_row($result))
   {
     echo"<tr>";
 		//seq

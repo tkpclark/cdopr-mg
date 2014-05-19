@@ -1,5 +1,4 @@
 ﻿<?php
-  //   header("Content-type:text/html;charset=GB2312");
      $ip="42.62.78.249";
      $user="tkp";
      $pwd="qepapap";
@@ -15,6 +14,7 @@
       function exsql($sql)
 			{
 				global $mysqli;
+				mysqli_query($mysqli,"set names utf8");
 				$result = mysqli_query($mysqli,$sql);
 				if(!$result)
 				 {
@@ -26,6 +26,4 @@
 				 return $result;
 			}
 			
-		//	$sql="set names gbk";
-  		//exsql($sql);
 ?>

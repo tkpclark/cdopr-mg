@@ -25,8 +25,8 @@ function check()
 				
 		$sql = "select cpname,status from mtrs_cp where id=$cp_id";
 		//echo $sql;
-		$result=mysql_query($sql) or die (mysql_error());
-		$row=mysql_fetch_row($result);
+		$result=exsql($sql);
+		$row=mysqli_fetch_row($result);
 		$cp_name=$row[0];
 		$cp_status=$row[1];
 		
@@ -38,7 +38,7 @@ function check()
 	}
 ?>
 
-<font size=4><caption>cp信息编辑>></caption></font>
+<font size=4><caption>渠道信息编辑>></caption></font>
 <br><br><br>
 
 <body>
@@ -52,7 +52,7 @@ if(isset($cp_id))
 }
 ?>
 <tr>
-	<th>cp名称&nbsp;&nbsp;</th>
+	<th>渠道名称&nbsp;&nbsp;</th>
 	<th align='center'>
 		<input type='text' name='cpname' value='<?php echo $cp_name?>' size='30'/>
 	</th>

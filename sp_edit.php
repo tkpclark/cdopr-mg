@@ -25,8 +25,8 @@ function check()
 				
 		$sql = "select spname,status from mtrs_sp where id=$sp_id";
 		//echo $sql;
-		$result=mysql_query($sql) or die (mysql_error());
-		$row=mysql_fetch_row($result);
+		$result=exsql($sql);
+		$row=mysqli_fetch_row($result);
 		$sp_name=$row[0];
 		$sp_status=$row[1];
 		
@@ -38,7 +38,7 @@ function check()
 	}
 ?>
 
-<font size=4><caption>sp信息编辑>></caption></font>
+<font size=4><caption>SP信息编辑>></caption></font>
 <br><br><br>
 
 <body>
@@ -52,7 +52,7 @@ if(isset($sp_id))
 }
 ?>
 <tr>
-	<th>sp名称&nbsp;&nbsp;</th>
+	<th>SP名称&nbsp;&nbsp;</th>
 	<th align='center'>
 		<input type='text' name='spname' value='<?php echo $sp_name?>' size='30'/>
 	</th>

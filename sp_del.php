@@ -10,7 +10,7 @@
 	
 	$sql="delete from mtrs_sp where ID=$spid";
 	echo $sql;
-	mysql_query($sql) or die (mysql_error());
+	exsql($sql);
 	
 	Header("Location:sp_list.php");
 	

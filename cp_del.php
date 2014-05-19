@@ -10,7 +10,7 @@
 	
 	$sql="delete from mtrs_cp where ID=$cpid";
 	echo $sql;
-	mysql_query($sql) or die (mysql_error());
+	exsql($sql);
 	
 	Header("Location:cp_list.php");
 	

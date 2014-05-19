@@ -21,11 +21,11 @@
 </HEAD>
 <BODY>
 <span style="display:none">
-<?php 
+<?php   
 	include("check.php"); 
 	$sql="set names utf8";
 	mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
-	$sql="select * from wraith_menu";
+	$sql="select * from wraith_menu order by id asc";
 	$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
 	while($row=mysqli_fetch_assoc($result))
 	{
@@ -39,6 +39,11 @@
 		}
 	}
 	mysqli_free_result($result);
+
+	$sql="select menus from wraith_role where id=".$_COOKIE['role'];
+	$result_role=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	$role=mysqli_fetch_assoc($result_role);
+	mysqli_free_result($result_role);
 ?>
 </span>
 <TABLE height="100%" cellSpacing=0 cellPadding=0 width=170 
@@ -76,11 +81,12 @@ background=images/menu_bg.jpg border=0>
           <TD colSpan=2></TD></TR></TABLE>-->
           
           
- <?php	
+ <?php
 	if(!empty($parent))
 	{
 		foreach($parent as $v)
-		{
+		{	
+			if(in_array($v['id'],explode(',',$role['menus'])) || $role['menus']==='0'){
 ?>
 			<TABLE cellSpacing=0 cellPadding=0 width=150 border=0>
 			<TR height=22>
@@ -91,6 +97,7 @@ background=images/menu_bg.jpg border=0>
 			  <TD></TD></TR></TABLE>
 
 <?php
+			}
 				if(!empty($childs))
 				{
 					echo '<TABLE id=child'.$v['id'].' style="DISPLAY: none" cellSpacing=0 cellPadding=0 width=150 border=0>';
@@ -98,6 +105,7 @@ background=images/menu_bg.jpg border=0>
 					{
 						if($c['parent'] == $v['id'])
 						{
+							if(in_array($c['id'],explode(',',$role['menus'])) || $role['menus']==='0'){
 ?>							
 							<TR height=20>
 							  <TD align=middle width=30><IMG height=9 
@@ -107,6 +115,7 @@ background=images/menu_bg.jpg border=0>
 								target=main><?php echo $c['name'];?></A></TD></TR>	
 						
 <?php
+							}
 						}
 					}
 				}

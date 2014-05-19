@@ -14,7 +14,7 @@
 	
 	$sql="delete from mtrs_deduction where cmdID=$cmdid";
 	echo $sql;
-	mysql_query($sql) or die (mysql_error());
+	exsql($sql);
 	
 	
 	Header("Location:cmd_list.php");

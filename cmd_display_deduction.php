@@ -32,8 +32,8 @@ $(document).ready(function(){
 		$cmd_id=$_GET['cmd_id'];
 		echo "<display_deduction>";
 		$sql="select zone,deduction,ID from mtrs_deduction where cmdID='$cmd_id'";
-		$result=mysql_query($sql) or die (mysql_error());
-		while($row=mysql_fetch_row($result))
+		$result=exsql($sql);
+		while($row=mysqli_fetch_row($result))
 		{
 			if($row[0]==0)
 				$zone="默认";
