@@ -2,16 +2,16 @@
 	include("check.php"); 
 	include("style.php");
 	
-	if(!isset($_GET['channelid']))
+	if(!isset($_GET['serviceid']))
 	{
 		exit;
 	}
-	$channelid=$_GET['channelid'];
+	$serviceid=$_GET['serviceid'];
 	
-	$sql="delete from mtrs_channel where ID=$channelid";
+	$sql="delete from mtrs_service where ID=$serviceid";
 	echo $sql;
 	exsql($sql);
 	
-	Header("Location:channel_list.php");
+	Header("Location:service_list.php");
 	
 ?>
