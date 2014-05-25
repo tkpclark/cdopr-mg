@@ -8,7 +8,7 @@
 	}
 	$id=$_GET['id'];
 	
-	$sql="delete from wraith_cp_product where id=$id";
+	$sql="delete from mtrs_cp_product where id=$id";
 	echo $sql;
 	exsql($sql);
 	

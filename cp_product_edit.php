@@ -23,7 +23,7 @@ function check()
 	{
 		$id=$_GET['id'];
 				
-		$sql = "select * from wraith_cp_product where id=$id";
+		$sql = "select * from mtrs_cp_product where id=$id";
 		//echo $sql;
 		$result=exsql($sql);
 		$row=mysqli_fetch_row($result);
@@ -32,18 +32,16 @@ function check()
 		$mourl=$row[3];
 		$mrurl=$row[4];
 		$checkblk=$row[5];
-		$synctype=$row[6];
-		$mt_method=$row[7];
-		$remarks=$row[8];
-		$createtime=$row[9];
+		$forward_method=$row[8];
+		$remarks=$row[6];
+		$createtime=$row[7];
 	}else{
 		$name="";
 		$cpID="";
 		$mourl="";
 		$mrurl="";
 		$checkblk="";
-		$synctype="";
-		$mt_method="";
+		$forward_method="";
 		$remarks="";
 		$createtime="";
 	}
@@ -113,18 +111,20 @@ if(isset($id))
 </tr>
 
 <tr>	
-	<th>是否分开同步</th>
+	<th>mo/mr同步方式</th>
 	<th align='center'>
-		<input type=checkbox name=synctype value=2 <?php if($synctype==2) echo "checked=\"checked\""?>/> 
+		<select name=forward_method>
+		<?php if($forward_method==0){?>
+		<option value='0'>mo/mr分开同步</option>
+		<option value='1'>mo/mr一次同步</option>
+		<?php }else{?>
+		<option value='1'>mo/mr一次同步</option>
+		<option value='0'>mo/mr分开同步</option>
+		<?php }?>
+		</select>
 	</th>
 </tr>
 
-<tr>	
-	<th>是否向渠道询问mt消息</th>
-	<th align='center'>
-		<input type=checkbox name='mt_method' value=1 <?php if($mt_method==1) echo "checked=\"checked\""?>/> 
-	</th>
-</tr>
 
 <tr>
 	<th>备注&nbsp;&nbsp;</th>
