@@ -23,9 +23,12 @@ include("style.php");
 
 <tr>
 	<th>序号</th>
+	<th>业务名称</th>
 	<th>spnumber</th>
 	<th>mo指令</th>
-	<th>单条计费</th>
+	<th>资费</th>
+	<th>计费代码</th>
+	<th>网关</th>
 	<th>信息类型</th>
 	<th>所属SP</th>	
 	<th>状态</th>
@@ -43,6 +46,10 @@ include("style.php");
 		//seq
 	  echo "<td align=center><font size=2>$row[0]</td>";
 	  
+	  
+	  //name
+	  echo "<td align=center><font size=2>$row[3]</td>";
+	  
 	  //sp number
 	  echo "<td align=center><font size=2>$row[1]</td>";
 	  
@@ -51,6 +58,21 @@ include("style.php");
 	  
 	  //fee
 	  echo "<td align=center><font size=2>$row[7]</td>";
+	  
+	  //service_id
+	  echo "<td align=center><font size=2>$row[10]</td>";
+	  
+	  //gwid
+	  if($row[11])
+	  {
+	  	$sql="select comment from wraith_gw where ID=$row[11]";
+		$result_gwname=exsql($sql);
+	  	$row_gwname=mysqli_fetch_row($result_gwname);
+	  	$gwname=$row_gwname[0];
+	  	echo "<td align=center><font size=2>$gwname</td>";
+	  }
+	  else
+	  	echo "<td align=center><font size=2></td>";
 	  
 	  //msgtype
 	  if($row[4]==1)
@@ -78,7 +100,7 @@ include("style.php");
 			
 		//modify
 	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center ><font size=2><a href=\"service_edit.php?service_id=$row[0] \" >编辑</a>&nbsp;</td>";
+		echo "<td align=center ><font size=2><a href=\"service_edit.php?serviceID=$row[0] \" >编辑</a>&nbsp;</td>";
 		//delete
 		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"service_del.php?serviceid=$row[0]\" >删除</a>&nbsp;</td>";
     echo"</tr>";

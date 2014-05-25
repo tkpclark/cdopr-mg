@@ -19,11 +19,11 @@ function check()
 <?php 
 	include("check.php"); 
 	include("style.php");
-	if(isset($_GET['service_id']))
+	if(isset($_GET['serviceID']))
 	{
-		$service_id=$_GET['service_id'];
+		$serviceID=$_GET['serviceID'];
 				
-		$sql = "select spnumber,mocmd,msgtype,status,spID,fee,name from mtrs_service where id=$service_id";
+		$sql = "select sp_number,mo_cmd,msgtype,status,spID,fee,name,gwID,service_id from mtrs_service where id=$serviceID";
 		//echo $sql;
 		$result=exsql($sql);
 		$row=mysqli_fetch_row($result);
@@ -32,14 +32,35 @@ function check()
 		$msgtype=$row[2];
 		$status=$row[3];
 		$spID=$row[4];
+		$gwID=$row[7];
 		$fee=$row[5];
 		$service_name=$row[6];
+		$service_id=$row[8];
 		
 		//get spname
-		$sql="select spname from mtrs_sp where ID=$spID";
-		$result=exsql($sql);
-	 	$row=mysqli_fetch_row($result);
-	 	$spname=$row[0];
+		if($spID)
+		{
+			$sql="select spname from mtrs_sp where ID=$spID";
+			$result=exsql($sql);
+		 	$row_spname=mysqli_fetch_row($result);
+		 	$spname=$row_spname[0];
+		}
+	 	else
+	 	{
+	 		$spname="";
+	 	}
+	 	//get gwname
+		if($gwID)
+		{
+		 	$sql="select comment from wraith_gw where ID=$gwID";
+			$result=exsql($sql);
+		 	$row_gwname=mysqli_fetch_row($result);
+		 	$gwname=$row_gwname[0];
+		}
+		else
+		{
+			$gwname="";
+		}
 		
 	}
 	else
@@ -49,24 +70,33 @@ function check()
 		$msgtype="1";
 		$status="1";
 		$spID="";
+		$gwID="";
 		$spname="";
 		$fee="";
 		$service_name="";
+		$service_id="";
 	}
 ?>
 <font size=4><caption>新增通道>></caption></font>
 <br><br><br>
 <body>
-<form name=service_edit_form method=post action=service_edit_do.php<?php if(isset($service_id)) echo "?serviceID=$service_id"; ?> onsubmit="return check()">
+<form name=service_edit_form method=post action=service_edit_do.php<?php if(isset($serviceID)) echo "?serviceID=$serviceID"; ?> onsubmit="return check()">
 
 <table>
 <?php
-if(isset($service_id))
+if(isset($serviceID))
 {
-	echo "<tr><th>ID</th><th align='center'>$service_id</th></tr>";
+	echo "<tr><th>ID</th><th align='center'>$serviceID</th></tr>";
 }
 ?>
 
+<tr>
+	<th>业务名称</th>
+	<th align="left">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="text" name="service_name"  value="<?php echo $service_name?>" size="30"/>
+	</th>
+</tr>
 
 <tr>
 	<th>目的号码</th>
@@ -85,7 +115,7 @@ if(isset($service_id))
 </tr>
 
 <tr>
-	<th>单条计费</th>
+	<th>资费</th>
 	<th align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="fee"  value="<?php echo $fee?>" size="25"/>&nbsp;&nbsp;&nbsp;&nbsp;分
@@ -93,10 +123,10 @@ if(isset($service_id))
 </tr>
 
 <tr>
-	<th>业务名称</th>
+	<th>计费代码</th>
 	<th align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="text" name="service_name"  value="<?php echo $service_name?>" size="30"/>
+		<input type="text" name="service_id"  value="<?php echo $service_id?>" size="25"/>&nbsp;&nbsp;&nbsp;&nbsp;
 	</th>
 </tr>
 
@@ -108,6 +138,24 @@ if(isset($service_id))
 		<?php
 			echo "<option value='$spID'>$spname</option>";
 			$sql="select id, spname from mtrs_sp where status=1";
+			$result=exsql($sql);
+	  	while($row=mysqli_fetch_row($result))
+	  	{
+	  		echo "<option value=$row[0]>$row[1]</option>";
+	  	}
+		?>
+		</select>
+	</th>
+</tr>
+
+<tr>
+	<th>网关&nbsp;&nbsp;</th>
+	<th align="left">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select name=gwID style="width:170">
+		<?php
+			echo "<option value='$gwID'>$gwname</option>";
+			$sql="select id, comment from wraith_gw where status=1";
 			$result=exsql($sql);
 	  	while($row=mysqli_fetch_row($result))
 	  	{
