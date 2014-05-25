@@ -17,19 +17,6 @@ function check()
      	   return false;
 	}
 	
-	if(document.cmd_edit_form.cmd_deduction.value=="")
-  {
-     	   alert("请填写扣量比例!");
-     	   document.cmd_edit_form.cmd_deduction.focus();
-     	   return false;
-	}
-	
-	if(document.cmd_edit_form.cmd_deduction.value > 100 || document.cmd_edit_form.cmd_deduction.value < 0)
-	{
-     	   alert("请填写1-100之间的数字!");
-     	   document.cmd_edit_form.cmd_deduction.focus();
-     	   return false;
-	}
 	
 	if(document.cmd_edit_form.cmd_status.value=="")
   {
@@ -43,51 +30,31 @@ function check()
 <?php 
 	include("check.php"); 
 	include("style.php");
-	
-	/*
-	$cpid=isset($_REQUEST['cpid'])?$_REQUEST['cpid']:"";
-	$serviceid=isset($_REQUEST['channelid'])?$_REQUEST['channelid']:"";
-	$cmd_spnumber=isset($_REQUEST['cmd_spnumber'])?$_REQUEST['cmd_spnumber']:"";
-	$cmd_mocmd=isset($_REQUEST['cmd_mocmd'])?$_REQUEST['cmd_mocmd']:"";
-	$cmd_status=isset($_REQUEST['cmd_status'])?$_REQUEST['cmd_status']:"";
-	$deduction=isset($_REQUEST['deduction'])?$_REQUEST['deduction']:"";
-	*/
+
 	
 	if(isset($_GET['cmd_id']))
 	{
 		$cmd_id=$_GET['cmd_id'];
-				 //         0        1          2            3          4    5           6            7        8
-		$sql = "SELECT t2.ID as cpID, t2.cpname as cpname, t1.spnumber, t1.mocmd, t3.ID as serviceID, t3.spnumber, t3.mocmd, t3.`name`, t1.`status` ,t1.url, t3.fee,t1.appID 
-				FROM mtrs_cmd t1, mtrs_cp t2, mtrs_service t3 
-				where t1.ID=$cmd_id and t1.cpID=t2.ID and t1.serviceID=t3.ID";
+		$sql = "SELECT * from mtrs_cmd where id=$cmd_id";
 		//echo $sql;
 		$result=exsql($sql);
-		$row=mysqli_fetch_row($result);
-		$cpid=$row[0];
-		$cpname=$row[1];
-		$cmd_spnumber=$row[2];
-		$cmd_mocmd=$row[3];
-		$serviceid=$row[4];
-		$service_cnt=$row[7]." ".$row[5]."+".$row[6];
-		$status=$row[8];
-		$url=$row[9];
-		$fee=$row[10];
-		$appid=$row[11];
+		$row=mysqli_fetch_assoc($result);
+		$cpProdID=$row['cpProdID'];
+		$cmd_spnumber=$row['sp_number'];
+		$cmd_mocmd=$row['mo_cmd'];
+		$serviceID=$row['serviceID'];
+		$status=$row['status'];
+		$app_module=$row['app_module'];
 		
 	}
 	else
 	{
-		$cpid="";
-		$cpname="请选择";
+		$cpProdID=0;
 		$cmd_spnumber="";
 		$cmd_mocmd="";
-		$serviceid="";
-		$service_cnt="请选择";
-		$status="1";
-		$url="http://";
-		$fee=0;
-		$appid="";
-		$appname="请选择";
+		$serviceID=0;
+		$status=1;
+		$app_module="";
 	}
 ?>
 <font size=4><caption>指令分配>></caption></font>
@@ -105,36 +72,50 @@ if(isset($cmd_id))
 
 
 <tr>
-	<th>所属业务</th>
+	<th>通道业务</th>
 	<th align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<select name=channelid  style="width:200">
+		<select name=serviceID  style="width:300">
 		<?php
-			echo "<option value=$serviceid>$service_cnt</option>";
-			$sql="select id, spnumber, mocmd,name from mtrs_service where status=1";
+			$sql="select t1.id, t1.sp_number, t1.mo_cmd,t1.name,t2.id,t2.spname from mtrs_service t1, mtrs_sp t2 where t1.status=1 and t1.spID=t2.id";
+			
 			$result=exsql($sql);
-	  	while($row=mysqli_fetch_row($result))
-	  	{
-	  		echo "<option value=$row[0]>$row[3] $row[1]+$row[2]</option>";
-	  	}
+		  	while($row=mysqli_fetch_row($result))
+		  	{
+		  		if($row[0]==$serviceID)
+		  			echo "<option value=$row[0]>($row[4])$row[5] ($row[0])$row[3] $row[1]+$row[2] </option>";
+		  	}
+		  	$result=exsql($sql);
+		  	while($row=mysqli_fetch_row($result))
+		  	{
+		  		if($row[0]!=$serviceID)
+		  			echo "<option value=$row[0]>($row[4])$row[5] ($row[0])$row[3] $row[1]+$row[2] </option>";
+		  	}
 		?>
 		</select>
 	</th>
 </tr>
 
 <tr>
-	<th>使用渠道</th>
+	<th>渠道业务</th>
 	<th align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<select name="cpid" style="width:200">
+		<select name="cpProdID" style="width:300">
 		<?php
-			echo "<option value=$cpid>$cpname</option>";
-			$sql="select id, cpname from mtrs_cp where status=1";
+			$sql="select t1.ID as cpProdID,t1.`name` as cpProdName,t2.ID as cpID,t2.cpname from mtrs_cp_product t1,mtrs_cp t2 where t1.cpID=t2.ID and t1.status=1";
 			$result=exsql($sql);
-	  	while($row=mysqli_fetch_row($result))
-	  	{
-	  		echo "<option value=$row[0]>$row[1]</option>";
-	  	}
+		  	while($row=mysqli_fetch_row($result))
+		  	{
+		  		if($row[0]==$cpProdID)
+		  			echo "<option value=$row[0]>($row[2])$row[3]($row[0])$row[1]</option>";
+		  	}
+		  	$result=exsql($sql);
+		  	while($row=mysqli_fetch_row($result))
+		  	{
+		  		if($row[0]!=$cpProdID)
+		  			echo "<option value=$row[0]>($row[2])$row[3]($row[0])$row[1]</option>";
+		  	}
+	  	
 		?>
 		</select>
 	</th>
@@ -156,7 +137,7 @@ if(isset($cmd_id))
 		<input type="text" name="fee" value="<?php echo $fee ?>" size="5"/>&nbsp;&nbsp;&nbsp;
 	</th>
 </tr>
- -->
+
 
 <tr>
 	<th>应用模块</th>
@@ -164,7 +145,7 @@ if(isset($cmd_id))
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name=appid  style="width:200">
 		<?php
-			echo "<option value=$appid>$appname</option>";
+			echo "<option value=$app_module>$app_module</option>";
 			$sql="select id, app_name, app_module from wraith_app where status=1";
 			$result=exsql($sql);
 		  	while($row=mysqli_fetch_row($result))
@@ -175,38 +156,15 @@ if(isset($cmd_id))
 			</select>
 	</th>
 </tr>
-<tr>
-	<th>扣量比例(默认)</th>
-	<th align="left">
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<?php
-		//get $deduction
-		if(isset($cmd_id))
-		{
-			$sql="select deduction from mtrs_deduction where cmdID=$cmd_id and zone='0' limit 1";
-			$result=exsql($sql);
-		  $row=mysqli_fetch_row($result);
-		  $deduction=100*$row[0];
-		}
-		else
-		{
-			$deduction="";
-		}
-		
-		?>
-		<input type="text" name="deduction" value="<?php echo $deduction ?>" size="3"/>%&nbsp;&nbsp;&nbsp;请填写1-100之间的数字
-	</th>
+ -->
+<td>允许访问的省份&nbsp;</td>
+<td><input type=text name=open_province value=x size=170></td>
 </tr>
-
 <tr>
-	<th> url </th>
-	<th align="left">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="text" name="url" value="<?php echo $url ?>" size="150"/>
-	</th>
-</tr>
-
-
+<td>禁止的地区&nbsp;</td>
+<td><input type=text name=forbidden_area value=x size=170></td>
+<tr>
+				
 
 <tr>	
 	<th> 状态 </th>

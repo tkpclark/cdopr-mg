@@ -95,10 +95,14 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <tr>
 <th>序号</th>
 <th>指令</th>
-<th>所属业务</th>
+<th>所属通道</th>
+<th>所属通道业务</th>
 <th>资费</th>
 <th>使用渠道</th>
+<th>使用渠道业务</th>
 <th>扣量</th>
+<th>开通省份</th>
+<th>禁止地区</th>
 <th>状态</th>
 <th>编辑</th>
 <th>删除</th>
@@ -117,23 +121,46 @@ while($row=mysqli_fetch_row($result))
 	//cmd(spnumber+mocmd)precise
 	echo "<td align=center><font size=2>$row[1]+$row[2]</td>";
 
-	//service
-	$s = "select spnumber,mocmd,name,fee from mtrs_service where id=$row[4]";
-	$r = exsql($s);
-	$ro = mysqli_fetch_row($r);
-	if(mysqli_num_rows($r))
-		echo "<td align=center><font size=2>$ro[2] $ro[0]+$ro[1]</td>";
-	else
-		echo "<td align=center><font size=2></td>";
-	//fee
-	echo "<td align=center><font size=2>$ro[3]</td>";
 	
-	//cp name
-	$s = "select cpname from mtrs_cp where id=$row[3]";
+	$s = "select t1.id,t1.sp_number,t1.mo_cmd,name,fee,gwid,t2.id,t2.spname from mtrs_service t1,mtrs_sp t2 where t1.id=$row[4] and t1.spID=t2.ID";
 	$r = exsql($s);
 	$ro = mysqli_fetch_row($r);
 
-	echo "<td align=center><font size=2>$ro[0]</td>";
+	if(mysqli_num_rows($r))
+	{	//sp
+		echo "<td align=center><font size=2>($ro[6])$ro[7]</td>";
+		//service
+		echo "<td align=center><font size=2>($ro[0])$ro[3]-$ro[1]+$ro[2]</td>";
+		//fee
+		echo "<td align=center><font size=2>$ro[4]</td>";
+	}	
+	else{
+		echo "<td align=center><font size=2></td>";
+		echo "<td align=center><font size=2></td>";
+		echo "<td align=center><font size=2></td>";
+	}
+	
+	
+
+	
+	//cp name
+	$s = "select t1.id,t1.`name`,t2.ID,t2.cpname from mtrs_cp_product t1,mtrs_cp t2 where t1.cpID=t2.ID and t1.id=$row[3]";
+	$r = exsql($s);
+	$ro = mysqli_fetch_row($r);
+
+	$r = exsql($s);
+	$ro = mysqli_fetch_row($r);
+
+	if(mysqli_num_rows($r))
+	{	//cp
+		echo "<td align=center><font size=2>($ro[2])$ro[3]</td>";
+		//cp_product
+		echo "<td align=center><font size=2>($ro[0])$ro[1]</td>";
+	}	
+	else{
+		echo "<td align=center><font size=2></td>";
+		echo "<td align=center><font size=2></td>";
+	}
 	
 	
 	
@@ -160,7 +187,11 @@ while($row=mysqli_fetch_row($result))
 	//	echo "&nbsp;";
 	//	echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
 	echo "</td>";
-
+	//开通省份
+	echo "<td align=center><font size=2>$row[8]</td>";
+	//禁止地区
+	echo "<td align=center><font size=2>$row[9]</td>";
+	
 	//状态
 	if($row[5]==1)
 		echo "<td align=center><font size=2>正常</td>";
