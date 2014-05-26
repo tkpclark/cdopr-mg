@@ -1,13 +1,11 @@
 ﻿<?php
-
-		require_once("area_code.php");
-	
+include("area_code.php");
 		echo "<edit_deduction>";
-		echo "<select id='area_code'>";
-		echo "<option value='0'>默认</option>";
+		echo "<select id='province'>";
+		echo "<option value='默认'>默认</option>";
 		while($key = key($area_code))
 		{
-			echo "<option value='$key'>$area_code[$key]</option>";
+			echo "<option value='$area_code[$key]'>$area_code[$key]</option>";
 			next($area_code);
 		}
 		echo "</select>";

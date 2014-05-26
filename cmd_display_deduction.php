@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 					$("#deduction_submit").click(function(){
 						//alert($("#deduction_value").val()+" "+$("#area_code").find("option:selected").text());
-						var add_deduction_url="cmd_add_deduction.php?cmd_id="+cmd_id+"&area_code="+$("#area_code").find("option:selected").val()+"&deduction_value="+$("#deduction_value").val();
+						var add_deduction_url="cmd_add_deduction.php?cmd_id="+cmd_id+"&province="+$("#province").find("option:selected").val()+"&deduction_value="+$("#deduction_value").val();
 						//alert(add_deduction_url);
 						$.get(add_deduction_url,function(result){
 							//alert(result);
@@ -69,10 +69,7 @@ $(document).ready(function(){
 		$result=exsql($sql);
 		while($row=mysqli_fetch_row($result))
 		{
-			if($row[0]==0)
-				$zone="默认";
-			else 
-				$zone=$area_code[$row[0]];
+				$zone=$row[0];
 				
 			$per=100*$row[1];
 				
