@@ -136,10 +136,10 @@
 				echo "<td>".(($row['report']==1)?'成功':'失败')."</td>";
 				echo "<td>".$row['province']."</td>";
 				echo "<td>".$row['area']."</td>";
-				echo "<td>".$row['spID'].'-'.$row['spname']."</td>";
-				echo "<td>".$row['serviceID'].'-'.$row['service_name']."</td>";
-				echo "<td>".$row['cpID'].'-'.$row['cpname']."</td>";
-				echo "<td>".$row['cp_productID'].'-'.$row['cp_product_name']."</td>";
+				echo "<td>".'('.$row['spID'].')'.$row['spname']."</td>";
+				echo "<td>".'('.$row['serviceID'].')'.$row['service_name']."</td>";
+				echo "<td>".'('.$row['cpID'].')'.$row['cpname']."</td>";
+				echo "<td>".'('.$row['cp_productID'].')'.$row['cp_product_name']."</td>";
 				echo "</tr>";
 			}
 			mysqli_free_result($result);
