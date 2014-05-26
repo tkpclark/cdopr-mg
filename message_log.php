@@ -178,7 +178,7 @@
 <?php
 		while($key = key($area_code))
 		{
-			echo "<option value='$key'>$area_code[$key]</option>";
+			echo "<option value='$area_code[$key]'>$area_code[$key]</option>";
 			next($area_code);
 		}
 ?>
