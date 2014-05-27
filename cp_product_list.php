@@ -42,7 +42,7 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th>序号</th><th>产品名称</th><th>所属渠道</th><th>上行转发地址</th><th>报告转发地址</th><th>黑名单检测</th><th>扣量</th><th>备注</th><th>创建时间</th><th>编辑</th><th>删除</th></tr>
+<tr><th>序号</th><th>产品名称</th><th>所属渠道</th><th>上行转发地址</th><th>报告转发地址</th><th>扣量</th><th>备注</th><th>创建时间</th><th>编辑</th><th>删除</th></tr>
 <?php
 
   $buf= "select * from mtrs_cp_product";
@@ -69,11 +69,6 @@ include("style.php");
 	  //mrurl
 	  echo "<td align=center><font size=2>$row[4]</td>";
 	  
-	  //checkblk
-	  if($row[5]==1)
-			echo "<td align=center><font size=2>是</td>";
-		else
-			echo "<td align=center><font size=2>否</td>";
 
 	echo "<td align=center>";
 	echo "<display_deduction></display_deduction>";
@@ -83,10 +78,10 @@ include("style.php");
 
 
 		//remarks
-	  echo "<td align=center><font size=2>$row[6]</td>";
+	  echo "<td align=center><font size=2>$row[5]</td>";
 
 	  //createtime
-	  echo "<td align=center><font size=2>$row[7]</td>";
+	  echo "<td align=center><font size=2>$row[6]</td>";
 
 
 		//modify

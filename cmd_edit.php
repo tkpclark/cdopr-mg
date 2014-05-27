@@ -45,7 +45,7 @@ function check()
 		$serviceID=$row['serviceID'];
 		$status=$row['status'];
 		$app_module=$row['app_module'];
-		
+		$checkblk=$row['checkblk'];
 	}
 	else
 	{
@@ -55,6 +55,7 @@ function check()
 		$serviceID=0;
 		$status=1;
 		$app_module="";
+		$checkblk='1';
 	}
 ?>
 <font size=4><caption>指令分配>></caption></font>
@@ -173,6 +174,15 @@ if(isset($cmd_id))
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		正常<input type="radio" name="status" value="1" <?php if($status==1) echo "checked=\"checked\""?>/> 
 		关闭<input type="radio" name="status" value="2" <?php if($status==2) echo "checked=\"checked\""?>/> 
+	</td>
+</tr>
+
+<tr>	
+	<th> 黑名单检测 </th>
+	<td align="left">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		是<input type=radio name=checkblk value=1 <?php if($checkblk==1) echo "checked=\"checked\""?>/> 
+		否<input type=radio name=checkblk value=2 <?php if($checkblk==2) echo "checked=\"checked\""?>/>
 	</td>
 </tr>
 	

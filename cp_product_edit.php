@@ -31,10 +31,9 @@ function check()
 		$cpID=$row[2];
 		$mourl=$row[3];
 		$mrurl=$row[4];
-		$checkblk=$row[5];
-		$forward_method=$row[8];
-		$remarks=$row[6];
-		$createtime=$row[7];
+		$forward_method=$row[7];
+		$remarks=$row[5];
+		$createtime=$row[6];
 	}else{
 		$name="";
 		$cpID="";
@@ -99,14 +98,6 @@ if(isset($id))
 	<th>mrurl&nbsp;&nbsp;</th>
 	<td align='center'>
 		<input type='text' name='mrurl' value='<?php echo $mrurl?>' size='30'/>
-	</td>
-</tr>
-
-<tr>	
-	<th>黑名单检测</th>
-	<td align='center'>
-		是<input type=radio name=checkblk value=1 <?php if($checkblk==1) echo "checked=\"checked\""?>/> 
-		否<input type=radio name=checkblk value=2 <?php if($checkblk==2) echo "checked=\"checked\""?>/> 
 	</td>
 </tr>
 

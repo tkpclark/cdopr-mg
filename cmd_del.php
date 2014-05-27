@@ -12,7 +12,7 @@
 	echo $sql;
 	exsql($sql);
 	
-	$sql="delete from mtrs_deduction where cmdID=$cmdid";
+	$sql="delete from wraith_visit_limit where cmdID=$cmdid";
 	echo $sql;
 	exsql($sql);
 	

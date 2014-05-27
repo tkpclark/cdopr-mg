@@ -61,12 +61,13 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <tr>
 <th>序号</th>
 <th>指令</th>
+<th>黑名单检测</th>
 <th>所属通道</th>
 <th>所属通道业务</th>
 <th>资费</th>
 <th>使用渠道</th>
 <th>使用渠道业务</th>
-<th>扣量</th>
+<th>查看日/月限</th>
 <th>开通省份</th>
 <th>禁止地区</th>
 <th>状态</th>
@@ -87,6 +88,11 @@ while($row=mysqli_fetch_row($result))
 	//cmd(spnumber+mocmd)precise
 	echo "<td align=center><font size=2>$row[1]+$row[2]</td>";
 
+	//checkblk
+	  if($row[10]==1)
+			echo "<td align=center><font size=2>是</td>";
+		else
+			echo "<td align=center><font size=2>否</td>";
 	
 	$s = "select t1.id,t1.sp_number,t1.mo_cmd,name,fee,gwid,t2.id,t2.spname from mtrs_service t1,mtrs_sp t2 where t1.id=$row[4] and t1.spID=t2.ID";
 	$r = exsql($s);

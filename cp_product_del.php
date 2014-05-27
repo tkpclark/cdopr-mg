@@ -11,6 +11,10 @@
 	$sql="delete from mtrs_cp_product where id=$id";
 	echo $sql;
 	exsql($sql);
+
+	$sql="delete from mtrs_deduction where cpProdID=$cmdid";
+	echo $sql;
+	exsql($sql);
 	
 	Header("Location:cp_product_list.php");
 	
