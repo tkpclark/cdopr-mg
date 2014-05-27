@@ -153,11 +153,12 @@ while($row=mysqli_fetch_row($result))
 	//display deduction
 	echo "<display_deduction></display_deduction>";
 	echo "<see_deduction style=''><a href='#'>查看日/月限</a></see_deduction>";
-		//echo "&nbsp;";
-		//echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
+	//echo "&nbsp;";
+	//echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
 	echo "</td>";
 	//开通省份
-	echo "<td align=center><font size=2>$row[8]</td>";
+	$open_province = $row[8]?$row[8]:"默认全部开通";
+	echo "<td align=center><font size=2>$open_province</td>";
 	//禁止地区
 	echo "<td align=center><font size=2>$row[9]</td>";
 	
