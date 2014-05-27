@@ -36,47 +36,12 @@ setTable:function () {
 			var cmd_id=$(this).parent().parent("tr").children("td:eq(0)").text();
 			//var cmd_id=$(this).text();
 			//alert(cmd_id);
-			$.get("cmd_display_deduction.php?cmd_id="+cmd_id,function(result){
+			$.get("cmd_display_visit_limit.php?cmd_id="+cmd_id,function(result){
 				$(cmd).prev().replaceWith(result);
 				});
 			});
 		
 		//$("see_deduction").click();
-
-
-		$("add_deduction").click(function(){
-
-				var add_deduction=$(this);
-				//alert($(this).parent().parent("tr:eq(0)").children("td:eq(0)").text());
-				//alert($(tr_old).children("td:eq(1)").text());
-				//alert($(this).attr("value"));
-
-				var cmd_id=$(add_deduction).parent().parent("tr:eq(0)").children("td:eq(0)").text();
-
-
-				$.get("cmd_edit_deduction.php?id="+cmd_id,function(result){
-					$(add_deduction).before(result);
-
-					$("#deduction_submit").click(function(){
-						//alert($("#deduction_value").val()+" "+$("#area_code").find("option:selected").text());
-						var add_deduction_url="cmd_add_deduction.php?cmd_id="+cmd_id+"&area_code="+$("#area_code").find("option:selected").val()+"&deduction_value="+$("#deduction_value").val();
-						//alert(add_deduction_url);
-						$.get(add_deduction_url,function(result){
-							//alert(result);
-							$("edit_deduction").remove();
-
-							$.get("cmd_display_deduction.php?cmd_id="+cmd_id,function(result){
-								$(add_deduction).parent().children("display_deduction").replaceWith(result);
-
-
-								});
-
-
-
-							});
-						});
-				});
-		});
 
 
 
@@ -101,6 +66,7 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <th>资费</th>
 <th>使用渠道</th>
 <th>使用渠道业务</th>
+<th>扣量</th>
 <th>开通省份</th>
 <th>禁止地区</th>
 <th>状态</th>
@@ -177,16 +143,13 @@ while($row=mysqli_fetch_row($result))
 	*/
 	//deduction
 
-	//echo "<td align=center>";
+	echo "<td align=center>";
 	//display deduction
-	//echo "<display_deduction></display_deduction>";
-
-	////////////
-	//echo "<add_deduction><a href='#'>添加扣量</a></add_deduction>";
-	//echo "<see_deduction style=''><a href='#'>查看扣量</a></see_deduction>";
-	//	echo "&nbsp;";
-	//	echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
-	//echo "</td>";
+	echo "<display_deduction></display_deduction>";
+	echo "<see_deduction style=''><a href='#'>查看日/月限</a></see_deduction>";
+		//echo "&nbsp;";
+		//echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
+	echo "</td>";
 	//开通省份
 	echo "<td align=center><font size=2>$row[8]</td>";
 	//禁止地区
