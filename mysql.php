@@ -1,4 +1,4 @@
-﻿<?php
+<?php
      $ip="42.62.78.249";
      $user="tkp";
      $pwd="qepapap";

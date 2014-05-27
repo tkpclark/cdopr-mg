@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include("area_code.php");
 		echo "<edit_deduction>";
 		echo "<select id='province'>";

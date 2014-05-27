@@ -1,4 +1,4 @@
-﻿<script language="JavaScript" type="text/javascript">    
+<script language="JavaScript" type="text/javascript">    
 function delayURL(url) {  
 	var delay = document.getElementById("time").innerHTML;
 	if(delay > 0) {  

@@ -1,4 +1,4 @@
-﻿<input name="shijian" readonly type="text" value="<? echo date("Y-m-d");?>" size="24" onFocus="CalendarWebControl.show(this,false,this.value);">   
+<input name="shijian" readonly type="text" value="<? echo date("Y-m-d");?>" size="24" onFocus="CalendarWebControl.show(this,false,this.value);">   
 <script language="javascript"> 
 function atCalendarControl(){ 
 var calendar=this; 

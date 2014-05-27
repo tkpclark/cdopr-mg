@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once 'mysql.php';
 	$type=$_GET["type"];
 	$id=$_GET["id"];

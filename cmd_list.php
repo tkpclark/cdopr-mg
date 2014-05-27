@@ -1,4 +1,4 @@
-﻿<script Language="JavaScript">
+<script Language="JavaScript">
 function ask(id)
 {
 	var str=

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
   include("mysql.php");
   $username=$_POST['name'];
   $password=$_POST['pass'];

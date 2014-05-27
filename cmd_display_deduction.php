@@ -1,4 +1,4 @@
-﻿<head>
+<head>
 <script>
 $(document).ready(function(){	
 		//delete deduction

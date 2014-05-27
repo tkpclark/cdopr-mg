@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 		include("check.php"); 
 		include("style.php");
 		include("calendar/cld.php");

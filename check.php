@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	
       include("mysql.php");
       function check_login()

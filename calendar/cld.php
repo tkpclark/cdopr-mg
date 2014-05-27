@@ -1,4 +1,4 @@
-﻿	<script type="text/javascript" src="calendar/js/mootools.js"></script>
+	<script type="text/javascript" src="calendar/js/mootools.js"></script>
 	<script type="text/javascript" src="calendar/js/calendar.rc4.js"></script>
 	<script type="text/javascript">		
 	//<![CDATA[

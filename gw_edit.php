@@ -1,4 +1,4 @@
-﻿<script Language="JavaScript">
+<script Language="JavaScript">
 function check()
 {
 	if(document.gw_edit_form.comment.value=="")

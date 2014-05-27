@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     include("check.php");
     $username=$_COOKIE['username'];
     $action=0;//action ==0 表示注销,default is 0
