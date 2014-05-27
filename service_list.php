@@ -30,7 +30,7 @@ include("style.php");
 	<th>计费代码</th>
 	<th>网关</th>
 	<th>信息类型</th>
-	<th>所属SP</th>	
+	<th>所属通道</th>	
 	<th>状态</th>
 	<th>编辑</th>
 	<th>删除</th>
