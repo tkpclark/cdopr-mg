@@ -21,7 +21,7 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th><font color=red size=2>序号</th><th><font color=red size=2>sp名称</th><th><font color=red size=2>状态</th><th><font color=red size=2>编辑</th><th><font color=red size=2>删除</th></tr>
+<tr><th><font color=red size=2>序号</th><th><font color=red size=2>sp名称</th><th><font color=red size=2>企业代码</th><th><font color=red size=2>状态</th><th><font color=red size=2>编辑</th><th><font color=red size=2>删除</th></tr>
 <?php
 
   $buf= "select * from mtrs_sp";
@@ -35,6 +35,9 @@ include("style.php");
 	  
 	  //sp name
 	  echo "<td align=center><font size=2>$row[1]</td>";
+
+	  //sp name
+	  echo "<td align=center><font size=2>$row[3]</td>";
 	  
 	  //status
 	  if($row[2]==1)
@@ -46,7 +49,7 @@ include("style.php");
 			
 		//modify
 	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center><font size=2><a href=\"sp_edit.php?sp_id=$row[0]\" >编辑</a>&nbsp;</td>";
+		echo "<td align=center><font size=2><a href=\"sp_edit.php?id=$row[0]\" >编辑</a>&nbsp;</td>";
 		//delete
 		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"sp_del.php?spid=$row[0]\" >删除</a>&nbsp;</td>";
     echo"</tr>";

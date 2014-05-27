@@ -43,7 +43,7 @@ function checkpwd()
 <table border="1" cellspacing="0" cellpadding="1" width="410" >
 <form action=update_accountpro.php name=form1 method=post onsubmit="return checkpwd();">
 <input type=hidden name=id value="<?php echo $id;?>">
-<tr height="30"><td align=center width=20%><font size=2 color=red>名称</font></td><td align=center><font size=2 color=red>菜单列表</font></td><td align=center width=20%><font size=2 color=red>操作</font></td></tr>
+<tr height="30"><th align=center width=20%><font size=2 color=red>名称</font></th><th align=center><font size=2 color=red>菜单列表</font></th><th align=center width=20%><font size=2 color=red>操作</font></th></tr>
 <?php
 if(!empty($rows)){
 	foreach($rows as $v){

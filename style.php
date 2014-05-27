@@ -33,6 +33,12 @@
             padding: 3px 3px 3px 8px;  
             color: #4f6b72;  
             text-align:center;
-        } 
+        }
+		th{
+			background: #F4F7D2;
+			color: red;
+			font-weight:bold;
+
+		}
 		</style>
 </head>

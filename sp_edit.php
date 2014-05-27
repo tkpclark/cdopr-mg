@@ -19,22 +19,23 @@ function check()
 <?php 
 	include("check.php"); 
 	include("style.php");
-	if(isset($_GET['sp_id']))
+	if(isset($_GET['id']))
 	{
-		$sp_id=$_GET['sp_id'];
+		$id=$_GET['id'];
 				
-		$sql = "select spname,status from mtrs_sp where id=$sp_id";
+		$sql = "select spname,status,sp_id from mtrs_sp where id=$id";
 		//echo $sql;
 		$result=exsql($sql);
 		$row=mysqli_fetch_row($result);
 		$sp_name=$row[0];
 		$sp_status=$row[1];
-		
+		$sp_id=$row[2];
 	}
 	else
 	{
 		$sp_name="";
 		$sp_status="1";
+		$sp_id="";
 	}
 ?>
 
@@ -42,11 +43,11 @@ function check()
 <br><br><br>
 
 <body>
-<form name=sp_edit_form method=post action=sp_edit_do.php<?php if(isset($sp_id)) echo "?spID=$sp_id"; ?> onsubmit='return check()'>
+<form name=sp_edit_form method=post action=sp_edit_do.php<?php if(isset($id)) echo "?spID=$id"; ?> onsubmit='return check()'>
 
 <table border='1' cellspacing='0' cellpadding='1' width='25%' class='tabs'>
 <?php
-if(isset($sp_id))
+if(isset($id))
 {
 	echo "<tr><th>ID</th><th align='center'>$sp_id</th></tr>";
 }
@@ -55,6 +56,13 @@ if(isset($sp_id))
 	<th>SP名称&nbsp;&nbsp;</th>
 	<th align='center'>
 		<input type='text' name='spname' value='<?php echo $sp_name?>' size='30'/>
+	</th>
+</tr>
+
+<tr>
+	<th>企业代码&nbsp;&nbsp;</th>
+	<th align='center'>
+		<input type='text' name='sp_id' value='<?php echo $sp_id?>' size='30'/>
 	</th>
 </tr>
 

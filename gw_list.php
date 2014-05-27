@@ -21,7 +21,7 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th><font color=red size=2>序号</th><th><font color=red size=2>网关名称</th><th><font color=red size=2>状态</th><th><font color=red size=2>编辑</th><th><font color=red size=2>删除</th></tr>
+<tr><th><font color=red size=2>序号</th><th><font color=red size=2>网关名称</th><th><font color=red size=2>状态</th><th><font color=red size=2>所属</th><th><font color=red size=2>编辑</th><th><font color=red size=2>删除</th></tr>
 <?php
 
   $buf= "select * from wraith_gw";
@@ -41,7 +41,13 @@ include("style.php");
 			echo "<td align=center><font size=2>有效</td>";
 		else
 			echo "<td align=center><font size=2>无效</td>";
-			
+	
+	//belongto
+	  if($row[3]==1){
+			echo "<td align=center><font size=2>自有</td>";
+	  }elseif($row[3]==2){
+			echo "<td align=center><font size=2>合作方</td>";
+	  }else{echo "<td align=center><font size=2></td>";}
 		//modify
 	//	echo "<td align=center><font size=2>编辑</td>";
 		echo "<td align=center><font size=2><a href=\"gw_edit.php?id=$row[0]\" >编辑</a>&nbsp;</td>";

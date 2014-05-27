@@ -52,7 +52,8 @@
         		
             //$('#result_records').panel('refresh',compose_url('result_page',pageNumber,pageSize));
         	var date= new Date();
-    		$('#date1').datebox('setValue', yesterday(date));
+			var date1= new Date(1970,00,02);
+    		$('#date1').datebox('setValue', yesterday(date1));
     		$('#date2').datebox('setValue', yesterday(date));
     		
 			$("#query").click(function(){
@@ -103,7 +104,7 @@
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
- 		echo "<option value=$row[0]>$row[1]</option>";
+ 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
  	}
 ?>
  	</select></td>
@@ -116,7 +117,7 @@
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
- 		echo "<option value=$row[0]>$row[1]</option>";
+ 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
  	}
 ?>
  	</select></td>
@@ -130,7 +131,7 @@
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
- 		echo "<option value=$row[0]>$row[1]</option>";
+ 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
  	}
 ?>
  	</select></td>
@@ -143,7 +144,7 @@
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
- 		echo "<option value=$row[0]>$row[1]</option>";
+ 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
  	}
 ?>
  	</select></td>

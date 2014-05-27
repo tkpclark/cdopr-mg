@@ -136,12 +136,12 @@ if(isset($serviceID))
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name=spID style="width:170">
 		<?php
-			echo "<option value='$spID'>$spname</option>";
+			echo "<option value='$spID'>($spID)$spname</option>";
 			$sql="select id, spname from mtrs_sp where status=1";
 			$result=exsql($sql);
 	  	while($row=mysqli_fetch_row($result))
 	  	{
-	  		echo "<option value=$row[0]>$row[1]</option>";
+	  		echo "<option value=$row[0]>($row[0])$row[1]</option>";
 	  	}
 		?>
 		</select>
@@ -154,12 +154,12 @@ if(isset($serviceID))
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name=gwID style="width:170">
 		<?php
-			echo "<option value='$gwID'>$gwname</option>";
+			echo "<option value='$gwID'>($gwID)$gwname</option>";
 			$sql="select id, comment from wraith_gw where status=1";
 			$result=exsql($sql);
 	  	while($row=mysqli_fetch_row($result))
 	  	{
-	  		echo "<option value=$row[0]>$row[1]</option>";
+	  		echo "<option value=$row[0]>($row[0])$row[1]</option>";
 	  	}
 		?>
 		</select>

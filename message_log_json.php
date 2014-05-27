@@ -16,7 +16,7 @@
 		$result=mysqli_query($mysqli,$sql);
 		while($row=mysqli_fetch_assoc($result))
 		{
-			$rows.="<option value=".$row['ID'].">".$row['name']."</option>";
+			$rows.="<option value=".$row['ID'].">(".$row['ID'].")".$row['name']."</option>";
 		}
 		echo $rows;
 		exit;
@@ -34,7 +34,7 @@
 		$result=mysqli_query($mysqli,$sql);
 		while($row=mysqli_fetch_assoc($result))
 		{
-			$rows.="<option value=".$row['id'].">".$row['name']."</option>";
+			$rows.="<option value=".$row['id'].">(".$row['id'].")".$row['name']."</option>";
 		}
 		echo $rows;
 		exit;		

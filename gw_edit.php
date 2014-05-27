@@ -17,18 +17,20 @@ function check()
 	{
 		$id=$_GET['id'];
 				
-		$sql = "select comment,status from wraith_gw where id=$id";
+		$sql = "select comment,status,belongto from wraith_gw where id=$id";
 		//echo $sql;
 		$result=exsql($sql);
 		$row=mysqli_fetch_row($result);
 		$comment=$row[0];
 		$status=$row[1];
+		$belongto=$row[2];
 		
 	}
 	else
 	{
 		$comment="";
 		$status="1";
+		$belongto='1';
 	}
 ?>
 
@@ -64,6 +66,13 @@ if(isset($id))
 <?php
 	}
 ?>
+<tr>	
+	<th> 所属 </th>
+	<th align='center'>
+		自有 <input type=radio name=belongto value=1 <?php if($belongto==1) echo "checked=\"checked\""?>/> 
+		合作方<input type=radio name=belongto value=2 <?php if($belongto==2) echo "checked=\"checked\""?>/> 
+	</th>
+</tr>
 </table>
  <br>
 

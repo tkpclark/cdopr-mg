@@ -69,7 +69,7 @@ if(isset($id))
 </tr>
 
 <tr>
-	<th>cp名称&nbsp;&nbsp;</th>
+	<th>所属渠道&nbsp;&nbsp;</th>
 	<th align='center'>
 		<select name=cpID style="width:170">
 		<?php
@@ -78,9 +78,9 @@ if(isset($id))
 	  	while($mtrs_cp=mysqli_fetch_row($mtrs_cp_result))
 	  	{	
 			if(isset($id) && $cpID==$mtrs_cp[0])
-	  			echo "<option value=$mtrs_cp[0] selected='selected'>$mtrs_cp[1]</option>";
+	  			echo "<option value=$mtrs_cp[0] selected='selected'>($mtrs_cp[0])$mtrs_cp[1]</option>";
 			else
-				echo "<option value=$mtrs_cp[0]>$mtrs_cp[1]</option>";
+				echo "<option value=$mtrs_cp[0]>($mtrs_cp[0])$mtrs_cp[1]</option>";
 			
 	  	}
 		?>
@@ -107,21 +107,6 @@ if(isset($id))
 	<th align='center'>
 		是<input type=radio name=checkblk value=1 <?php if($checkblk==1) echo "checked=\"checked\""?>/> 
 		否<input type=radio name=checkblk value=2 <?php if($checkblk==2) echo "checked=\"checked\""?>/> 
-	</th>
-</tr>
-
-<tr>	
-	<th>mo/mr同步方式</th>
-	<th align='center'>
-		<select name=forward_method>
-		<?php if($forward_method==0){?>
-		<option value='0'>mo/mr分开同步</option>
-		<option value='1'>mo/mr一次同步</option>
-		<?php }else{?>
-		<option value='1'>mo/mr一次同步</option>
-		<option value='0'>mo/mr分开同步</option>
-		<?php }?>
-		</select>
 	</th>
 </tr>
 

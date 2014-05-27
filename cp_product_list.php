@@ -22,7 +22,7 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th>序号</th><th>产品名称</th><th>所属渠道</th><th>上行转发地址</th><th>报告转发地址</th><th>黑名单检测</th><th>mo/mr同步方式</th><th>备注</th><th>创建时间</th><th>编辑</th><th>删除</th></tr>
+<tr><th>序号</th><th>产品名称</th><th>所属渠道</th><th>上行转发地址</th><th>报告转发地址</th><th>黑名单检测</th><th>备注</th><th>创建时间</th><th>编辑</th><th>删除</th></tr>
 <?php
 
   $buf= "select * from mtrs_cp_product";
@@ -55,13 +55,6 @@ include("style.php");
 		else
 			echo "<td align=center><font size=2>否</td>";
 
-		//forward_method
-	  if($row[8]==1)
-			echo "<td align=center><font size=2>mo/mr一次同步</td>";
-		else if($row[8]==0)
-			echo "<td align=center><font size=2>mo/mr分开同步</td>";
-		else 
-			echo "<td align=center><font size=2>$row[8]</td>";
 		//remarks
 	  echo "<td align=center><font size=2>$row[6]</td>";
 
