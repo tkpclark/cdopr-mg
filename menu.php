@@ -19,7 +19,7 @@
 	}
 </SCRIPT>
 </HEAD>
-<BODY>
+<BODY STYLE="BACKGROUND-COLOR:#D3E9FF;">
 <span style="display:none">
 <?php   
 	include("check.php"); 
@@ -47,7 +47,7 @@
 ?>
 </span>
 <TABLE height="100%" cellSpacing=0 cellPadding=0 width=170 
-background=images/menu_bg.jpg border=0>
+bg-color=#D3E9FF border=0>
   <TR>
     <TD vAlign=top align=middle>
       <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
