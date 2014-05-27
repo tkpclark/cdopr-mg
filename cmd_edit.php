@@ -66,14 +66,14 @@ function check()
 <?php
 if(isset($cmd_id))
 {
-	echo "<tr><th>ID</th><th align='center'>$cmd_id</th></tr>";
+	echo "<tr><th>ID</th><td align='center'>$cmd_id</td></tr>";
 }
 ?>
 
 
 <tr>
 	<th>通道业务</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name=serviceID  style="width:300">
 		<?php
@@ -93,12 +93,12 @@ if(isset($cmd_id))
 		  	}
 		?>
 		</select>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>渠道业务</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name="cpProdID" style="width:300">
 		<?php
@@ -118,16 +118,16 @@ if(isset($cmd_id))
 	  	
 		?>
 		</select>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>分配指令</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="cmd_spnumber" value="<?php echo $cmd_spnumber ?>" size="20"/>(长号码)&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;
 		<input type="text" name="cmd_mocmd"  value="<?php echo $cmd_mocmd?>" size="20"/>(mo指令)
-	</th>
+	</td>
 </tr>
 <!-- 
 <tr>
@@ -157,23 +157,23 @@ if(isset($cmd_id))
 	</th>
 </tr>
  -->
-<td>允许访问的省份&nbsp;</td>
+<th>允许访问的省份&nbsp;</th>
 <td><input type=text name=open_province value=x size=170></td>
 </tr>
 <tr>
-<td>禁止的地区&nbsp;</td>
+<th>禁止的地区&nbsp;</th>
 <td><input type=text name=forbidden_area value=x size=170></td>
 <tr>
 				
 
 <tr>	
 	<th> 状态 </th>
-	<th align="left">
+	<td align="left">
 		<?php $cmd_status=1 ?>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		正常<input type="radio" name="status" value="1" <?php if($status==1) echo "checked=\"checked\""?>/> 
 		关闭<input type="radio" name="status" value="2" <?php if($status==2) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 	
 </table>

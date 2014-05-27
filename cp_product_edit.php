@@ -57,20 +57,20 @@ function check()
 <?php
 if(isset($id))
 {
-	echo "<tr><th>ID</th><th align='center'>$id</th></tr>";
+	echo "<tr><th>ID</th><td align='center'>$id</td></tr>";
 	echo "<input type='hidden' name='createtime' value='$createtime'/>";
 }
 ?>
 <tr>
 	<th>产品名称&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='name' value='<?php echo $name?>' size='30'/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>所属渠道&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<select name=cpID style="width:170">
 		<?php
 			$sql="select ID , cpname from mtrs_cp where status=1";
@@ -85,37 +85,37 @@ if(isset($id))
 	  	}
 		?>
 		</select>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>mourl&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='mourl' value='<?php echo $mourl?>' size='30'/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>mrurl&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='mrurl' value='<?php echo $mrurl?>' size='30'/>
-	</th>
+	</td>
 </tr>
 
 <tr>	
 	<th>黑名单检测</th>
-	<th align='center'>
+	<td align='center'>
 		是<input type=radio name=checkblk value=1 <?php if($checkblk==1) echo "checked=\"checked\""?>/> 
 		否<input type=radio name=checkblk value=2 <?php if($checkblk==2) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 
 
 <tr>
 	<th>备注&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='remarks' value='<?php echo $remarks?>' size='40'/>
-	</th>
+	</td>
 </tr>
 	
 </table>

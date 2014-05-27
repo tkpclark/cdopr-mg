@@ -49,29 +49,29 @@ function check()
 <?php
 if(isset($id))
 {
-	echo "<tr><th>ID</th><th align='center'>$sp_id</th></tr>";
+	echo "<tr><th>ID</th><td align='center'>$sp_id</td></tr>";
 }
 ?>
 <tr>
 	<th>SP名称&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='spname' value='<?php echo $sp_name?>' size='30'/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>企业代码&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='sp_id' value='<?php echo $sp_id?>' size='30'/>
-	</th>
+	</td>
 </tr>
 
 <tr>	
 	<th> 状态 </th>
-	<th align='center'>
+	<td align='center'>
 		正常<input type=radio name=status value=1 <?php if($sp_status==1) echo "checked=\"checked\""?>/> 
 		关闭<input type=radio name=status value=2 <?php if($sp_status==2) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 	
 </table>

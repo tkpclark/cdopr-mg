@@ -48,22 +48,22 @@ function check()
 <?php
 if(isset($cp_id))
 {
-	echo "<tr><th>ID</th><th align='center'>$cp_id</th></tr>";
+	echo "<tr><th>ID</th><td align='center'>$cp_id</td></tr>";
 }
 ?>
 <tr>
 	<th>渠道名称&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='cpname' value='<?php echo $cp_name?>' size='30'/>
-	</th>
+	</td>
 </tr>
 
 <tr>	
 	<th> 状态 </th>
-	<th align='center'>
+	<td align='center'>
 		正常<input type=radio name=status value=1 <?php if($cp_status==1) echo "checked=\"checked\""?>/> 
 		关闭<input type=radio name=status value=2 <?php if($cp_status==2) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 	
 </table>

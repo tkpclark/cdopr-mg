@@ -44,34 +44,34 @@ function check()
 <?php
 if(isset($id))
 {
-	echo "<tr><th>ID</th><th align='center'>$id</th></tr>";
+	echo "<tr><th>ID</th><td align='center'>$id</td></tr>";
 }
 ?>
 <tr>
 	<th>网关名称&nbsp;&nbsp;</th>
-	<th align='center'>
+	<td align='center'>
 		<input type='text' name='comment' value='<?php echo $comment?>' size='30'/>
-	</th>
+	</td>
 </tr>
 <?php
 	if(isset($_GET['id'])){
 ?>
 <tr>	
 	<th> 状态 </th>
-	<th align='center'>
+	<td align='center'>
 		有效 <input type=radio name=status value=1 <?php if($status==1) echo "checked=\"checked\""?>/> 
 		无效<input type=radio name=status value=0 <?php if($status==0) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 <?php
 	}
 ?>
 <tr>	
 	<th> 所属 </th>
-	<th align='center'>
+	<td align='center'>
 		自有 <input type=radio name=belongto value=1 <?php if($belongto==1) echo "checked=\"checked\""?>/> 
 		合作方<input type=radio name=belongto value=2 <?php if($belongto==2) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 </table>
  <br>

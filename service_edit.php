@@ -86,53 +86,53 @@ function check()
 <?php
 if(isset($serviceID))
 {
-	echo "<tr><th>ID</th><th align='center'>$serviceID</th></tr>";
+	echo "<tr><th>ID</th><td align='center'>$serviceID</td></tr>";
 }
 ?>
 
 <tr>
 	<th>业务名称</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="service_name"  value="<?php echo $service_name?>" size="30"/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>目的号码</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="spnumber" value="<?php echo $spnumber ?>" size="30"/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>MO指令</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="mocmd"  value="<?php echo $mocmd?>" size="30"/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>资费</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="fee"  value="<?php echo $fee?>" size="25"/>&nbsp;&nbsp;&nbsp;&nbsp;分
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>计费代码</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="service_id"  value="<?php echo $service_id?>" size="25"/>&nbsp;&nbsp;&nbsp;&nbsp;
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>所属SP名称&nbsp;&nbsp;</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name=spID style="width:170">
 		<?php
@@ -145,12 +145,12 @@ if(isset($serviceID))
 	  	}
 		?>
 		</select>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>网关&nbsp;&nbsp;</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name=gwID style="width:170">
 		<?php
@@ -163,25 +163,25 @@ if(isset($serviceID))
 	  	}
 		?>
 		</select>
-	</th>
+	</td>
 </tr>
 
 <tr>	
 	<th> 消息类型 </th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		短信<input type=radio name=msgtype value=1 <?php if($msgtype==1) echo "checked=\"checked\""?>/> 
 		彩信<input type=radio name=msgtype value=2 <?php if($msgtype==2) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 
 <tr>	
 	<th> 状态 </th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		正常<input type=radio name=status value=1 <?php if($status==1) echo "checked=\"checked\""?>/> 
 		关闭<input type=radio name=status value=2 <?php if($status==2) echo "checked=\"checked\""?>/> 
-	</th>
+	</td>
 </tr>
 	
 </table>
