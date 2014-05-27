@@ -12,7 +12,7 @@
 	echo $sql;
 	exsql($sql);
 
-	$sql="delete from mtrs_deduction where cpProdID=$cmdid";
+	$sql="delete from mtrs_deduction where cpProdID=$id";
 	echo $sql;
 	exsql($sql);
 	
