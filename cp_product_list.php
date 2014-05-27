@@ -1,3 +1,5 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="jquery.js"></script>
 <script Language="JavaScript">
 function ask(id)
 {
@@ -8,6 +10,24 @@ function ask(id)
 	else 
 		return false;
 }
+$(document).ready(function(){
+		/*
+		//$.setTable();
+		 */
+		$("see_deduction").click(function(){
+			var cpProd=$(this);
+			var cpProdID=$(this).parent().parent("tr").children("td:eq(0)").text();
+			//var cpProdID=$(this).text();
+			//alert(cpProdID);
+			$.get("cpProd_display_deduction.php?cpProdID="+cpProdID,function(result){
+				$(cpProd).prev().replaceWith(result);
+				});
+			});
+		
+
+
+
+});
 </script>
 <?php
 include("check.php"); 
@@ -22,7 +42,7 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th>序号</th><th>产品名称</th><th>所属渠道</th><th>上行转发地址</th><th>报告转发地址</th><th>黑名单检测</th><th>备注</th><th>创建时间</th><th>编辑</th><th>删除</th></tr>
+<tr><th>序号</th><th>产品名称</th><th>所属渠道</th><th>上行转发地址</th><th>报告转发地址</th><th>黑名单检测</th><th>扣量</th><th>备注</th><th>创建时间</th><th>编辑</th><th>删除</th></tr>
 <?php
 
   $buf= "select * from mtrs_cp_product";
@@ -54,6 +74,13 @@ include("style.php");
 			echo "<td align=center><font size=2>是</td>";
 		else
 			echo "<td align=center><font size=2>否</td>";
+
+	echo "<td align=center>";
+	echo "<display_deduction></display_deduction>";
+	//echo "<add_deduction><a href='#'>添加扣量</a></add_deduction>";
+	echo "<see_deduction style=''><a href='#'>查看扣量</a></see_deduction>";
+	echo "</td>";
+
 
 		//remarks
 	  echo "<td align=center><font size=2>$row[6]</td>";

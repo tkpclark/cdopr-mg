@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script Language="JavaScript">
 function ask(id)
 {
@@ -100,7 +101,6 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <th>资费</th>
 <th>使用渠道</th>
 <th>使用渠道业务</th>
-<th>扣量</th>
 <th>开通省份</th>
 <th>禁止地区</th>
 <th>状态</th>
@@ -177,16 +177,16 @@ while($row=mysqli_fetch_row($result))
 	*/
 	//deduction
 
-	echo "<td align=center>";
+	//echo "<td align=center>";
 	//display deduction
-	echo "<display_deduction></display_deduction>";
+	//echo "<display_deduction></display_deduction>";
 
 	////////////
 	//echo "<add_deduction><a href='#'>添加扣量</a></add_deduction>";
-	echo "<see_deduction style=''><a href='#'>查看扣量</a></see_deduction>";
+	//echo "<see_deduction style=''><a href='#'>查看扣量</a></see_deduction>";
 	//	echo "&nbsp;";
 	//	echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
-	echo "</td>";
+	//echo "</td>";
 	//开通省份
 	echo "<td align=center><font size=2>$row[8]</td>";
 	//禁止地区
