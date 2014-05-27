@@ -35,9 +35,10 @@
             text-align:center;
         }
 		th{
-			background: #F4F7D2;
-			color: red;
+			background: #408080	;
+			color: black;
 			font-weight:bold;
+			font-size:13px; 
 
 		}
 		</style>

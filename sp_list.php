@@ -21,7 +21,7 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th><font color=red size=2>序号</th><th><font color=red size=2>sp名称</th><th><font color=red size=2>企业代码</th><th><font color=red size=2>状态</th><th><font color=red size=2>编辑</th><th><font color=red size=2>删除</th></tr>
+<tr><th><font>序号</th><th><font>sp名称</th><th><font>企业代码</th><th><font>状态</th><th><font>编辑</th><th><font>删除</th></tr>
 <?php
 
   $buf= "select * from mtrs_sp";
