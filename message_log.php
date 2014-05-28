@@ -51,7 +51,7 @@
             });
         		
             //$('#result_records').panel('refresh',compose_url('result_page',pageNumber,pageSize));
-        	var date= new Date();
+        	var date= new Date(1);
 			var date1= new Date(1970,00,02);
     		$('#date1').datebox('setValue', yesterday(date1));
     		$('#date2').datebox('setValue', yesterday(date));

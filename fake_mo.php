@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
  <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title> </title>
 <script language="Javascript" src="calendar/js/JQUERY.JS"></script>
 <script Language="JavaScript">
@@ -10,7 +11,7 @@ $(document).ready(function(){
 		var mo_message = $("input[name='mo_message']").val(); 
 		var spnumber = $("input[name='spnumber']").val(); 
 		var linkid = $("input[name='linkid']").val(); 
-		var gwid = $("input[name='gwid']").val();
+		var gwid = $("select[name='gwid']").find("option:selected").val();
 		if(phone_number!='' && mo_message !='' && spnumber !='' && linkid !='' && gwid !=''){
 			$.get("fake_mo_do.php?phone_number="+phone_number+"&mo_message="+mo_message+"&spnumber="+spnumber+"&linkid="+linkid+"&gwid="+gwid,function(result){
 				if(result==1){
@@ -23,7 +24,15 @@ $(document).ready(function(){
 			alert("内容不完整，请补全信息");
 		}		
 	});	
+	//随机数
+	var Num="";
+	for(var i=0;i<10;i++)
+	{
+		Num+=Math.floor(Math.random()*10);
+	}
+	$("input[name='linkid']").val(Num);
 });
+
 </script>
  </head>
  <body>
@@ -72,10 +81,19 @@ $(document).ready(function(){
 </tr>
 
 <tr>	
-	<th> gwid </th>
+	<th> 来源网关 </th>
 	<th align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="text" name="gwid"  value="" size="30"/>
+		<select name='gwid' style="width:170">
+		<?php
+			$sql= "select id,comment from wraith_gw where status=1";
+			$result=exsql($sql);
+			while($row=mysqli_fetch_row($result))
+			{
+				echo "<option value=$row[0]>($row[0])$row[1]</option>";
+			}
+		?>
+		</select>
 	</th>
 </tr>
 	
