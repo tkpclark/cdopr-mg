@@ -20,15 +20,7 @@ include("style.php");
 <script>
 $(document).ready(function(){
 		/*
-		   jQuery.extend({
 
-setTable:function () {
-	//alert("it's my func!");
-	$.get("cmd_list.php",function(result){
-	$("body").replaceWith(result);
-	});
-	}
-	});
 		//$.setTable();
 		 */
 		$("see_deduction").click(function(){
@@ -42,7 +34,16 @@ setTable:function () {
 			});
 		
 		//$("see_deduction").click();
-
+		
+		$("see_cmd_mt").click(function(){
+			var cmd=$(this);
+			var cmd_id=$(this).parent().parent("tr").children("td:eq(0)").text();
+			//var cmd_id=$(this).text();
+			//alert(cmd_id);
+			$.get("cmd_display_mt.php?cmd_id="+cmd_id,function(result){
+				$(cmd).prev().replaceWith(result);
+				});
+		});
 
 
 });
@@ -67,7 +68,8 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <th>资费</th>
 <th>使用渠道</th>
 <th>使用渠道业务</th>
-<th>查看日/月限</th>
+<th>日/月限</th>
+<th>下行</th>
 <th>开通省份</th>
 <th>禁止地区</th>
 <th>状态</th>
@@ -156,6 +158,13 @@ while($row=mysqli_fetch_row($result))
 	//echo "&nbsp;";
 	//echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
 	echo "</td>";
+
+	echo "<td align=center>";
+	//display cmd_mt
+	echo "<display_cmd_mt></display_cmd_mt>";
+	echo "<see_cmd_mt style=''><a href='#'>查看下行</a></see_cmd_mt>";
+	echo "</td>";
+
 	//开通省份
 	$open_province = $row[8]?$row[8]:"默认全部开通";
 	echo "<td align=center><font size=2>$open_province</td>";
