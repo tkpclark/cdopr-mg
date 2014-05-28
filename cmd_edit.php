@@ -46,6 +46,8 @@ function check()
 		$status=$row['status'];
 		$app_module=$row['app_module'];
 		$checkblk=$row['checkblk'];
+		$open_province=$row['open_province'];
+		$forbidden_area=$row['forbidden_area'];
 	}
 	else
 	{
@@ -56,6 +58,8 @@ function check()
 		$status=1;
 		$app_module="";
 		$checkblk='1';
+		$open_province='';
+		$forbidden_area='';
 	}
 ?>
 <font size=4><caption>指令分配>></caption></font>
@@ -159,11 +163,11 @@ if(isset($cmd_id))
 </tr>
  -->
 <th>允许访问的省份&nbsp;</th>
-<td><input type=text name=open_province value='<?php echo $row[8];?>' size=170></td>
+<td><input type=text name=open_province value='<?php echo $open_province;?>' size=170></td>
 </tr>
 <tr>
 <th>禁止的地区&nbsp;</th>
-<td><input type=text name=forbidden_area value='<?php echo $row[9];?>' size=170></td>
+<td><input type=text name=forbidden_area value='<?php echo $forbidden_area;?>' size=170></td>
 <tr>
 				
 
