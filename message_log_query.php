@@ -15,15 +15,14 @@
 	{
 		$sql_condition.="and phone_number='".$_REQUEST["phone_number"]."' ";
 	}
-	if(isset($_REQUEST["date1"]))
+	if(isset($_REQUEST["date1"]) && $_REQUEST["date1"]!='1970-01-01')
 	{
 		$sql_condition.="and motime>='".$_REQUEST["date1"]."' ";
 	}
-	if(isset($_REQUEST["date2"]))
+	if(isset($_REQUEST["date2"]) && $_REQUEST["date2"]!=date('Y-m-d',time()))
 	{
 		$sql_condition.="and motime<='".$_REQUEST["date2"]."' ";
 	}
-
 
 	if(isset($_REQUEST["feetype"])&&!empty($_REQUEST["feetype"]))
 	{
