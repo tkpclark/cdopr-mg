@@ -172,10 +172,10 @@ while($row=mysqli_fetch_row($result))
 	echo "</td>";
 
 	//开通省份
-	$open_province = $row[8]?$row[8]:"默认全部开通";
+	$open_province = $row[7]?$row[7]:"默认全部开通";
 	echo "<td align=center><font size=2>$open_province</td>";
 	//禁止地区
-	echo "<td align=center><font size=2>$row[9]</td>";
+	echo "<td align=center><font size=2>$row[8]</td>";
 	
 	//状态
 	if($row[5]==1)
