@@ -66,6 +66,7 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <th>所属通道</th>
 <th>所属通道业务</th>
 <th>资费</th>
+<th>代计费</th>
 <th>使用渠道</th>
 <th>使用渠道业务</th>
 <th>日/月限</th>
@@ -91,10 +92,15 @@ while($row=mysqli_fetch_row($result))
 	echo "<td align=center><font size=2>$row[1]+$row[2]</td>";
 
 	//checkblk
-	  if($row[10]==1)
+	  if($row[9]==1)
 			echo "<td align=center><font size=2>是</td>";
 		else
 			echo "<td align=center><font size=2>否</td>";
+	//is_agent
+	  if($row[10]==1)
+			echo "<td align=center><font size=2>是</td>";
+		else
+			echo "<td align=center><font size=2>不是</td>";
 	
 	$s = "select t1.id,t1.sp_number,t1.mo_cmd,name,fee,gwid,t2.id,t2.spname from mtrs_service t1,mtrs_sp t2 where t1.id=$row[4] and t1.spID=t2.ID";
 	$r = exsql($s);

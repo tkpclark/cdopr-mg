@@ -48,6 +48,7 @@ function check()
 		$checkblk=$row['checkblk'];
 		$open_province=$row['open_province'];
 		$forbidden_area=$row['forbidden_area'];
+		$is_agent=$row['is_agent'];
 	}
 	else
 	{
@@ -60,6 +61,7 @@ function check()
 		$checkblk='1';
 		$open_province='';
 		$forbidden_area='';
+		$is_agent='0';
 	}
 ?>
 <font size=4><caption>指令分配>></caption></font>
@@ -187,6 +189,15 @@ if(isset($cmd_id))
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		是<input type=radio name=checkblk value=1 <?php if($checkblk==1) echo "checked=\"checked\""?>/> 
 		否<input type=radio name=checkblk value=2 <?php if($checkblk==2) echo "checked=\"checked\""?>/>
+	</td>
+</tr>
+
+<tr>	
+	<th> 代计费 </th>
+	<td align="left">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		是<input type=radio name=is_agent value=1 <?php if($is_agent==1) echo "checked=\"checked\""?>/> 
+		不是<input type=radio name=is_agent value=0 <?php if($is_agent==0) echo "checked=\"checked\""?>/>
 	</td>
 </tr>
 	
