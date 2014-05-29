@@ -50,39 +50,39 @@ $(document).ready(function(){
 
 <tr>
 	<th>手机号码</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="phone_number" value="" size="30"/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>上行内容</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="mo_message"  value="" size="30"/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>长号码</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="spnumber"  value="" size="30"/>
-	</th>
+	</td>
 </tr>
 
 <tr>
 	<th>linkid</th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="linkid"  value="" size="30"/>
-	</th>
+	</td>
 </tr>
 
 <tr>	
 	<th> 来源网关 </th>
-	<th align="left">
+	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select name='gwid' style="width:170">
 		<?php
@@ -94,7 +94,7 @@ $(document).ready(function(){
 			}
 		?>
 		</select>
-	</th>
+	</td>
 </tr>
 	
 </table>
