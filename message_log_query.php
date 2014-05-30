@@ -120,25 +120,83 @@
 				echo "<td>".$row['mo_message']."</td>";
 				echo "<td>".$row['sp_number']."</td>";
 
+				//网关
 				$sql_gw="select comment from wraith_gw where id=".$row['gwid'];
 				$result_gw=exsql($sql_gw);
 				$row_gw=mysqli_fetch_row($result_gw);
 				echo "<td>".$row_gw['0']."</td>";
-
-				echo "<td>".$row['mo_status']."</td>";
-				echo "<td>".$row['fee']."</td>";
-				echo "<td>".(($row['feetype']==1)?'按条点播':'包月')."</td>";
+				//mo状态
+				$v=$row['mo_status']?$row['mo_status']:'待处理';
+				echo "<td>".$v."</td>";
+				
+				//资费
+				$v = $row['fee']==-1?'':$row['fee'];
+				echo "<td>".$v."</td>";
+				
+				//包月、点播
+				if($row['feetype']==1) $v='按条点播';
+				elseif ($row['feetype']==2) $v='包月';
+				else $v='';
+				echo "<td>".$v."</td>";
+				
+				//下行
 				echo "<td>".$row['mt_message']."</td>";
+				
+				//计费代码
 				echo "<td>".$row['service_id']."</td>";
-				echo "<td>".(($row['msgtype']==1)?'自有普通业务':(($row['msgtype']==2)?'自有代码代计费业务 ':'外接代码代计费业务'))."</td>";
-				echo "<td>".(($row['is_agent']==1)?'是':'否')."</td>";
-				echo "<td>".(($row['report']==1)?'成功':'失败')."</td>";
+				
+				//msgtype
+				if($row['msgtype']==1) $v='sms';
+				elseif ($row['msgtype']==2) $v='mms';
+				else $v='';
+				echo "<td>".$v."</td>";
+				
+				//是否代计费
+				if($row['is_agent']==0) $v='否';
+				elseif ($row['is_agent']==1) $v='是';
+				else $v='';
+				echo "<td>".$v."</td>";
+				
+				//状态报告
+				if($row['report']==1) $v='成功';
+				elseif ($row['report']==2) $v='失败';
+				else $v='';
+				echo "<td>".$v."</td>";
+				
+				//归属省份
 				echo "<td>".$row['province']."</td>";
+				
+				//归属地
 				echo "<td>".$row['area']."</td>";
-				echo "<td>".'('.$row['spID'].')'.$row['spname']."</td>";
-				echo "<td>".'('.$row['serviceID'].')'.$row['service_name']."</td>";
-				echo "<td>".'('.$row['cpID'].')'.$row['cpname']."</td>";
-				echo "<td>".'('.$row['cp_productID'].')'.$row['cp_product_name']."</td>";
+
+				//通道
+				if($row['spID'])
+					$v='('.$row['spID'].')'.$row['spname'];
+				else
+					$v='';	
+				echo "<td>".$v."</td>";
+				
+				//通道业务
+				if($row['serviceID'])
+					$v='('.$row['serviceID'].')'.$row['service_name'];
+				else
+					$v='';
+				echo "<td>".$v."</td>";
+				
+				//渠道
+				if($row['cpID'])
+					$v='('.$row['cpID'].')'.$row['cpname'];
+				else
+					$v='';
+				echo "<td>".$v."</td>";
+				
+				//渠道业务
+				if($row['cp_productID'])
+					$v='('.$row['cp_productID'].')'.$row['cp_product_name'];
+				else
+					$v='';
+				echo "<td>".$v."</td>";
+					
 				echo "</tr>";
 			}
 			mysqli_free_result($result);
