@@ -15,14 +15,16 @@
 if(isset($_GET['load']))
 {
 	echo "<font size=4 color=red>加载结果:<br><br></font>";
-	$cmd = "/home/app/wraith/src/controller/start_controller.sh";
+	$cmd = "/home/tkp/restart_cdopr.sh";
 	//$cmd='python /home/sms/MsgTunnel/src/msgforward/config_maker.py';
 	//echo "cmd: ".$cmd."<br>";
 	exec($cmd, $output, $result);
 	if($result != 0)
 		echo "加载失败!<br>";
 	else
-		echo $output[0];
-	//var_dump($output);
+	{
+		foreach($output as $line)
+			echo $line."<br>";
+	}
 }
 ?>

@@ -65,7 +65,7 @@ $(document).ready(function(){
 </tr>
 
 <tr>
-	<th>长号码</th>
+	<th>目的号码</th>
 	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="text" name="spnumber"  value="" size="30"/>

@@ -14,7 +14,7 @@ include("check.php");
 include("style.php");
 ?>
 <body>
-<font size=4><caption>业务列表>></caption></font>
+<font size=4><caption>通道业务列表>></caption></font>
 <br><br>
 <font size=3><a href='service_edit.php'>添加</a></font><br>
 
@@ -65,10 +65,10 @@ include("style.php");
 	  //gwid
 	  if($row[11])
 	  {
-	  	$sql="select comment from wraith_gw where ID=$row[11]";
+	  	$sql="select id,comment from wraith_gw where ID=$row[11]";
 		$result_gwname=exsql($sql);
 	  	$row_gwname=mysqli_fetch_row($result_gwname);
-	  	$gwname=$row_gwname[0];
+	  	$gwname="($row_gwname[0])".$row_gwname[1];
 	  	echo "<td align=center><font size=2>$gwname</td>";
 	  }
 	  else
