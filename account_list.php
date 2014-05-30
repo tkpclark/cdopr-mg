@@ -1,52 +1,55 @@
-<?php 
-	include("check.php"); 
-	include("style.php");
+<script Language="JavaScript">
+function ask(id)
+{
+	var str=
+		answer=confirm("确定要删除id="+id+"的记录吗？");
+	if(answer=="1")
+		return true;
+	else 
+		return false;
+}
+</script>
+<?php
+include("check.php"); 
+include("style.php");
+?>
+<body>
+<font size=4><caption>用户列表>></caption></font>
+<br><br>
+<font size=3><a href='account_edit.php'>添加</a></font><br>
 
-	$sql="set names utf8";
+<!--<table border=1 cellspacing="0">-->
+<table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
+
+<tr><th><font>序号</th><th><font>用户名</th><th><font>真实姓名</th><th><font>权限</th><th><font>编辑</th><th><font>删除</th></tr>
+<?php
+
+  	$sql="set names utf8";
 	mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
 	$sql="select u.* , r.name as name from wraith_users u left join wraith_role r on u.role=r.id where u.id !=".$_COOKIE['id'];
-	$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
-	while($row=mysqli_fetch_assoc($result))
-	{
-		$rows[] = $row;
-	}
-	mysqli_free_result($result);
-?>
-<script language="Javascript">
-function checkpwd()
-{
-	if(document.form1.pwd1.value!="" && document.form1.pwd1.value!=document.form1.pwd2.value)
-	{
-		alert("两次输入的密码不同!");
-		return false;
-	}
-	if(document.form1.pwd1.value=="" && document.form1.member_name.value=="")
-	{
-		alert("没有可更新信息!");
-		return false;
-	}
+  $result=exsql($sql);;
+  echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
+  while($row=mysqli_fetch_assoc($result))
+  {
+    echo"<tr>";
+		
+	echo "<td align=center><font size=2>$row[ID]</td>";
+
+	  echo "<td align=center><font size=2>$row[username]</td>";
+	  
+	 
+	  echo "<td align=center><font size=2>$row[membername]</td>";
+
 	
-}
-
-</script>
-<font size=4 color=red>管理用户：</font>
-<br><br>
-<center>
-
-<table border="1" cellspacing="0" cellpadding="1" width="410" >
-<form action=update_accountpro.php name=form1 method=post onsubmit="return checkpwd();">
-<input type=hidden name=id value="<?php echo $id;?>">
-<tr height="30"><th align=center width=25%><font size=2 color=red>用户名</font></th><th align=center width=25%><font size=2 color=red>真实姓名</font></th><th align=center width=25%><font size=2 color=red>权限</font></th><th align=center width=25%><font size=2 color=red>操作</font></th></tr>
-<?php
-if(!empty($rows)){
-	foreach($rows as $v){
-		echo '<tr height="30"><td align=center width=25%>'.$v['username'].'</td><td align=center width=25%>'.$v['membername'].'</td><td align=center width=25%>'.$v['name'].'</td><td align=center width=25%><a href="update_account.php?id='.$v['ID'].'">修改</a>/<a href="del_account.php?id='.$v['ID'].'">删除</a></td></tr>';
-	}
-}else{
-	echo '<tr height="30"><td align=center colspan="4"><font size=2 color=red>没有记录</font></td></tr>';
-}
+	  echo "<td align=center><font size=2>$row[name]</td>";
+	  
+		echo "<td align=center><font size=2><a href=\"update_account.php?id=$row[ID]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+		//delete
+		echo "<td align=center onclick=\"return ask($row[ID]);\"><font size=2><a href=\"del_account.php?id=$row[ID]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+    echo"</tr>";
+  }
 ?>
-
 </table>
 
-</center>
+</font>
+</body>
