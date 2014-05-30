@@ -94,7 +94,7 @@ function ask(id)
   while($row=mysqli_fetch_row($result))
   {
   		echo"<tr><td>$row[0]</td><td>$row[1]</td>";
-  		echo "<td align=center  onclick=\"return ask($row[0]);\"><font size=2><a href=\"blklist_del.php?id=$row[0]\" >删除</a>&nbsp;</td>";
+  		echo "<td align=center  onclick=\"return ask($row[0]);\"><font size=2><a href=\"blklist_del.php?id=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
   		echo "</tr>";
   }
    mysqli_free_result($result);

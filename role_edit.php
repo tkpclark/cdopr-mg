@@ -39,12 +39,12 @@
 		}
 	}
 </script>
-<font size=4 color=red>添加角色：</font>
+<font size=4 color=red>角色编辑：</font>
 <br><br>
 <center>
 
 <table border="1" cellspacing="0" cellpadding="1" width="410" >
-<form action=add_rolepro.php name=form1 method=post onsubmit="return checkpwd();">
+<form action=role_edit_do.php name=form1 method=post onsubmit="return checkpwd();">
 	<input type=hidden name=id value="<?php echo !empty($id)?$id:'';?>">
 	<tr height="30"><td align=center><font size=2 color=red>用户名：&nbsp;&nbsp;<input type=text name=name value="<?php echo isset($role) && !empty($role)?$role['name']:'' ?>"></td></tr>
 	<tr height="30"><td align=center><font size=2 color=red>请选择控制菜单：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>

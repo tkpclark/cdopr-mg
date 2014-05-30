@@ -52,7 +52,7 @@ function checkpwd()
 <center>
 
 <table border="1" cellspacing="0" cellpadding="1" width="410" >
-<form action=create_accountpro.php name=form1 method=post onsubmit="return checkpwd();">
+<form action=account_edit_do.php name=form1 method=post onsubmit="return checkpwd();">
 <tr height="30"><td align=center><font size=2 color=red>用户名：&nbsp;&nbsp;<input type=text name=name></td></tr>
 <tr height="30"><td align=center><font size=2 color=red>密码：&nbsp;&nbsp;&nbsp;&nbsp;<input type=password name=pwd1></td></tr>
 <tr height="30"><td align=center><font size=2 color=red>重复输入：<input type=password name=pwd2></td></tr>

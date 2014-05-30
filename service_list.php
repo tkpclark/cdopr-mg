@@ -100,9 +100,9 @@ include("style.php");
 			
 		//modify
 	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center ><font size=2><a href=\"service_edit.php?serviceID=$row[0] \" >编辑</a>&nbsp;</td>";
+		echo "<td align=center ><font size=2><a href=\"service_edit.php?serviceID=$row[0] \" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"service_del.php?serviceid=$row[0]\" >删除</a>&nbsp;</td>";
+		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"service_del.php?serviceid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

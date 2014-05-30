@@ -17,9 +17,9 @@ $name  = trim(@$_POST['name']);
 $menus = @$_POST['menus'];
 $id    = @$_POST['id'];
 if(!empty($id)){
-	$url = "add_role.php?id=".$id;
+	$url = "role_edit.php?id=".$id;
 }else{
-	$url = "add_role.php";
+	$url = "role_edit.php";
 }
 if(!empty($name) && !empty($menus)){
 	$menus = implode(',',$menus);
