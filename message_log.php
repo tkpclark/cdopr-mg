@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 
             function compose_url(query_type,pageNumber,pageSize){
                 var url="";
-                url += "message_log_query.php?";
+                url += "message_log_query.php?tb=<?php echo $_REQUEST['tb'];?>";
                 url += "&query_type="+query_type;
                 url += "&phone_number="+$("#phone_number").val();
                 url += "&products="+$("#products").val();

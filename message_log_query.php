@@ -1,9 +1,19 @@
 <?php
 	require_once 'mysql.php';
 	
-	$tbl="wraith_message_history";
-	$tb2="wraith_message";
-	
+	if(!isset($_REQUEST['tb']))
+	{
+		echo "need tb argument!";
+		exit;
+	}
+	if($_REQUEST['tb']=='1')
+		$tb="wraith_message";
+	elseif($_REQUEST['tb']=='2')
+		$tb="wraith_message_history";
+	else{
+		echo "tb argument error!";
+		exit;
+	}
 	
 	/***********condition***********/
 	$sql_condition="where 1 ";
@@ -58,19 +68,19 @@
 	/**********result_info***************/
 	if($query_type=='result_info')
 	{
-		$sql="select count(id) as count from $tbl  ";
+		$sql="select count(id) as count from $tb  ";
 		$sql.=$sql_condition;
 		$result=mysqli_query($mysqli,$sql);
 		$row1=mysqli_fetch_assoc($result);
-		
+		/*
 		$sql="select count(id) as count from $tb2  ";
 		$sql.=$sql_condition;
 		$result1=mysqli_query($mysqli,$sql);
 		$row2=mysqli_fetch_assoc($result1);
-
+		
 		$rows['count'] = $row1['count']+$row2['count'];
-
-		echo json_encode($rows);
+		*/
+		echo json_encode($row1);
 		exit;
 		
 	}
@@ -100,11 +110,13 @@
 				<th>渠道业务</th>
 				</tr>";
 		
-		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name from $tbl ";
+		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name from $tb ";
 		$sql.=$sql_condition;
+		/*
 		$sql.=" union all ";
 		$sql.="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name from $tb2 ";
 		$sql.=$sql_condition;
+		*/
 		$sql.=" order by id desc";
 		$sql.=" limit ".$_REQUEST['pageSize']*($_REQUEST['pageNumber']-1).",".$_REQUEST['pageSize'];
 		//echo $sql;exit;
