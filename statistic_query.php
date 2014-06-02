@@ -276,84 +276,84 @@
 			foreach($rows as $row)
 			{
 				echo "<tr align='center'>";
-				echo "<td>".$i++."</td>";
-				echo "<td>".$row[0]."</td>";
+				echo "<th>".$i++."</th>";
+				echo "<th>".$row[0]."</th>";
 				//通道$row_spIDs
 				if($row[1]!='All'){
 					foreach($row_spIDs as $v){
 						if($v[0]==$row[1]){
-							echo "<td>".'('.$v[0].')'.$v[1]."</td>";
+							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
 						}
 					}
 				}else{
-					echo "<td>".$row[1]."</td>";
+					echo "<th>".$row[1]."</th>";
 				}
 				//通道业务$row_serviceIDs
 				if($row[2]!='All'){
 					foreach($row_serviceIDs as $v){
 						if($v[0]==$row[2]){
-							echo "<td>".'('.$v[0].')'.$v[1]."</td>";
+							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
 						}
 					}
 				}else{
-					echo "<td>".$row[2]."</td>";
+					echo "<th>".$row[2]."</th>";
 				}
 				//渠道$row_cpIDs
 				if($row[3]!='All'){
 					foreach($row_cpIDs as $v){
 						if($v[0]==$row[3]){
-							echo "<td>".'('.$v[0].')'.$v[1]."</td>";
+							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
 						}
 					}
 				}else{
-					echo "<td>".$row[3]."</td>";
+					echo "<th>".$row[3]."</th>";
 				}
 				//渠道业务$row_cpProdIDs
 				if($row[4]!='All'){
 					foreach($row_cpProdIDs as $v){
 						if($v[0]==$row[4]){
-							echo "<td>".'('.$v[0].')'.$v[1]."</td>";
+							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
 						}
 					}
 				}else{
-					echo "<td>".$row[4]."</td>";
+					echo "<th>".$row[4]."</th>";
 				}
 				//是否代计费业务
 				if($row[5]=='All'){
-					echo "<td>".$row[5]."</td>";
+					echo "<th>".$row[5]."</th>";
 				}elseif($row[5]=='1'){
-					echo "<td>是</td>";
+					echo "<th>是</th>";
 				}elseif($row[5]=='0'){
-					echo "<td>否</td>";
+					echo "<th>否</th>";
 				}
 				//计费类型
 				if($row[6]=='All'){
-					echo "<td>".$row[6]."</td>";
+					echo "<th>".$row[6]."</th>";
 				}elseif($row[6]=='1'){
-					echo "<td>点播</td>";
+					echo "<th>点播</th>";
 				}elseif($row[6]=='2'){
-					echo "<td>包月</td>";
+					echo "<th>包月</th>";
 				}
 				//网关
 				if($row[7]!='All'){
 					$sql="select id,comment from wraith_gw where id=$row[7]";
 					$result=exsql($sql);
 					$row_gwid=mysqli_fetch_row($result);
-					echo "<td>".'('.$row_gwid[0].')'.$row_gwid[1]."</td>";
+					echo "<th>".'('.$row_gwid[0].')'.$row_gwid[1]."</th>";
 				}else{
-					echo "<td>".$row[7]."</td>";
+					echo "<th>".$row[7]."</th>";
 				}
 
-				echo "<td>".$row[8]."</td>";
+				echo "<th>".$row[8]."</th>";
 				//指令
 				if($row[9]!='All'){
 					foreach($row_cmdIDs as $v){
 						if($v[0]==$row[9]){
-							echo "<td>".'('.$v[0].')'.$v[1].'+'.$v[2]."</td>";
+							echo "<th>".'('.$v[0].')'.$v[1].'+'.$v[2]."</th>";
 						}
 					}
 				}else{
-					echo "<td>".$row[9]."</td>";
+					echo "<th>".$row[9]."</th>";
 				}
 				echo "<td>".$row[10]."</td>";
 				echo "<td>".$row[11]."</td>";
@@ -387,7 +387,7 @@
 			}
 			//合计
 		   echo "<tr align='center'>";
-		   echo "<td>合计</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td>";
+		   echo "<th>合计</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th>";
 		   echo "<td>$count</td>";
 		   echo "<td>$count_suc</td>";
 		   $suc=$count>0?number_format(100*$count_suc/$count,2)."%":"0.00%";
