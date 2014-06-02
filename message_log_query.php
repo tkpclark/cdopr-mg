@@ -115,7 +115,15 @@
 		//echo $sql;exit;
 		mysqli_query($mysqli,"set names utf8");
 		if($result=mysqli_query($mysqli,$sql))
-		{
+		{	
+			//指令表
+			$sql_cmdID="select ID,sp_number,mo_cmd from mtrs_cmd";
+			$result_cmdID=exsql($sql_cmdID);
+			while($row_cmdID=mysqli_fetch_row($result_cmdID))
+			{
+				$row_cmdIDs[]=$row_cmdID;
+			}
+
 			while($row=mysqli_fetch_assoc($result))
 			{
 				echo "<tr align='center'>";
@@ -202,11 +210,15 @@
 					$v='';
 				echo "<td>".$v."</td>";
 				
+
 				//指令
-				$sql="select ID,sp_number,mo_cmd from mtrs_cmd where ID=$row[cmdID]";
-				$result=exsql($sql);
-				$row1=mysqli_fetch_row($result);
-				echo "<td>($row1[0])$row1[1]+$row1[2]</td>";
+				$cmdIDs=array(0=>'',1=>'',2=>'');
+				foreach($row_cmdIDs as $v){
+					if($v[0]==$row['cmdID']){
+						$cmdIDs=$v;
+					}
+				}
+				echo "<th>".'('.$cmdIDs[0].')'.$cmdIDs[1].'+'.$cmdIDs[2]."</th>";
 					
 				echo "</tr>";
 			}
