@@ -30,6 +30,7 @@ include("style.php");
 	<th>计费代码</th>
 	<th>网关</th>
 	<th>信息类型</th>
+	<th>计费类型</th>
 	<th>所属通道</th>	
 	<th>状态</th>
 	<th>编辑</th>
@@ -82,6 +83,12 @@ include("style.php");
 		else
 			echo "<td align=center><font size=2>数据异常</td>";
 	  
+		 //msgtype
+	  if($row[8]==1)
+			echo "<td align=center><font size=2>点播</td>";
+		else if($row[8]==2)
+			echo "<td align=center><font size=2>包月</td>";
+
 	  //belong which sp
 	  //get spname
 		$sql="select spname from mtrs_sp where ID=$row[6]";
