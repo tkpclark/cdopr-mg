@@ -23,7 +23,7 @@ function check()
 	{
 		$serviceID=$_GET['serviceID'];
 				
-		$sql = "select sp_number,mo_cmd,msgtype,status,spID,fee,name,gwID,service_id from mtrs_service where id=$serviceID";
+		$sql = "select sp_number,mo_cmd,msgtype,status,spID,fee,name,gwID,service_id,feetype from mtrs_service where id=$serviceID";
 		//echo $sql;
 		$result=exsql($sql);
 		$row=mysqli_fetch_row($result);
@@ -36,7 +36,8 @@ function check()
 		$fee=$row[5];
 		$service_name=$row[6];
 		$service_id=$row[8];
-		
+		$feetype=$row[9];
+
 		//get spname
 		if($spID)
 		{
@@ -75,6 +76,7 @@ function check()
 		$fee="";
 		$service_name="";
 		$service_id="";
+		$feetype='1';
 	}
 ?>
 <font size=4><caption>新增通道>></caption></font>
@@ -172,6 +174,15 @@ if(isset($serviceID))
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		短信<input type=radio name=msgtype value=1 <?php if($msgtype==1) echo "checked=\"checked\""?>/> 
 		彩信<input type=radio name=msgtype value=2 <?php if($msgtype==2) echo "checked=\"checked\""?>/> 
+	</td>
+</tr>
+
+<tr>	
+	<th> 计费类型 </th>
+	<td align="left">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		按条点播<input type=radio name=feetype value=1 <?php if($feetype==1) echo "checked=\"checked\""?>/> 
+		包月<input type=radio name=feetype value=2 <?php if($feetype==2) echo "checked=\"checked\""?>/> 
 	</td>
 </tr>
 
