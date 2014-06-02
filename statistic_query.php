@@ -16,7 +16,7 @@
 	}
 	if(isset($_REQUEST["date2"]) && $_REQUEST["date2"]!=date('Y-m-d',time()))
 	{
-		$sql_condition.="and stat_time<='".$_REQUEST["date2"]."' ";
+		$sql_condition.="and stat_time<='".$_REQUEST["date2"].":23:59' ";
 	}
 
 	if(isset($_REQUEST["is_agent"])&&!empty($_REQUEST["is_agent"]))
@@ -261,7 +261,7 @@
 		//echo $sql;exit;
 		mysqli_query($mysqli,"set names utf8");
 		if($result=mysqli_query($mysqli,$sql))
-		{	
+		{	$rows=array();
 			while($row=mysqli_fetch_row($result))
 			{
 				$rows[]=$row;
