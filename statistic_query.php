@@ -278,43 +278,51 @@
 				echo "<tr align='center'>";
 				echo "<th>".$i++."</th>";
 				echo "<th>".$row[0]."</th>";
+				$spIDs=array(0=>'',1=>'');
 				//通道$row_spIDs
 				if($row[1]!='All'){
 					foreach($row_spIDs as $v){
 						if($v[0]==$row[1]){
-							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
+							$spIDs=$v;
 						}
 					}
+					echo "<th>".'('.$spIDs[0].')'.$spIDs[1]."</th>";
 				}else{
 					echo "<th>".$row[1]."</th>";
 				}
 				//通道业务$row_serviceIDs
+				$serviceIDs=array(0=>'',1=>'');
 				if($row[2]!='All'){
 					foreach($row_serviceIDs as $v){
 						if($v[0]==$row[2]){
-							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
+							$serviceIDs=$v;
 						}
 					}
+					echo "<th>".'('.$serviceIDs[0].')'.$serviceIDs[1]."</th>";
 				}else{
 					echo "<th>".$row[2]."</th>";
 				}
 				//渠道$row_cpIDs
+				$cpIDs=array(0=>'',1=>'');
 				if($row[3]!='All'){
 					foreach($row_cpIDs as $v){
 						if($v[0]==$row[3]){
-							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
+							$cpIDs=$v;
 						}
 					}
+					echo "<th>".'('.$cpIDs[0].')'.$cpIDs[1]."</th>";
 				}else{
 					echo "<th>".$row[3]."</th>";
 				}
 				//渠道业务$row_cpProdIDs
+				$cpProdIDs=array(0=>'',1=>'');
 				if($row[4]!='All'){
 					foreach($row_cpProdIDs as $v){
 						if($v[0]==$row[4]){
-							echo "<th>".'('.$v[0].')'.$v[1]."</th>";
+							$cpProdIDs=$v;
 						}
 					}
+					echo "<th>".'('.$cpProdIDs[0].')'.$cpProdIDs[1]."</th>";
 				}else{
 					echo "<th>".$row[4]."</th>";
 				}
@@ -325,6 +333,8 @@
 					echo "<th>是</th>";
 				}elseif($row[5]=='0'){
 					echo "<th>否</th>";
+				}else{
+					echo "<th></th>";
 				}
 				//计费类型
 				if($row[6]=='All'){
@@ -333,6 +343,8 @@
 					echo "<th>点播</th>";
 				}elseif($row[6]=='2'){
 					echo "<th>包月</th>";
+				}else{
+					echo "<th></th>";
 				}
 				//网关
 				if($row[7]!='All'){
@@ -347,11 +359,13 @@
 				echo "<th>".$row[8]."</th>";
 				//指令
 				if($row[9]!='All'){
+					$cmdIDs=array(0=>'',1=>'',2=>'');
 					foreach($row_cmdIDs as $v){
 						if($v[0]==$row[9]){
-							echo "<th>".'('.$v[0].')'.$v[1].'+'.$v[2]."</th>";
+							$cmdIDs=$v;
 						}
 					}
+					echo "<th>".'('.$cmdIDs[0].')'.$cmdIDs[1].'+'.$cmdIDs[2]."</th>";
 				}else{
 					echo "<th>".$row[9]."</th>";
 				}
