@@ -1,19 +1,9 @@
 <?php
 	require_once 'mysql.php';
 	
-	if(!isset($_REQUEST['tb']))
-	{
-		echo "need tb argument!";
-		exit;
-	}
-	if($_REQUEST['tb']=='1')
-		$tb="wraith_message";
-	elseif($_REQUEST['tb']=='2')
-		$tb="wraith_message_history";
-	else{
-		echo "tb argument error!";
-		exit;
-	}
+	$tbl="wraith_message_history";
+	$tb2="wraith_message";
+	
 	
 	/***********condition***********/
 	$sql_condition="where 1 ";
@@ -62,25 +52,29 @@
 	{
 		$sql_condition.="and cp_productID='".$_REQUEST["cp_productID"]."' ";
 	}
+	if(isset($_REQUEST["cmdID"])&&!empty($_REQUEST["cmdID"]))
+	{
+		$sql_condition.="and cmdID='".$_REQUEST["cmdID"]."' ";
+	}
 
 	
 	
 	/**********result_info***************/
 	if($query_type=='result_info')
 	{
-		$sql="select count(id) as count from $tb  ";
+		$sql="select count(id) as count from $tbl  ";
 		$sql.=$sql_condition;
 		$result=mysqli_query($mysqli,$sql);
 		$row1=mysqli_fetch_assoc($result);
-		/*
+		
 		$sql="select count(id) as count from $tb2  ";
 		$sql.=$sql_condition;
 		$result1=mysqli_query($mysqli,$sql);
 		$row2=mysqli_fetch_assoc($result1);
-		
+
 		$rows['count'] = $row1['count']+$row2['count'];
-		*/
-		echo json_encode($row1);
+
+		echo json_encode($rows);
 		exit;
 		
 	}
@@ -108,15 +102,14 @@
 				<th>通道业务</th>
 				<th>渠道</th>
 				<th>渠道业务</th>
+				<th>指令</th>
 				</tr>";
 		
-		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name from $tb ";
+		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID from $tbl ";
 		$sql.=$sql_condition;
-		/*
 		$sql.=" union all ";
-		$sql.="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name from $tb2 ";
+		$sql.="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID from $tb2 ";
 		$sql.=$sql_condition;
-		*/
 		$sql.=" order by id desc";
 		$sql.=" limit ".$_REQUEST['pageSize']*($_REQUEST['pageNumber']-1).",".$_REQUEST['pageSize'];
 		//echo $sql;exit;
@@ -208,6 +201,12 @@
 				else
 					$v='';
 				echo "<td>".$v."</td>";
+				
+				//指令
+				$sql="select ID,sp_number,mo_cmd from mtrs_cmd where ID=$row[cmdID]";
+				$result=exsql($sql);
+				$row1=mysqli_fetch_row($result);
+				echo "<td>($row1[0])$row1[1]+$row1[2]</td>";
 					
 				echo "</tr>";
 			}
