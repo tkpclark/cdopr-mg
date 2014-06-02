@@ -52,6 +52,10 @@
 	{
 		$sql_condition.="and cp_productID='".$_REQUEST["cp_productID"]."' ";
 	}
+	if(isset($_REQUEST["cmdID"])&&!empty($_REQUEST["cmdID"]))
+	{
+		$sql_condition.="and cmdID='".$_REQUEST["cmdID"]."' ";
+	}
 
 	
 	
@@ -98,12 +102,13 @@
 				<th>通道业务</th>
 				<th>渠道</th>
 				<th>渠道业务</th>
+				<th>指令</th>
 				</tr>";
 		
-		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name from $tbl ";
+		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID from $tbl ";
 		$sql.=$sql_condition;
 		$sql.=" union all ";
-		$sql.="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name from $tb2 ";
+		$sql.="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID from $tb2 ";
 		$sql.=$sql_condition;
 		$sql.=" order by id desc";
 		$sql.=" limit ".$_REQUEST['pageSize']*($_REQUEST['pageNumber']-1).",".$_REQUEST['pageSize'];
@@ -196,6 +201,12 @@
 				else
 					$v='';
 				echo "<td>".$v."</td>";
+				
+				//指令
+				$sql="select ID,sp_number,mo_cmd from mtrs_cmd where ID=$row[cmdID]";
+				$result=exsql($sql);
+				$row1=mysqli_fetch_row($result);
+				echo "<td>($row1[0])$row1[1]+$row1[2]</td>";
 					
 				echo "</tr>";
 			}

@@ -31,6 +31,7 @@
 				url += "&serviceID="+$("#serviceID").val();
 				url += "&cpID="+$("#cpID").val();
 				url += "&cp_productID="+$("#cp_productID").val();
+				url += "&cmdID="+$("#cmdID").val();
 
                 return url;
                 
@@ -184,7 +185,20 @@
 		}
 ?>
  	</select></td>
-	 	<td rowspan="2"><button id=query type=button>查询</button></td>
+	<td>指令&nbsp;&nbsp;
+		<select id=cmdID>
+			<option value="">全部</option>
+			<?php
+				$sql="select ID,sp_number,mo_cmd from mtrs_cmd";
+				$result=exsql($sql);
+				while($row=mysqli_fetch_row($result))
+				{
+					echo "<option value=$row[0]>($row[0])$row[1]+$row[2]</option>";
+				}
+			?>
+		</select>
+	</td>
+	 	
 	</tr>
 	<tr>
  	<td>开始时间&nbsp;<input id="date1" type="text" class="easyui-datebox" data-options="formatter:myformatter" required="required" value=""></input></td>
@@ -207,7 +221,7 @@
 		
 	</script>
  	<td>手机号码<input id=phone_number name=phone_number type=text value='' /></td>
-
+	<td><button id=query type=button>查询</button></td>
  	</tr>
 	</table>
 	
