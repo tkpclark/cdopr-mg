@@ -96,31 +96,35 @@ while($row=mysqli_fetch_row($result))
 			echo "<td align=center><font size=2>是</td>";
 		else
 			echo "<td align=center><font size=2>否</td>";
-	//is_agent
-	  if($row[10]==1)
-			echo "<td align=center><font size=2>是</td>";
-		else
-			echo "<td align=center><font size=2>不是</td>";
-	
+		
+
 	$s = "select t1.id,t1.sp_number,t1.mo_cmd,name,fee,gwid,t2.id,t2.spname from mtrs_service t1,mtrs_sp t2 where t1.id=$row[4] and t1.spID=t2.ID";
 	$r = exsql($s);
 	$ro = mysqli_fetch_row($r);
-
+	
 	if(mysqli_num_rows($r))
 	{	//sp
-		echo "<td align=center><font size=2>($ro[6])$ro[7]</td>";
-		//service
-		echo "<td align=center><font size=2>($ro[0])$ro[3]-$ro[1]+$ro[2]</td>";
-		//fee
-		echo "<td align=center><font size=2>$ro[4]</td>";
-	}	
-	else{
-		echo "<td align=center><font size=2></td>";
-		echo "<td align=center><font size=2></td>";
-		echo "<td align=center><font size=2></td>";
+	echo "<td align=center><font size=2>($ro[6])$ro[7]</td>";
+	//service
+	echo "<td align=center><font size=2>($ro[0])$ro[3]-$ro[1]+$ro[2]</td>";
+	//fee
+	echo "<td align=center><font size=2>$ro[4]</td>";
 	}
-	
-	
+	else{
+	echo "<td align=center><font size=2></td>";
+	echo "<td align=center><font size=2></td>";
+	echo "<td align=center><font size=2></td>";
+	}
+		
+		
+	//is_agent
+	  if($row[10]==2)
+			echo "<td align=center><font size=2>是</td>";
+		else   if($row[10]==1)
+			echo "<td align=center><font size=2>不是</td>";
+		else
+			echo "<td align=center><font size=2>异常</td>";
+
 
 	
 	//cp name

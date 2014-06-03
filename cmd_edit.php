@@ -196,8 +196,8 @@ if(isset($cmd_id))
 	<th> 代计费 </th>
 	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		是<input type=radio name=is_agent value=1 <?php if($is_agent==1) echo "checked=\"checked\""?>/> 
-		不是<input type=radio name=is_agent value=0 <?php if($is_agent==0) echo "checked=\"checked\""?>/>
+		是<input type=radio name=is_agent value=2 <?php if($is_agent==2) echo "checked=\"checked\""?>/> 
+		不是<input type=radio name=is_agent value=1 <?php if($is_agent==1) echo "checked=\"checked\""?>/>
 	</td>
 </tr>
 	

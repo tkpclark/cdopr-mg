@@ -328,9 +328,9 @@
 				//是否代计费业务
 				if($row[5]=='All'){
 					echo "<th>".$row[5]."</th>";
-				}elseif($row[5]=='1'){
+				}elseif($row[5]=='2'){
 					echo "<th>是</th>";
-				}elseif($row[5]=='0'){
+				}elseif($row[5]=='1'){
 					echo "<th>否</th>";
 				}else{
 					echo "<th></th>";
