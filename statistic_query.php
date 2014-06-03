@@ -165,7 +165,7 @@
 	{
 		$sql_field.="'All', ";
 	}
-	$sql_field.=" sum(msg_count_all),sum(msg_count_suc),sum(msg_count_deduction),sum(amount_all),sum(amount_suc),sum(amount_deduction)";
+	$sql_field.=" sum(msg_count_all),sum(msg_count_legal),sum(msg_count_suc),sum(msg_count_deduction),sum(amount_suc),sum(amount_deduction)";
 
 	
 	
@@ -201,16 +201,14 @@
 				<th>省份</th>
 				<th>指令</th>
 
-				<th>总条数</th>
-				<th>成功条数</th>
+				<th>消息总量</th>
+				<th>合法消息总量</th>
+				<th>成功消息总量</th>
 				<th>成功百分比</th>
-				<th>扣量条数</th>
+				<th>扣量消息总量</th>
 				<th>扣量百分比</th>
-				<th>总金额</th>
-				<th>成功金额</th>
-				<th>成功百分比</th>
+				<th>成功计费金额</th>
 				<th>扣量金额</th>
-				<th>扣量百分比</th>
 				</tr>";
 		//通道
 		$sql_spID="select ID,spname from mtrs_sp";
@@ -267,11 +265,12 @@
 				$rows[]=$row;
 			}
 			$count=0;//总条数
-			$count_suc=0;//总成功条数
+			$count_legal=0;//合法消息总量
+			$count_suc=0;//成功消息总条数
 			$count_deductio=0;//总扣量条数
-			$amount_all=0;//总金额
 			$amount_suc=0;//总成功金额
 			$amount_deduction=0;//总扣量金额
+
 			$i=1;
 			foreach($rows as $row)
 			{
@@ -371,31 +370,24 @@
 				}
 				echo "<td>".$row[10]."</td>";
 				echo "<td>".$row[11]."</td>";
-				//成功百分比
-				$percent_12=$row[10]>0?number_format(100*$row[11]/$row[10],2)."%":"";
-				echo "<td>".$percent_12."</td>";
-
 				echo "<td>".$row[12]."</td>";
-				//扣量百分比
-				$percent_12=$row[10]>0?number_format(100*$row[12]/$row[10],2)."%":"";
+				//成功百分比
+				$percent_12=$row[11]>0?number_format(100*$row[12]/$row[11],2)."%":"";
 				echo "<td>".$percent_12."</td>";
 
 				echo "<td>".$row[13]."</td>";
-				echo "<td>".$row[14]."</td>";
-				//成功百分比
-				$percent_12=$row[13]>0?number_format(100*$row[14]/$row[13],2)."%":"";
-				echo "<td>".$percent_12."</td>";
+				//扣量百分比
+				$percent_13=$row[11]>0?number_format(100*$row[13]/$row[11],2)."%":"";
+				echo "<td>".$percent_13."</td>";
 
+				echo "<td>".$row[14]."</td>";
 				echo "<td>".$row[15]."</td>";
-				//成功百分比
-				$percent_12=$row[13]>0?number_format(100*$row[15]/$row[13],2)."%":"";
-				echo "<td>".$percent_12."</td>";
 				echo "</tr>";
 
 			$count+=$row[10];//总条数
-			$count_suc+=$row[11];//总成功条数
-			$count_deductio+=$row[12];//总扣量条数
-			$amount_all+=$row[13];//总金额
+			$count_legal+=$row[11];//总合法条数
+			$count_suc+=$row[12];//总成功条数
+			$count_deductio+=$row[13];//总扣量条数
 			$amount_suc+=$row[14];//总成功金额
 			$amount_deduction+=$row[15];//总扣量金额
 			}
@@ -403,20 +395,16 @@
 		   echo "<tr align='center'>";
 		   echo "<th>合计</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th><th>--</th>";
 		   echo "<td>$count</td>";
+		   echo "<td>$count_legal</td>";
 		   echo "<td>$count_suc</td>";
-		   $suc=$count>0?number_format(100*$count_suc/$count,2)."%":"0.00%";
+		   $suc=$count_legal>0?number_format(100*$count_suc/$count_legal,2)."%":"0.00%";
 			echo "<td>".$suc."</td>";
 			echo "<td>$count_deductio</td>";
-			$deductio=$count>0?number_format(100*$count_deductio/$count,2)."%":"0.00%";
+			$deductio=$count_legal>0?number_format(100*$count_deductio/$count_legal,2)."%":"0.00%";
 			echo "<td>".$deductio."</td>";
 
-			echo "<td>$amount_all</td>";
-		   echo "<td>$amount_suc</td>";
-		   $suc_1=$amount_all>0?number_format(100*$amount_suc/$amount_all,2)."%":"0.00%";
-			echo "<td>".$suc_1."</td>";
+			echo "<td>$amount_suc</td>";
 			echo "<td>$amount_deduction</td>";
-			$deductio_1=$count>0?number_format(100*$amount_deduction/$amount_all,2)."%":"0.00%";
-			echo "<td>".$deductio_1."</td>";
 		   echo "</tr>";
 			//mysqli_free_result($result);
 		}
