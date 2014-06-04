@@ -13,13 +13,17 @@ $(document).ready(function(){
 		var linkid = $("input[name='linkid']").val(); 
 		var gwid = $("select[name='gwid']").find("option:selected").val();
 		if(phone_number!='' && mo_message !='' && spnumber !='' && linkid !='' && gwid !=''){
-			$.get("fake_mo_do.php?phone_number="+phone_number+"&mo_message="+mo_message+"&spnumber="+spnumber+"&linkid="+linkid+"&gwid="+gwid,function(result){
+			$.ajax({
+				type: "GET",	
+				url:"fake_mo_do.php?phone_number="+phone_number+"&mo_message="+mo_message+"&spnumber="+spnumber+"&linkid="+linkid+"&gwid="+gwid,
+				cache:false, 
+				success:function(result){
 				if(result==1){
 					alert("添加成功");
 				}else{
 					alert(result);
 				}
-			});
+			}});
 		}else{
 			alert("内容不完整，请补全信息");
 		}		
@@ -100,7 +104,7 @@ $(document).ready(function(){
 </table>
  <br>
 
- <input type='button' name="button" value="确定">
+ <input type='button' name="button" value="添加">
 </form>
  </body>
 </html>
