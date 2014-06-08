@@ -9,9 +9,10 @@
 	$province=$_GET['province'];
 	$monthly_limit=$_GET['monthly_limit'];
 	$daily_limit=$_GET['daily_limit'];
+	$limit_type=$_GET['limit_type'];
 	echo $cmd_id.$province.$daily_limit.$monthly_limit;
 	$deduction_value=number_format($deduction_value/100,2);
-	$sql = "insert into wraith_visit_limit (cmdID, province, daily_limit ,monthly_limit) values ('$cmd_id', '$province', '$daily_limit', '$monthly_limit')";
+	$sql = "insert into wraith_visit_limit (cmdID, province, daily_limit ,monthly_limit,limit_type) values ('$cmd_id', '$province', '$daily_limit', '$monthly_limit','$limit_type')";
 	exsql($sql);
 ?>
 
