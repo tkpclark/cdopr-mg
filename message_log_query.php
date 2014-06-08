@@ -181,8 +181,8 @@
 				echo "<td>".$v."</td>";
 				
 				//是否代计费
-				if($row['is_agent']==0) $v='否';
-				elseif ($row['is_agent']==1) $v='是';
+				if($row['is_agent']==1) $v='否';
+				elseif ($row['is_agent']==2) $v='是';
 				else $v='';
 				echo "<td>".$v."</td>";
 				
