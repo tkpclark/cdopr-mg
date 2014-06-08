@@ -103,6 +103,7 @@ function ask(id)
   
    echo "<br>";
    echo "<form name=load_config method=post action=".$_SERVER['PHP_SELF']."?load=1 >";
+   /*
    echo "<input type=submit name='submit' value='重新加载'  style='width:250px;height:500px;'>";
    if(isset($_GET['load']))
    {
@@ -116,6 +117,7 @@ function ask(id)
    					print_r($output[0]);
    					//var_dump($output);
    }
+   */
    echo "</body>";
    
 ?>
