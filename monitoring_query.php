@@ -10,6 +10,8 @@ include("check.php");
 include("style.php");
 include("area_code.php");
 
+ini_set('default_socket_timeout', -1); 
+
 //redis缓存
 $redis = new redis();  
 $redis->connect('42.62.78.247', 6379);  
@@ -141,10 +143,9 @@ if(!empty($cmd_ids)){
 			echo "<td>$visit_day</td>";
 			//百分比
 			echo "<td>$area</td>";
-			//总数月量
-			//总数日量p2_54_山东_201406
+			//总数月量p2_54_山东_201406
 			$p2_mon = "p2_".$v[0]."_".$area."_".date('Ym',time());
-			echo "<td>"./*$redis->get($a1)*/$p2_mon."</td>";
+			echo "<td>".$redis->get($a1)."</td>";
 			//总数月限
 			echo "<td>$visit_mon</td>";
 			//百分比
