@@ -14,7 +14,7 @@ ini_set('default_socket_timeout', -1);
 
 //redis缓存
 $redis = new redis();  
-$redis->connect('42.62.78.247', 6379);  
+$redis->connect('127.0.0.1', 6379);  
 
 $cmd_ids = $_GET['cmd_ids'];
 //$cmd_ids= '54,67,';
@@ -71,18 +71,6 @@ if(!empty($cmd_ids)){
 
 
 
-	/*
-	//总日限月限wraith_visit_limit
-	*/
-	$sql = "select cmdID,sum(daily_limit),sum(monthly_limit) from wraith_visit_limit where limit_type=2 and cmdID in ($cmd_ids) group by cmdID";
-	$result=exsql($sql);
-	while($visit_row_2=mysqli_fetch_row($result)){
-		$visit_rows_2[]=$visit_row_2;
-	}
-
-
-
-
 	foreach($rows as $v){
 		echo "<table class='impor'>";
 		echo "<tr><td>";
@@ -106,14 +94,13 @@ if(!empty($cmd_ids)){
 		echo "<tr><td>";
 		echo "<table>";
 		echo "<tr><td>省份</td><td>总数日量</td><td>总数日限</td><td>百分比</td><td>总数月量</td><td>总数月限</td><td>百分比</td><td>状态</td></tr>";
-		$sum_daily_limit='--';
-		$sum_monthly_limit='--';
 		//总数日、月限
-		if(!empty($visit_rows_2)){
-		foreach($visit_rows_2 as $visit_2){
-			if($visit_2[0]==$v[0]){
-				$sum_daily_limit=$visit_2[1];
-				$sum_monthly_limit=$visit_2[2];
+		$daily_limit_all=$monthly_limit_all='无限制';
+		if(!empty($visit_rows)){
+		foreach($visit_rows as $visit_all){
+			if($visit_all[2]=='全部' && $visit_all[1]==$v[0]){
+				$daily_limit_all=$visit_all[3];
+				$monthly_limit_all=$visit_all[4];
 			}
 		
 		}
@@ -122,34 +109,38 @@ if(!empty($cmd_ids)){
 		//echo $redis->get('a1_cmdID_date'); exit;
 		$a1="a1_".$v[0]."_".date("Ymd",time());
 		$a2="a2_".$v[0]."_".date("Ym",time());
-		echo "<tr><td>全部</td><td>".$redis->get($a1)."</td><td>$sum_daily_limit</td><td>百分比</td><td>".$redis->get($a2)."</td><td>$sum_monthly_limit</td><td>百分比</td><td>--</td></tr>";
+		echo "<tr><td>全部</td><td>".($redis->get($a1)!=null?$redis_day_all=$redis->get($a1):$redis_day_all='0')."</td><td>$daily_limit_all</td><td>".($daily_limit_all!=null&&$daily_limit_all!='无限制'?number_format(100*$redis_day_all/$daily_limit_all,2)."%":"0.00%")."</td><td>".($redis->get($a2)!=null?$redis_mon_all=$redis->get($a2):$redis_mon_all='0')."</td><td>$monthly_limit_all</td><td>".($monthly_limit_all!=null&&$monthly_limit_all!='无限制'?number_format(100*$redis_mon_all/$monthly_limit_all,2)."%":"0.00%")."</td><td>--</td></tr>";
 		foreach($area_code as $area){
 			echo "<tr>";
 			//省份
 			echo "<td>$area</td>";
 			//总数日量p2_54_山东_20140609
 			$p2_day = "p2_".$v[0]."_".$area."_".date('Ymd',time());
-			echo "<td>".$redis->get($p2_day)."</td>";
+			echo "<td>".($redis->get($p2_day)!=null?$redis_day=$redis->get($p2_day):$redis_day='0')."</td>";
 			//总数日限
-			$visit_day=$visit_mon='';
+			$visit_day=$visit_mon=$default_visit_day=$default_visit_mon='';
 			if(!empty($visit_rows)){
 			foreach($visit_rows as $visit){
 				if($visit[1]==$v[0] && $area==$visit[2]){
 					$visit_day=$visit[3];
 					$visit_mon=$visit[4];
 				}
+				if($visit[2]=='默认' && $visit_all[1]==$v[0]){
+					$default_visit_day=$visit[3];
+					$default_visit_mon=$visit[4];
+				}
 			}
 			}
-			echo "<td>$visit_day</td>";
+			echo "<td>".($visit_day!=null?$visit_day_true=$visit_day:($default_visit_day!=null?$visit_day_true=$default_visit_day:$visit_day_true='无限制'))."</td>";
 			//百分比
-			echo "<td>$area</td>";
+			echo "<td>".($visit_day_true!=null&&$visit_day_true!='无限制'?number_format(100*$redis_day/$visit_day_true,2)."%":"0.00%")."</td>";
 			//总数月量p2_54_山东_201406
 			$p2_mon = "p2_".$v[0]."_".$area."_".date('Ym',time());
-			echo "<td>".$redis->get($a1)."</td>";
+			echo "<td>".($redis->get($p2_mon)!=null?$redis_mon=$redis->get($p2_mon):$redis_mon='0')."</td>";
 			//总数月限
-			echo "<td>$visit_mon</td>";
+			echo "<td>".($visit_mon!=null?$visit_mon_true=$visit_mon:($default_visit_mon!=null?$visit_mon_true=$default_visit_mon:$visit_mon_true='无限制'))."</td>";
 			//百分比
-			echo "<td>$area</td>";
+			echo "<td>".($visit_mon_true!=null&&$visit_mon_true!='无限制'?number_format(100*$redis_mon/$visit_mon_true,2)."%":"0.00%")."</td>";
 			//状态
 			echo "<td>";
 			if(strpos($v[5],$area)!==false){echo "已开通";}else{echo "未开通";}

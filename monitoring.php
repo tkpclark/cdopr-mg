@@ -8,7 +8,7 @@
 <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
  <script>
 	$(document).ready(function(){
-	$('#p').panel(); 
+	$('#p').panel({loadingMessage:null}); 
 	$("#query").click(function(){
 		var url='monitoring_query.php?cmd_ids=';
 		var a ='';
@@ -23,7 +23,7 @@
 		}); 
 	
 	})
-	var int=self.setInterval("$('#p').panel('refresh')", 10000)
+	var int=self.setInterval("$('#p').panel('refresh')", 10000);
 
 	});
 </script>
