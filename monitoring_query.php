@@ -109,7 +109,7 @@ if(!empty($cmd_ids)){
 		//echo $redis->get('a1_cmdID_date'); exit;
 		$a1="a1_".$v[0]."_".date("Ymd",time());
 		$a2="a2_".$v[0]."_".date("Ym",time());
-		echo "<tr><td>全部</td><td>".($redis->get($a1)!=null?$redis_day_all=$redis->get($a1):$redis_day_all='0')."</td><td>$daily_limit_all</td><td>".($daily_limit_all!=null&&$daily_limit_all!='无限制'?number_format(100*$redis_day_all/$daily_limit_all,2)."%":"0.00%")."</td><td>".($redis->get($a2)!=null?$redis_mon_all=$redis->get($a2):$redis_mon_all='0')."</td><td>$monthly_limit_all</td><td>".($monthly_limit_all!=null&&$monthly_limit_all!='无限制'?number_format(100*$redis_mon_all/$monthly_limit_all,2)."%":"0.00%")."</td><td>--</td></tr>";
+		echo "<tr><td>全部</td><td>".($redis->get($a1)!=null?$redis_day_all=$redis->get($a1):$redis_day_all='0')."</td><td>$daily_limit_all</td><td>".($daily_limit_all!=null&&$daily_limit_all!='无限制'&&$daily_limit_all!='0'?number_format(100*$redis_day_all/$daily_limit_all,2)."%":"0.00%")."</td><td>".($redis->get($a2)!=null?$redis_mon_all=$redis->get($a2):$redis_mon_all='0')."</td><td>$monthly_limit_all</td><td>".($monthly_limit_all!=null&&$monthly_limit_all!='无限制'&&$monthly_limit_all!='0'?number_format(100*$redis_mon_all/$monthly_limit_all,2)."%":"0.00%")."</td><td>--</td></tr>";
 		foreach($area_code as $area){
 			echo "<tr>";
 			//省份
