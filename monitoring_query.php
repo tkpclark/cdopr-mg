@@ -124,6 +124,7 @@ if(!empty($cmd_ids)){
 				if($visit[1]==$v[0] && $area==$visit[2]){
 					$visit_day=$visit[3];
 					$visit_mon=$visit[4];
+
 				}
 				if($visit[2]=='默认' && $visit_all[1]==$v[0]){
 					$default_visit_day=$visit[3];
@@ -131,16 +132,16 @@ if(!empty($cmd_ids)){
 				}
 			}
 			}
-			echo "<td>".($visit_day!=null?$visit_day_true=$visit_day:($default_visit_day!=null?$visit_day_true=$default_visit_day:$visit_day_true='无限制'))."</td>";
+			echo "<td>".($visit_day!=null?$visit_day_true=$visit_day:($default_visit_day!=null&&$default_visit_day!='0'?$visit_day_true=$default_visit_day:$visit_day_true='无限制'))."</td>";
 			//百分比
-			echo "<td>".($visit_day_true!=null&&$visit_day_true!='无限制'?number_format(100*$redis_day/$visit_day_true,2)."%":"0.00%")."</td>";
+			echo "<td>".($visit_day_true!=null&&$visit_day_true!='无限制'&&$visit_day_true!='0'?number_format(100*$redis_day/$visit_day_true,2)."%":"0.00%")."</td>";
 			//总数月量p2_54_山东_201406
 			$p2_mon = "p2_".$v[0]."_".$area."_".date('Ym',time());
 			echo "<td>".($redis->get($p2_mon)!=null?$redis_mon=$redis->get($p2_mon):$redis_mon='0')."</td>";
 			//总数月限
-			echo "<td>".($visit_mon!=null?$visit_mon_true=$visit_mon:($default_visit_mon!=null?$visit_mon_true=$default_visit_mon:$visit_mon_true='无限制'))."</td>";
+			echo "<td>".($visit_mon!=null?$visit_mon_true=$visit_mon:($default_visit_mon!=null&&$default_visit_mon!='0'?$visit_mon_true=$default_visit_mon:$visit_mon_true='无限制'))."</td>";
 			//百分比
-			echo "<td>".($visit_mon_true!=null&&$visit_mon_true!='无限制'?number_format(100*$redis_mon/$visit_mon_true,2)."%":"0.00%")."</td>";
+			echo "<td>".($visit_mon_true!=null&&$visit_mon_true!='无限制'&&$visit_mon_true!='0'?number_format(100*$redis_mon/$visit_mon_true,2)."%":"0.00%")."</td>";
 			//状态
 			echo "<td>";
 			if(strpos($v[5],$area)!==false){echo "已开通";}else{echo "未开通";}
