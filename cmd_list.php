@@ -74,7 +74,7 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <th>黑名单检测</th>
 <th>所属通道</th>
 <th>所属通道业务</th>
-<th>资费</th>
+<th>资费(元)</th>
 <th>代计费</th>
 <th>使用渠道</th>
 <th>使用渠道业务</th>
@@ -118,7 +118,7 @@ while($row=mysqli_fetch_row($result))
 	//service
 	echo "<td align=center>($ro[0])$ro[3]-$ro[1]+$ro[2]</td>";
 	//fee
-	echo "<td align=center>$ro[4]</td>";
+	echo "<td align=center>".number_format($ro[4]/100,2)."</td>";
 	}
 	else{
 	echo "<td align=center></td>";

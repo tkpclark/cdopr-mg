@@ -26,7 +26,7 @@ include("style.php");
 	<th>业务名称</th>
 	<th>spnumber</th>
 	<th>mo指令</th>
-	<th>资费</th>
+	<th>资费(元)</th>
 	<th>计费代码</th>
 	<th>网关</th>
 	<th>信息类型</th>
@@ -58,7 +58,7 @@ include("style.php");
 	  echo "<td align=center>$row[2]</td>";
 	  
 	  //fee
-	  echo "<td align=center>$row[7]</td>";
+	  echo "<td align=center>".number_format($row[7]/100,2)."</td>";
 	  
 	  //service_id
 	  echo "<td align=center>$row[10]</td>";
