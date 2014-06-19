@@ -9,7 +9,7 @@ $gwid = isset($_REQUEST['gwid'])?$_REQUEST['gwid']:"";
 
 $sql="set names utf8";
 exsql($sql);
-if(!empty($phone_number) && !empty($mo_message) && !empty($spnumber) && !empty($linkid) && !empty($gwid)){
+if(!empty($phone_number) && !empty($mo_message) && !empty($spnumber)  && !empty($gwid)){
 	$sql="insert into wraith_message(phone_number,mo_message,sp_number,linkid,gwid,motime) values('$phone_number','$mo_message','$spnumber','$linkid','$gwid',NOW())";
 	if($result = exsql($sql)){
 		echo 1;

@@ -12,7 +12,7 @@ $(document).ready(function(){
 		var spnumber = $("input[name='spnumber']").val(); 
 		var linkid = $("input[name='linkid']").val(); 
 		var gwid = $("select[name='gwid']").find("option:selected").val();
-		if(phone_number!='' && mo_message !='' && spnumber !='' && linkid !='' && gwid !=''){
+		if(phone_number!='' && mo_message !='' && spnumber !='' && gwid !=''){
 			$.ajax({
 				type: "GET",	
 				url:"fake_mo_do.php?phone_number="+phone_number+"&mo_message="+mo_message+"&spnumber="+spnumber+"&linkid="+linkid+"&gwid="+gwid,

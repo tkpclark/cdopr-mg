@@ -21,11 +21,19 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th><font>序号</th><th><font>用户名</th><th><font>真实姓名</th><th><font>权限</th><th><font>编辑</th><th><font>删除</th></tr>
+<tr><th><font>序号</th><th><font>用户名</th><th><font>真实姓名</th><th><font>权限</th><th><font>渠道</th><th><font>编辑</th><th><font>删除</th></tr>
 <?php
 
   	$sql="set names utf8";
 	mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	//渠道
+	$sql="select * from mtrs_cp";
+	$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	while($rowcp=mysqli_fetch_assoc($result))
+	{
+		$rowscp[] = $rowcp;
+	}
+
 	$sql="select u.* , r.name as name from wraith_users u left join wraith_role r on u.role=r.id where u.id !=".$_COOKIE['id'];
   $result=exsql($sql);;
   echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
@@ -33,19 +41,27 @@ include("style.php");
   {
     echo"<tr>";
 		
-	echo "<td align=center><font size=2>$row[ID]</td>";
+	echo "<td align=center>$row[ID]</td>";
 
-	  echo "<td align=center><font size=2>$row[username]</td>";
+	  echo "<td align=center>$row[username]</td>";
 	  
 	 
-	  echo "<td align=center><font size=2>$row[membername]</td>";
+	  echo "<td align=center>$row[membername]</td>";
 
 	
-	  echo "<td align=center><font size=2>$row[name]</td>";
+	  echo "<td align=center>$row[name]</td>";
+
+	$cpname="默认";
+	foreach($rowscp as $c){
+		if($c['ID']==$row['cpID']){
+			$cpname=$c['cpname'];
+		}
+	}
+		echo "<td align=center>$cpname</td>";
 	  
-		echo "<td align=center><font size=2><a href=\"update_account.php?id=$row[ID]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+		echo "<td align=center><a href=\"account_edit.php?id=$row[ID]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center onclick=\"return ask($row[ID]);\"><font size=2><a href=\"del_account.php?id=$row[ID]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center onclick=\"return ask($row[ID]);\"><a href=\"del_account.php?id=$row[ID]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

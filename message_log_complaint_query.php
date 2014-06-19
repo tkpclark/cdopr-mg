@@ -1,19 +1,7 @@
 <?php
 	require_once 'mysql.php';
-	
-	if(!isset($_REQUEST['tb']))
-	{
-		echo "need tb argument!";
-		exit;
-	}
-	if($_REQUEST['tb']=='1')
-		$tb="wraith_message";
-	elseif($_REQUEST['tb']=='2')
-		$tb="wraith_message_history";
-	else{
-		echo "tb argument error!";
-		exit;
-	}
+	$tb="wraith_message_history";
+
 	
 	
 	
@@ -27,13 +15,13 @@
 	{
 		$sql_condition.="and phone_number='".$_REQUEST["phone_number"]."' ";
 	}
-	if(isset($_REQUEST["date1"]) && !empty($_REQUEST["date1"]))
+	if(isset($_REQUEST["date1"]) && $_REQUEST["date1"]!='1970-01-01')
 	{
 		$sql_condition.="and motime>='".$_REQUEST["date1"]."' ";
 	}
 	if(isset($_REQUEST["date2"]) && $_REQUEST["date2"]!=date('Y-m-d',time()))
 	{
-		$sql_condition.="and motime<='".$_REQUEST["date2"].":23:59' ";
+		$sql_condition.="and motime<='".$_REQUEST["date2"]."' ";
 	}
 
 	if(isset($_REQUEST["feetype"])&&!empty($_REQUEST["feetype"]))
@@ -56,9 +44,9 @@
 	{
 		$sql_condition.="and serviceID='".$_REQUEST["serviceID"]."' ";
 	}
-	if(isset($_REQUEST["cpid"])&&!empty($_REQUEST["cpid"]))
+	if(isset($_REQUEST["cpID"])&&!empty($_REQUEST["cpID"]))
 	{
-		$sql_condition.="and cpID='".$_REQUEST["cpid"]."' ";
+		$sql_condition.="and cpID='".$_REQUEST["cpID"]."' ";
 	}
 	if(isset($_REQUEST["cp_productID"])&&!empty($_REQUEST["cp_productID"]))
 	{
@@ -68,26 +56,27 @@
 	{
 		$sql_condition.="and cmdID='".$_REQUEST["cmdID"]."' ";
 	}
-	if(isset($_REQUEST["report"])&&!empty($_REQUEST["report"]))
-	{	if($_REQUEST["report"]==3){
-			$sql_condition.="and ISNULL(report) ";
-		}else{
-			$sql_condition.="and report='".$_REQUEST["report"]."' ";
-		}	
-	}
 
 	
 	
 	/**********result_info***************/
 	if($query_type=='result_info')
-	{	
-		$sql="set names utf8";
-		exsql($sql);
-		$sql="select count(*) as count from $tb  ";
+	{
+		$sql="select count(id) as count from $tb  ";
 		$sql.=$sql_condition;
 		$result=mysqli_query($mysqli,$sql);
-		$row=mysqli_fetch_assoc($result);
-		echo json_encode($row);
+		$row1=mysqli_fetch_assoc($result);
+		
+		/*
+		$sql="select count(id) as count from $tb2  ";
+		$sql.=$sql_condition;
+		$result1=mysqli_query($mysqli,$sql);
+		$row2=mysqli_fetch_assoc($result1);
+		
+
+		$rows['count'] = $row1['count']+$row2['count'];
+		*/
+		echo json_encode($row1);
 		exit;
 		
 	}
@@ -102,7 +91,7 @@
 				<th>长号码</th>
 				<th>来源网关</th>
 				<th>mo状态</th>
-				<th>资费(元)</th>
+				<th>资费(分)</th>
 				<th>计费类型</th>
 				<th>下行内容</th>
 				<th>计费代码</th>
@@ -116,6 +105,7 @@
 				<th>渠道</th>
 				<th>渠道业务</th>
 				<th>指令</th>
+				<th>操作</th>
 				</tr>";
 		
 		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID from $tb ";
@@ -159,7 +149,7 @@
 				
 				//资费
 				$v = $row['fee']==-1?'':$row['fee'];
-				echo "<td>".number_format($v/100,2)."</td>";
+				echo "<td>".$v."</td>";
 				
 				//包月、点播
 				if($row['feetype']==1) $v='按条点播';
@@ -234,7 +224,9 @@
 					}
 				}
 				echo "<th>".'('.$cmdIDs[0].')'.$cmdIDs[1].'+'.$cmdIDs[2]."</th>";
-					
+				
+				//投诉
+				echo "<th><button class=query_do type=button _id=$row[id]>投诉</button></th>";
 				echo "</tr>";
 			}
 			mysqli_free_result($result);
@@ -243,3 +235,25 @@
 		
 		
 	}
+echo ' <script>
+	$(document).ready(function(){
+			$(".query_do").click(function(){
+				var id = $(this).attr("_id");
+				$.ajax({
+					type: "GET",	
+					url:"message_log_complaint_do.php?id="+id,
+					cache:false, 
+					success:function(result){
+						if(result==3){
+							alert("已投诉");
+						}else if(result==1){
+							window.location.href="message_complaint_edit.php?id="+id; 
+						}else{
+							alert("操作失败");
+						}
+					} 
+				});
+	
+			});
+	})
+</script>';

@@ -1,20 +1,7 @@
 <?php
 	require_once 'mysql.php';
 	
-	if(!isset($_REQUEST['tb']))
-	{
-		echo "need tb argument!";
-		exit;
-	}
-	if($_REQUEST['tb']=='1')
-		$tb="wraith_message";
-	elseif($_REQUEST['tb']=='2')
-		$tb="wraith_message_history";
-	else{
-		echo "tb argument error!";
-		exit;
-	}
-	
+	$tb="wraith_message_complaint";
 	
 	
 	/***********condition***********/
@@ -27,13 +14,13 @@
 	{
 		$sql_condition.="and phone_number='".$_REQUEST["phone_number"]."' ";
 	}
-	if(isset($_REQUEST["date1"]) && !empty($_REQUEST["date1"]))
+	if(isset($_REQUEST["date1"]) && $_REQUEST["date1"]!='1970-01-01')
 	{
 		$sql_condition.="and motime>='".$_REQUEST["date1"]."' ";
 	}
 	if(isset($_REQUEST["date2"]) && $_REQUEST["date2"]!=date('Y-m-d',time()))
 	{
-		$sql_condition.="and motime<='".$_REQUEST["date2"].":23:59' ";
+		$sql_condition.="and motime<='".$_REQUEST["date2"]."' ";
 	}
 
 	if(isset($_REQUEST["feetype"])&&!empty($_REQUEST["feetype"]))
@@ -56,9 +43,9 @@
 	{
 		$sql_condition.="and serviceID='".$_REQUEST["serviceID"]."' ";
 	}
-	if(isset($_REQUEST["cpid"])&&!empty($_REQUEST["cpid"]))
+	if(isset($_REQUEST["cpID"])&&!empty($_REQUEST["cpID"]))
 	{
-		$sql_condition.="and cpID='".$_REQUEST["cpid"]."' ";
+		$sql_condition.="and cpID='".$_REQUEST["cpID"]."' ";
 	}
 	if(isset($_REQUEST["cp_productID"])&&!empty($_REQUEST["cp_productID"]))
 	{
@@ -68,26 +55,27 @@
 	{
 		$sql_condition.="and cmdID='".$_REQUEST["cmdID"]."' ";
 	}
-	if(isset($_REQUEST["report"])&&!empty($_REQUEST["report"]))
-	{	if($_REQUEST["report"]==3){
-			$sql_condition.="and ISNULL(report) ";
-		}else{
-			$sql_condition.="and report='".$_REQUEST["report"]."' ";
-		}	
-	}
 
 	
 	
 	/**********result_info***************/
 	if($query_type=='result_info')
-	{	
-		$sql="set names utf8";
-		exsql($sql);
-		$sql="select count(*) as count from $tb  ";
+	{
+		$sql="select count(id) as count from $tb  ";
 		$sql.=$sql_condition;
 		$result=mysqli_query($mysqli,$sql);
-		$row=mysqli_fetch_assoc($result);
-		echo json_encode($row);
+		$row1=mysqli_fetch_assoc($result);
+		
+		/*
+		$sql="select count(id) as count from $tb2  ";
+		$sql.=$sql_condition;
+		$result1=mysqli_query($mysqli,$sql);
+		$row2=mysqli_fetch_assoc($result1);
+		
+
+		$rows['count'] = $row1['count']+$row2['count'];
+		*/
+		echo json_encode($row1);
 		exit;
 		
 	}
@@ -102,7 +90,7 @@
 				<th>长号码</th>
 				<th>来源网关</th>
 				<th>mo状态</th>
-				<th>资费(元)</th>
+				<th>资费(分)</th>
 				<th>计费类型</th>
 				<th>下行内容</th>
 				<th>计费代码</th>
@@ -116,9 +104,21 @@
 				<th>渠道</th>
 				<th>渠道业务</th>
 				<th>指令</th>
+				<th>投诉内容</th>
+				<th>需给用户回复的内容</th>
+				<th>处理结果</th>
+				<th>退费方式</th>
+				<th>退费时间</th>
+				<th>退费结果</th>
+				<th>退费联系电话</th>
+				<th>联通工号</th>
+				<th>客服工号</th>
+				<th>操作</th>
 				</tr>";
 		
-		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID from $tb ";
+		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID,
+		complaint_content,reply_content,complaint_result,refund_form,refund_time,refund_result,refund_phone,unicom_number,customer_service_number
+		from $tb ";
 		$sql.=$sql_condition;
 		/*
 		$sql.=" union all ";
@@ -138,7 +138,7 @@
 			{
 				$row_cmdIDs[]=$row_cmdID;
 			}
-
+			$count=0;
 			while($row=mysqli_fetch_assoc($result))
 			{
 				echo "<tr align='center'>";
@@ -159,7 +159,7 @@
 				
 				//资费
 				$v = $row['fee']==-1?'':$row['fee'];
-				echo "<td>".number_format($v/100,2)."</td>";
+				echo "<td>".$v."</td>";
 				
 				//包月、点播
 				if($row['feetype']==1) $v='按条点播';
@@ -233,10 +233,22 @@
 						$cmdIDs=$v;
 					}
 				}
-				echo "<th>".'('.$cmdIDs[0].')'.$cmdIDs[1].'+'.$cmdIDs[2]."</th>";
-					
+				echo "<td>".'('.$cmdIDs[0].')'.$cmdIDs[1].'+'.$cmdIDs[2]."</td>";
+				
+				echo "<td>$row[complaint_content]</td>";
+				echo "<td>$row[reply_content]</td>";
+				echo "<td>".(($row['complaint_result'])==1?"已受理":"已处理")."</td>";
+				echo "<td>$row[refund_form]</td>";
+				echo "<td>$row[refund_time]</td>";
+				echo "<td>$row[refund_result]</td>";
+				echo "<td>$row[refund_phone]</td>";
+				echo "<td>$row[unicom_number]</td>";
+				echo "<td>$row[customer_service_number]</td>";
+				echo "<td><a href='message_complaint_edit.php?id=$row[id]'>编辑</td>";
 				echo "</tr>";
+				$count+=$row['fee'];
 			}
+			echo "<tr><td colspan=29></td><td>总计</td><td>$count</td></tr>";
 			mysqli_free_result($result);
 		}
 		echo "</table>";

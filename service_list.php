@@ -45,23 +45,23 @@ include("style.php");
   {
     echo"<tr>";
 		//seq
-	  echo "<td align=center><font size=2>$row[0]</td>";
+	  echo "<td align=center>$row[0]</td>";
 	  
 	  
 	  //name
-	  echo "<td align=center><font size=2>$row[3]</td>";
+	  echo "<td align=center>$row[3]</td>";
 	  
 	  //sp number
-	  echo "<td align=center><font size=2>$row[1]</td>";
+	  echo "<td align=center>$row[1]</td>";
 	  
 	  //mocmd
-	  echo "<td align=center><font size=2>$row[2]</td>";
+	  echo "<td align=center>$row[2]</td>";
 	  
 	  //fee
-	  echo "<td align=center><font size=2>$row[7]</td>";
+	  echo "<td align=center>$row[7]</td>";
 	  
 	  //service_id
-	  echo "<td align=center><font size=2>$row[10]</td>";
+	  echo "<td align=center>$row[10]</td>";
 	  
 	  //gwid
 	  if($row[11])
@@ -70,24 +70,24 @@ include("style.php");
 		$result_gwname=exsql($sql);
 	  	$row_gwname=mysqli_fetch_row($result_gwname);
 	  	$gwname="($row_gwname[0])".$row_gwname[1];
-	  	echo "<td align=center><font size=2>$gwname</td>";
+	  	echo "<td align=center>$gwname</td>";
 	  }
 	  else
-	  	echo "<td align=center><font size=2></td>";
+	  	echo "<td align=center></td>";
 	  
 	  //msgtype
 	  if($row[4]==1)
-			echo "<td align=center><font size=2>短信</td>";
+			echo "<td align=center>短信</td>";
 		else if($row[4]==2)
-			echo "<td align=center><font size=2>彩信</td>";
+			echo "<td align=center>彩信</td>";
 		else
-			echo "<td align=center><font size=2>数据异常</td>";
+			echo "<td align=center>数据异常</td>";
 	  
 		 //msgtype
 	  if($row[8]==1)
-			echo "<td align=center><font size=2>点播</td>";
+			echo "<td align=center>点播</td>";
 		else if($row[8]==2)
-			echo "<td align=center><font size=2>包月</td>";
+			echo "<td align=center>包月</td>";
 
 	  //belong which sp
 	  //get spname
@@ -95,21 +95,21 @@ include("style.php");
 		$result_spname=exsql($sql);
 	  	$row_spname=mysqli_fetch_row($result_spname);
 	  	$spname=$row_spname[0];
-	  	echo "<td align=center><font size=2>$spname</td>";
+	  	echo "<td align=center>$spname</td>";
 	  
 	  //status
 	  if($row[5]==1)
-			echo "<td align=center><font size=2>正常</td>";
+			echo "<td align=center>正常</td>";
 		else if($row[5]==2)
-			echo "<td align=center><font size=2>关闭</td>";
+			echo "<td align=center>关闭</td>";
 		else
-			echo "<td align=center><font size=2>数据异常</td>";
+			echo "<td align=center>数据异常</td>";
 			
 		//modify
-	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center ><font size=2><a href=\"service_edit.php?serviceID=$row[0] \" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+	//	echo "<td align=center>编辑</td>";
+		echo "<td align=center ><a href=\"service_edit.php?serviceID=$row[0] \" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"service_del.php?serviceid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center onclick=\"return ask($row[0]);\"><a href=\"service_del.php?serviceid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

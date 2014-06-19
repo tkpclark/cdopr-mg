@@ -16,24 +16,14 @@
 
             function compose_url(query_type,pageNumber,pageSize){
                 var url="";
-                url += "message_log_query.php?tb=<?php echo $_REQUEST['tb'];?>";
+                url += "message_log_complaint_query.php?act=1";
                 url += "&query_type="+query_type;
                 url += "&phone_number="+$("#phone_number").val();
-                url += "&products="+$("#products").val();
+                //url += "&products="+$("#products").val();
                 url += "&date1="+$('#date1').datebox('getValue');
                 url += "&date2="+$('#date2').datebox('getValue');
                 url += "&pageSize="+pageSize;
                 url += "&pageNumber="+pageNumber;
-
-				url += "&feetype="+$("#feetype").val();
-				url += "&gwid="+$("#gwid").val();
-				url += "&province="+$("#province").val();
-				url += "&spID="+$("#spID").val();
-				url += "&serviceID="+$("#serviceID").val();
-				url += "&cpid="+$("#cpID").val();
-				url += "&cp_productID="+$("#cp_productID").val();
-				url += "&cmdID="+$("#cmdID").val();
-				url += "&report="+$("#report").val();
 
                 return url;
                 
@@ -55,7 +45,7 @@
         		
             //$('#result_records').panel('refresh',compose_url('result_page',pageNumber,pageSize));
         	var date= new Date(1);
-			var date1= new Date(1);
+			var date1= new Date(1970,00,02);
     		$('#date1').datebox('setValue', yesterday(date1));
     		$('#date2').datebox('setValue', yesterday(date));
     		
@@ -72,136 +62,22 @@
 				});
         	})
         })
-        
-		function change(type){ 
-			var val = $("#"+type+"ID").val();
-			  $.get("message_log_json.php", { type: type, id: val },
-				  function(data){
-					if(type=='sp'){
-						$("#serviceID").html(data);
-					}else{
-						$("#cp_productID").html(data);
-					}
-				  });
-		}
         </script>
 </head>
 <body>
-
+<font size=4><caption>客户投诉>></caption></font>
+<br><br>
 
 
 <?php 
 	include("check.php"); 
 	include("style.php");
-	include("area_code.php");
+	//include("area_code.php");
 ?>
 
 	
 	
 	<table width='100%'>
-	 <tr><td>通道&nbsp;&nbsp;
- 	<select id=spID onchange="change('sp')">
-		<option value="">全部</option>
-<?php
- 	$sql="select ID,spname from mtrs_sp";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-
-	<td>通道业务&nbsp;&nbsp;
- 	<select id=serviceID>
-		<option value="">全部</option>
-<?php
- 	$sql="select ID,name from mtrs_service";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-
-
-	<td>渠道&nbsp;&nbsp;
- 	<select id=cpID onchange="change('cp')">
-		<option value="">全部</option>
-<?php
- 	$sql="select ID,cpname from mtrs_cp";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-
-	<td>渠道业务&nbsp;&nbsp;
- 	<select id=cp_productID>
-		<option value="">全部</option>
-<?php
- 	$sql="select id,name from mtrs_cp_product";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-	</tr>
-
-
-	 <tr><td>计费类型&nbsp;&nbsp;
- 	<select id=feetype>
-		<option value="">全部</option>
-		<option value="1">点播 </option>
-		<option value="2">包月</option>
- 	</select></td>
-
-
-	<td>网关&nbsp;&nbsp;
- 	<select id=gwid>
-		<option value="">全部</option>
-<?php
- 	$sql="select id,comment from wraith_gw where status=1";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>$row[1]</option>";
- 	}
-?>
- 	</select></td>
-
-
-	<td>所属省&nbsp;&nbsp;
- 	<select id=province>
-	<option value=''>全部</option>
-<?php
-		while($key = key($area_code))
-		{
-			echo "<option value='$area_code[$key]'>$area_code[$key]</option>";
-			next($area_code);
-		}
-?>
- 	</select></td>
-	<td>指令&nbsp;&nbsp;
-		<select id=cmdID>
-			<option value="">全部</option>
-			<?php
-				$sql="select ID,sp_number,mo_cmd from mtrs_cmd";
-				$result=exsql($sql);
-				while($row=mysqli_fetch_row($result))
-				{
-					echo "<option value=$row[0]>($row[0])$row[1]+$row[2]</option>";
-				}
-			?>
-		</select>
-	</td>
-	 	
-	</tr>
 	<tr>
  	<td>开始时间&nbsp;<input id="date1" type="text" class="easyui-datebox" data-options="formatter:myformatter" required="required" value=""></input></td>
  	<td>结束时间&nbsp;<input id='date2' type="text" class="easyui-datebox" data-options="formatter:myformatter" required="required" value=""></input></td>
@@ -223,9 +99,8 @@
 		
 	</script>
  	<td>手机号码<input id=phone_number name=phone_number type=text value='' /></td>
-	<td>状态<select id=report ><option value="">全部</option><option value="1">成功</option><option value="2">失败</option><option value="3">等待mr</option></select></td>
+	<td><button id=query type=button>查询</button></td>
  	</tr>
-	<tr><td colspan=4><button id=query type=button>查询</button></td></tr>
 	</table>
 	
  	

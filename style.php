@@ -29,7 +29,7 @@
         td,th {  
             border: 1px solid #B1CDE3;  
             background: #F4F6FD;  
-            font-size:12px;  
+            font-size:11px !important;   
             padding: 3px 3px 3px 8px;  
             color: #4f6b72;  
             text-align:center;
@@ -38,7 +38,7 @@
 			background: #D3E9FF	;
 			color: black;
 			font-weight:bold;
-			font-size:13px; 
+			font-size:12px; 
 
 		}
 		</style>

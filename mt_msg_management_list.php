@@ -31,10 +31,10 @@ include("style.php");
   {
     echo"<tr>";
 		//seq
-	  echo "<td align=center><font size=2>$row[0]</td>";
+	  echo "<td align=center>$row[0]</td>";
 	  
 	  //message
-	  echo "<td align=center><font size=2>$row[1]</td>";
+	  echo "<td align=center>$row[1]</td>";
 
 	  //serviceID
 		$s = "select t1.id,t1.sp_number,t1.mo_cmd,t1.name,t2.id,t2.spname from mtrs_service t1,mtrs_sp t2 where t1.id=$row[2] and t1.spID=t2.ID";
@@ -50,17 +50,17 @@ include("style.php");
 	  
 	  //msgtype1：sp下发语 2：运营商下发语
 	  if($row[3]==1)
-			echo "<td align=center><font size=2>sp下发语</td>";
+			echo "<td align=center>sp下发语</td>";
 		else if($row[3]==2)
-			echo "<td align=center><font size=2>运营商下发语</td>";
+			echo "<td align=center>运营商下发语</td>";
 		else
-			echo "<td align=center><font size=2>数据异常</td>";
+			echo "<td align=center>数据异常</td>";
 			
 		//modify
-	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center><font size=2><a href=\"mt_msg_management_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+	//	echo "<td align=center>编辑</td>";
+		echo "<td align=center><a href=\"mt_msg_management_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"mt_msg_management_del.php?id=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center onclick=\"return ask($row[0]);\"><a href=\"mt_msg_management_del.php?id=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

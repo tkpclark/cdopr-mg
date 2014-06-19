@@ -32,24 +32,24 @@ include("style.php");
   {
     echo"<tr>";
 		//seq
-	  echo "<td align=center><font size=2>$row[0]</td>";
+	  echo "<td align=center>$row[0]</td>";
 	  
 	  //cp name
-	  echo "<td align=center><font size=2>$row[1]</td>";
+	  echo "<td align=center>$row[1]</td>";
 	  
 	  //status
 	  if($row[2]==1)
-			echo "<td align=center><font size=2>正常</td>";
+			echo "<td align=center>正常</td>";
 		else if($row[2]==2)
-			echo "<td align=center><font size=2>关闭</td>";
+			echo "<td align=center>关闭</td>";
 		else
-			echo "<td align=center><font size=2>数据异常</td>";
+			echo "<td align=center>数据异常</td>";
 			
 		//modify
-	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center><font size=2><a href=\"cp_edit.php?cp_id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+	//	echo "<td align=center>编辑</td>";
+		echo "<td align=center><a href=\"cp_edit.php?cp_id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center  onclick=\"return ask($row[0]);\"><font size=2><a href=\"cp_del.php?cpid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center  onclick=\"return ask($row[0]);\"><a href=\"cp_del.php?cpid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

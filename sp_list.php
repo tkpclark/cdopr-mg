@@ -21,7 +21,7 @@ include("style.php");
 <!--<table border=1 cellspacing="0">-->
 <table border="1" cellspacing="0" cellpadding="1" width="50%" class="tabs">
 
-<tr><th><font>序号</th><th><font>sp名称</th><th><font>企业代码</th><th><font>状态</th><th><font>编辑</th><th><font>删除</th></tr>
+<tr><th>序号</th><th>sp名称</th><th>企业代码</th><th>状态</th><th>编辑</th><th>删除</th></tr>
 <?php
 
   $buf= "select * from mtrs_sp";
@@ -31,27 +31,27 @@ include("style.php");
   {
     echo"<tr>";
 		//seq
-	  echo "<td align=center><font size=2>$row[0]</td>";
+	  echo "<td align=center>$row[0]</td>";
 	  
 	  //sp name
-	  echo "<td align=center><font size=2>$row[1]</td>";
+	  echo "<td align=center>$row[1]</td>";
 
 	  //sp name
-	  echo "<td align=center><font size=2>$row[3]</td>";
+	  echo "<td align=center>$row[3]</td>";
 	  
 	  //status
 	  if($row[2]==1)
-			echo "<td align=center><font size=2>正常</td>";
+			echo "<td align=center>正常</td>";
 		else if($row[2]==2)
-			echo "<td align=center><font size=2>关闭</td>";
+			echo "<td align=center>关闭</td>";
 		else
-			echo "<td align=center><font size=2>数据异常</td>";
+			echo "<td align=center>数据异常</td>";
 			
 		//modify
-	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center><font size=2><a href=\"sp_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+	//	echo "<td align=center>编辑</td>";
+		echo "<td align=center><a href=\"sp_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"sp_del.php?spid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center onclick=\"return ask($row[0]);\"><a href=\"sp_del.php?spid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

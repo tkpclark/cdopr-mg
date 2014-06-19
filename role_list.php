@@ -47,9 +47,9 @@ while($menu=mysqli_fetch_assoc($result_menu))
   {
     echo"<tr>";
 		
-	echo "<td align=center><font size=2>$row[id]</td>";
+	echo "<td align=center>$row[id]</td>";
 
-	echo "<td align=center><font size=2>$row[name]</td>";
+	echo "<td align=center>$row[name]</td>";
 	
 	echo "<td style='text-align:left'>";
 	foreach($menus as $m){
@@ -62,9 +62,9 @@ while($menu=mysqli_fetch_assoc($result_menu))
 		}
 	}
 	echo "</td>"; 
-		echo "<td align=center><font size=2><a href=\"role_edit.php?id=$row[id]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+		echo "<td align=center><a href=\"role_edit.php?id=$row[id]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center onclick=\"return ask($row[id]);\"><font size=2><a href=\"del_role.php?id=$row[id]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center onclick=\"return ask($row[id]);\"><a href=\"del_role.php?id=$row[id]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }}
 ?>

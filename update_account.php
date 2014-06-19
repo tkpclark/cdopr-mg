@@ -1,13 +1,9 @@
 <?php 
 	include("check.php"); 
 	include("style.php");
-	$id = @$_GET['id'];
-	if(empty($id)){
-		$membername = @$_COOKIE['membername'];
-		$id = @$_COOKIE['id'];
-	}else{
-		$j = "标识";
-	}
+	$membername = @$_COOKIE['membername'];
+	$id = @$_COOKIE['id'];
+
 ?>
 <script language="Javascript">
 function checkpwd()
@@ -36,7 +32,7 @@ function checkpwd()
 <?php if(isset($j))echo "<input type=hidden name=j value='标识'>";?>
 <tr height="30"><td align=center><font size=2 color=red>密码：&nbsp;&nbsp;&nbsp;&nbsp;<input type=password name=pwd1></td></tr>
 <tr height="30"><td align=center><font size=2 color=red>重复输入：<input type=password name=pwd2></td></tr>
-<tr height="30"><td align=center><font size=2 color=red>姓名：&nbsp;&nbsp;&nbsp;&nbsp;<input type=text name='member_name' value=""></td></tr>
+<tr height="30"><td align=center><font size=2 color=red>姓名：&nbsp;&nbsp;&nbsp;&nbsp;<input type=text name='member_name' value="<?php echo $membername;?>"></td></tr>
 <tr><td align=center><input type=submit value=确定></td></tr>
 </table>
 

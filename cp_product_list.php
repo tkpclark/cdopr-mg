@@ -52,43 +52,43 @@ include("style.php");
   {
     echo"<tr>";
 		//id
-	  echo "<td align=center><font size=2>$row[0]</td>";
+	  echo "<td align=center>$row[0]</td>";
 	  
 	  //name				
-	  echo "<td align=center><font size=2>$row[1]</td>";
+	  echo "<td align=center>$row[1]</td>";
 
 	  //cpID
 	  	$sql = "select cpname from mtrs_cp where id=$row[2]";
 		$mtrs_cp_result=exsql($sql);
 		$mtrs_cp=mysqli_fetch_row($mtrs_cp_result);
-	  echo "<td align=center><font size=2>$mtrs_cp[0]</td>";
+	  echo "<td align=center>$mtrs_cp[0]</td>";
 
 	  //mourl
-	  echo "<td align=center><font size=2>$row[3]</td>";
+	  echo "<td align=center>$row[3]</td>";
 
 	  //mrurl
-	  echo "<td align=center><font size=2>$row[4]</td>";
+	  echo "<td align=center>$row[4]</td>";
 	  
 
 	echo "<td align=center>";
 	echo "<display_deduction></display_deduction>";
 	//echo "<add_deduction><a href='#'>添加扣量</a></add_deduction>";
-	echo "<see_deduction style=''><a href='#'>查看扣量</a></see_deduction>";
+	echo "<see_deduction style=''><a href='#'><img src='images/chakan.png' alt='查看扣量' width=16 height=16></a></see_deduction>";
 	echo "</td>";
 
 
 		//remarks
-	  echo "<td align=center><font size=2>$row[5]</td>";
+	  echo "<td align=center>$row[5]</td>";
 
 	  //createtime
-	  echo "<td align=center><font size=2>$row[6]</td>";
+	  echo "<td align=center>$row[6]</td>";
 
 
 		//modify
-	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center><font size=2><a href=\"cp_product_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+	//	echo "<td align=center>编辑</td>";
+		echo "<td align=center><a href=\"cp_product_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center  onclick=\"return ask($row[0]);\"><font size=2><a href=\"cp_product_del.php?id=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center  onclick=\"return ask($row[0]);\"><a href=\"cp_product_del.php?id=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

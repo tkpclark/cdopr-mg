@@ -31,28 +31,28 @@ include("style.php");
   {
     echo"<tr>";
 		//seq
-	  echo "<td align=center><font size=2>$row[0]</td>";
+	  echo "<td align=center>$row[0]</td>";
 	  
 	  //sp name
-	  echo "<td align=center><font size=2>$row[1]</td>";
+	  echo "<td align=center>$row[1]</td>";
 	  
 	  //status
 	  if($row[2]==1)
-			echo "<td align=center><font size=2>有效</td>";
+			echo "<td align=center>有效</td>";
 		else
-			echo "<td align=center><font size=2>无效</td>";
+			echo "<td align=center>无效</td>";
 	
 	//belongto
 	  if($row[3]==1){
-			echo "<td align=center><font size=2>自有</td>";
+			echo "<td align=center>自有</td>";
 	  }elseif($row[3]==2){
-			echo "<td align=center><font size=2>合作方</td>";
-	  }else{echo "<td align=center><font size=2></td>";}
+			echo "<td align=center>合作方</td>";
+	  }else{echo "<td align=center></td>";}
 		//modify
-	//	echo "<td align=center><font size=2>编辑</td>";
-		echo "<td align=center><font size=2><a href=\"gw_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+	//	echo "<td align=center>编辑</td>";
+		echo "<td align=center><a href=\"gw_edit.php?id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 		//delete
-		echo "<td align=center onclick=\"return ask($row[0]);\"><font size=2><a href=\"gw_del.php?id=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+		echo "<td align=center onclick=\"return ask($row[0]);\"><a href=\"gw_del.php?id=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
     echo"</tr>";
   }
 ?>

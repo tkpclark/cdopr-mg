@@ -16,8 +16,7 @@ include("check.php");
 $id          = intval($_POST['id']);
 $pwd1        = trim($_POST['pwd1']);
 $member_name = trim($_POST['member_name']);
-$j           = trim(@$_POST['j']);
-$url = !empty($j)?'account_list.php':'update_account.php';
+$url = 'update_account.php';
 if(!empty($id)){
 	if(!empty($member_name) || !empty($pwd1)){
 		$sql="set names utf8";
@@ -36,15 +35,13 @@ if(!empty($id)){
 			echo "<div style='width:100%;margin-top:200px;text-align:center'>修改失败，请重更改！</div><div style='width:100%;text-align:center'><a href='".$url."'>返回</a></div>";
 		}else{
 			
-			if(!empty($member_name) && empty($j))setcookie("membername",$member_name);
+			if(!empty($member_name))setcookie("membername",$member_name);
 
-			if(!empty($pwd1) && empty($j))setcookie("password",$pwd1);
+			if(!empty($pwd1))setcookie("password",$pwd1);
 
-			if(!empty($j)){
-				echo "<div style='width:100%;margin-top:200px;text-align:center'>修改成功！<span id='time'>5</span>秒后，自动跳转</div><div style='width:100%;text-align:center'><a href='account_list.php'>返回</a></div><script type='text/javascript'> delayURL('account_list.php');</script> ";
-			}else{
-				echo "<div style='width:100%;margin-top:200px;text-align:center'>修改成功！</div>";
-			}
+
+			echo "<div style='width:100%;margin-top:200px;text-align:center'>修改成功！</div>";
+
 		}
 	}else{
 		echo "<div style='width:100%;margin-top:200px;text-align:center'>没有可更新信息！</div><div style='width:100%;text-align:center'><a href='".$url."'>返回</a></div>";

@@ -80,7 +80,7 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <th>使用渠道业务</th>
 <th>总量限制</th>
 <th>单用户限制</th>
-<th>下行</th>
+<th>查看下行</th>
 <th>开通省份</th>
 <th>禁止地区</th>
 <th>状态</th>
@@ -96,16 +96,16 @@ while($row=mysqli_fetch_row($result))
 {
 	echo"<tr>";
 	//seq
-	echo "<td align=center><font size=2>$row[0]</td>";
+	echo "<td align=center>$row[0]</td>";
 
 	//cmd(spnumber+mocmd)precise
-	echo "<td align=center><font size=2>$row[1]+$row[2]</td>";
+	echo "<td align=center>$row[1]+$row[2]</td>";
 
 	//checkblk
 	  if($row[9]==1)
-			echo "<td align=center><font size=2>是</td>";
+			echo "<td align=center>是</td>";
 		else
-			echo "<td align=center><font size=2>否</td>";
+			echo "<td align=center>否</td>";
 		
 
 	$s = "select t1.id,t1.sp_number,t1.mo_cmd,name,fee,gwid,t2.id,t2.spname from mtrs_service t1,mtrs_sp t2 where t1.id=$row[4] and t1.spID=t2.ID";
@@ -114,26 +114,26 @@ while($row=mysqli_fetch_row($result))
 	
 	if(mysqli_num_rows($r))
 	{	//sp
-	echo "<td align=center><font size=2>($ro[6])$ro[7]</td>";
+	echo "<td align=center>($ro[6])$ro[7]</td>";
 	//service
-	echo "<td align=center><font size=2>($ro[0])$ro[3]-$ro[1]+$ro[2]</td>";
+	echo "<td align=center>($ro[0])$ro[3]-$ro[1]+$ro[2]</td>";
 	//fee
-	echo "<td align=center><font size=2>$ro[4]</td>";
+	echo "<td align=center>$ro[4]</td>";
 	}
 	else{
-	echo "<td align=center><font size=2></td>";
-	echo "<td align=center><font size=2></td>";
-	echo "<td align=center><font size=2></td>";
+	echo "<td align=center></td>";
+	echo "<td align=center></td>";
+	echo "<td align=center></td>";
 	}
 		
 		
 	//is_agent
 	  if($row[10]==2)
-			echo "<td align=center><font size=2>是</td>";
+			echo "<td align=center>是</td>";
 		else   if($row[10]==1)
-			echo "<td align=center><font size=2>不是</td>";
+			echo "<td align=center>不是</td>";
 		else
-			echo "<td align=center><font size=2>异常</td>";
+			echo "<td align=center>异常</td>";
 
 
 	
@@ -147,13 +147,13 @@ while($row=mysqli_fetch_row($result))
 
 	if(mysqli_num_rows($r))
 	{	//cp
-		echo "<td align=center><font size=2>($ro[2])$ro[3]</td>";
+		echo "<td align=center>($ro[2])$ro[3]</td>";
 		//cp_product
-		echo "<td align=center><font size=2>($ro[0])$ro[1]</td>";
+		echo "<td align=center>($ro[0])$ro[1]</td>";
 	}	
 	else{
-		echo "<td align=center><font size=2></td>";
-		echo "<td align=center><font size=2></td>";
+		echo "<td align=center></td>";
+		echo "<td align=center></td>";
 	}
 	
 	
@@ -163,18 +163,18 @@ while($row=mysqli_fetch_row($result))
     /*
 	//msgtype
 	if($row[6]==1)
-		echo "<td align=center><font size=2>短信</td>";
+		echo "<td align=center>短信</td>";
 	else if($row[6]==2)
-		echo "<td align=center><font size=2>彩信</td>";
+		echo "<td align=center>彩信</td>";
 	else
-		echo "<td align=center><font size=2>数据异常</td>";
+		echo "<td align=center>数据异常</td>";
 	*/
 	//deduction
 
 	echo "<td align=center>";
 	//display deduction
 	echo "<display_deduction></display_deduction>";
-	echo "<see_deductions style=''><a href='#'>总量限制</a></see_deductions>";
+	echo "<see_deductions style=''><a href='#'><img src='images/chakan.png' alt='总量限制' width=16 height=16></a></see_deductions>";
 	//echo "&nbsp;";
 	//echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
 	echo "</td>";
@@ -182,7 +182,7 @@ while($row=mysqli_fetch_row($result))
 	echo "<td align=center>";
 	//display deduction
 	echo "<display_deduction></display_deduction>";
-	echo "<see_deduction style=''><a href='#'>单用户限制</a></see_deduction>";
+	echo "<see_deduction style=''><a href='#'><img src='images/chakan.png' alt='单用户限制' width=16 height=16></a></see_deduction>";
 	//echo "&nbsp;";
 	//echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
 	echo "</td>";
@@ -190,30 +190,30 @@ while($row=mysqli_fetch_row($result))
 	echo "<td align=center>";
 	//display cmd_mt
 	echo "<display_cmd_mt></display_cmd_mt>";
-	echo "<see_cmd_mt style=''><a href='#'>查看下行</a></see_cmd_mt>";
+	echo "<see_cmd_mt style=''><a href='#'><img src='images/chakan.png' alt='查看下行' width=16 height=16></a></see_cmd_mt>";
 	echo "</td>";
 
 	//开通省份
 	$open_province = $row[7]?$row[7]:"默认全部开通";
-	echo "<td align=center><font size=2>$open_province</td>";
+	echo "<td align=center>$open_province</td>";
 	//禁止地区
-	echo "<td align=center><font size=2>$row[8]</td>";
+	echo "<td align=center>$row[8]</td>";
 	
 	//状态
 	if($row[5]==1)
-		echo "<td align=center><font size=2>正常</td>";
+		echo "<td align=center>正常</td>";
 	else if($row[5]==2)
-		echo "<td align=center><font size=2>关闭</td>";
+		echo "<td align=center>关闭</td>";
 	else
-		echo "<td align=center><font size=2>数据异常</td>";
+		echo "<td align=center>数据异常</td>";
 
 	//modify
-	//	echo "<td align=center><font size=2>编辑</td>";
+	//	echo "<td align=center>编辑</td>";
 
 
-	echo "<td align=center><font size=2><a href=\"cmd_edit.php?cmd_id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
+	echo "<td align=center><a href=\"cmd_edit.php?cmd_id=$row[0]\" ><img src='images/b_edit.png' alt='编辑'></a>&nbsp;</td>";
 	//delete
-	echo "<td align=center onclick=\"return ask($row[0]);\" ><font size=2><a href=\"cmd_del.php?cmdid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
+	echo "<td align=center onclick=\"return ask($row[0]);\" ><a href=\"cmd_del.php?cmdid=$row[0]\" ><img src='images/b_drop.png' alt='删除'></a>&nbsp;</td>";
 	echo"</tr>";
 }
 mysqli_free_result($result);
