@@ -38,6 +38,9 @@ if(!isset($_FILES['userfile']))
 $first_file = $_FILES['userfile'];  //获取文件1的信息
 
 $upload_dir = '/tmp/upload'; //保存上传文件的目录
+ if(!file_exists("/tmp/upload")){
+       mkdir("/tmp/upload");   
+   }
 
 //处理上传的文件1
 if ($first_file['error'] == UPLOAD_ERR_OK){

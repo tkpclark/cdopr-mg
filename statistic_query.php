@@ -407,7 +407,7 @@
 					echo "<td>".$row[13]."</td>";
 					echo "<td>".$row[18]."</td>";
 					//扣量百分比
-					$percent_13=$row[11]>0?number_format(100*($row[11]-$row[13])/$row[11],2)."%":"";
+					$percent_13=$row[11]>0?number_format(100*($row[13])/$row[11],2)."%":"";
 					echo "<td>".$percent_13."</td>";
 
 					echo "<td>".number_format($row[14]/100,2)."</td>";
@@ -438,7 +438,7 @@
 				echo "<td>".$suc."</td>";
 				echo "<td>$count_deductio</td>";
 				echo "<td>$count_deductio_suc</td>";
-				$deductio=$count_legal>0?number_format(100*($count_legal-$count_deductio)/$count_legal,2)."%":"0.00%";
+				$deductio=$count_legal>0?number_format(100*($count_deductio)/$count_legal,2)."%":"0.00%";
 				echo "<td>".$deductio."</td>";
 
 				echo "<td>".number_format($amount_suc/100,2)."</td>";

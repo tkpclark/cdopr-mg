@@ -187,8 +187,8 @@
 	 <td>代计费业务&nbsp;&nbsp;
  	<select id=is_agent>
 		<option value="">全部</option>
-		<option value="1">是</option>
-		<option value="0">否</option>
+		<option value="2">是</option>
+		<option value="1">否</option>
  	</select></td>
 	 
 	 <td>计费类型&nbsp;&nbsp;
