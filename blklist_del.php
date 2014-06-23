@@ -8,7 +8,7 @@
 	}
 	$id=$_GET['id'];
 	
-	$sql="delete from wraith_blklist where ID=$id";
+	$sql="update wraith_blklist set status='2' where id=$id";
 	echo $sql;
 	exsql($sql);
 	

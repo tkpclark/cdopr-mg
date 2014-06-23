@@ -33,7 +33,7 @@ function ask(id)
 	 	
 	 	
 		$sql="select count(*) from $tbl
-				where phone_number like '%$pn%'";
+				where phone_number like '%$pn%' and status in (0,1)";
 
 	//echo $sql;
 	$result=mysqli_query($mysqli,$sql);
@@ -73,7 +73,7 @@ function ask(id)
    //////////////
 
 	 	$sql="select * from $tbl
-				where phone_number like '%$pn%'
+				where phone_number like '%$pn%' and status in (0,1)
 				order by ID desc
 				limit $start_item,$pg_lmt ;";
 
