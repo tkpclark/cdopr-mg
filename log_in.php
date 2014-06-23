@@ -3,6 +3,8 @@
   $username=$_POST['name'];
   $password=$_POST['pass'];
   $md5_password=md5($password);
+  $sql="set names utf8";
+  exsql($sql);
   $sql="select ID , type , membername ,role ,cpID from wraith_users where username='$username' and password='$md5_password'";
   
   $result=mysqli_query($mysqli,$sql);
