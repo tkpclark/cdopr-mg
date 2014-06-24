@@ -76,7 +76,7 @@
 	{
 		$sql_field.="'All', ";
 	}
-	$sql_field.=" sum(msg_count_forward_mo),sum(msg_count_forward_mt),sum(amount_deduction),sum(msg_count_deduction_suc)";
+	$sql_field.=" sum(msg_count_forward_mo),sum(msg_count_forward_mr),sum(amount_deduction),sum(msg_count_deduction_suc)";
 
 	
 	
@@ -116,8 +116,8 @@
 				<th>渠道业务</th>
 				<th>省份</th>
 				<th>消息总量</th>
-				<th>MO转发成功量</th>
-				<th>MT转发成功量</th>
+				<th>Mo转发量</th>
+				<th>Mr转发量</th>
 				<th>总金额(元)</th>
 				</tr>";
 		if(isset($_COOKIE['result_py'])&&$_COOKIE['result_py'] != 0)

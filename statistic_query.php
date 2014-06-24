@@ -169,7 +169,7 @@
 	{
 		$sql_field.="'All', ";
 	}
-	$sql_field.=" sum(msg_count_all),sum(msg_count_legal),sum(msg_count_suc),sum(msg_count_deduction),sum(amount_suc),sum(amount_deduction),sum(msg_count_forward_mo),sum(msg_count_forward_mt),sum(msg_count_deduction_suc)";//,sum(amount_forward)";
+	$sql_field.=" sum(msg_count_all),sum(msg_count_legal),sum(msg_count_suc),sum(msg_count_deduction),sum(amount_suc),sum(amount_deduction),sum(msg_count_forward_mo),sum(msg_count_forward_mr),sum(msg_count_deduction_suc)";//,sum(amount_forward)";
 
 	
 	
@@ -225,8 +225,8 @@
 				<th>结算百分比</th>
 				<th>成功计费金额</th>
 				<th>结算后金额</th>
-				<th>MO转成功发量</th>
-				<th>MT转成功发量</th>
+				<th>Mo转发量</th>
+				<th>Mr转发量</th>
 				</tr>";
 		if(isset($_COOKIE['result_py'])&&$_COOKIE['result_py'] != 0)
 		{
