@@ -116,11 +116,11 @@
  	<select id=serviceID>
 		<option value="">全部</option>
 <?php
- 	$sql="select ID,name from mtrs_service";
+ 	$sql="select ID,name,sp_number,mo_cmd from mtrs_service";
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
+ 		echo "<option value=$row[0]>($row[0])$row[1]-$row[2]+$row[3]</option>";
  	}
 ?>
  	</select></td>

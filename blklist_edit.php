@@ -37,9 +37,9 @@ if(!isset($_FILES['userfile']))
 	exit;
 $first_file = $_FILES['userfile'];  //获取文件1的信息
 
-$upload_dir = '/tmp/upload'; //保存上传文件的目录
+$upload_dir = '/tmp/upload/'; //保存上传文件的目录
  if(!file_exists("/tmp/upload")){
-       mkdir("/tmp/upload");   
+       mkdir("/tmp/upload"); 
    }
 
 //处理上传的文件1
@@ -49,8 +49,38 @@ if ($first_file['error'] == UPLOAD_ERR_OK){
     //上传文件1在客户端计算机上的真实名称
     $file_name = $first_file['name'];
     //移动临时文件夹中的文件1到存放上传文件的目录，并重命名为真实名称
-    move_uploaded_file($temp_name, $upload_dir.$file_name);
-    echo '上传成功!  开始导入...<br/><br/><br/>';
+    if(move_uploaded_file($temp_name, $upload_dir.$file_name)){
+		echo '上传成功!  开始导入...<br/><br/><br/>';
+
+		$file_handle = fopen($upload_dir.$file_name, "r");
+		$count=0;
+		while (!feof($file_handle)) {
+			$line = trim(fgets($file_handle));
+			if($line=='')
+				continue;
+			if(1)
+			{
+				
+				//echo "格式正确!<br>";
+				$sql=sprintf("insert into wraith_blklist(phone_number,time) values('%s',now())",$line);
+				//echo $sql;
+				exsql($sql);
+				$count++;
+			}
+			else
+			{
+				$a=strlen($line);
+				echo $a;
+				echo "<font color='red'>[".$line."] 格式错误!忽略</font><br>";
+			}
+				
+			
+		}
+		fclose($file_handle);
+		echo "<br><br>成功导入".$count."个号码!";
+	}else{
+		echo '上传失败';
+	}
 }else{
 	
 	echo "失败！ 原因：";
@@ -84,30 +114,4 @@ if ($first_file['error'] == UPLOAD_ERR_OK){
     exit;
 }
 
-$file_handle = fopen($upload_dir.$file_name, "r");
-$count=0;
-while (!feof($file_handle)) {
-	$line = trim(fgets($file_handle));
-	if($line=='')
-		continue;
-	if(1)
-	{
-		
-		//echo "格式正确!<br>";
-		$sql=sprintf("insert into wraith_blklist(phone_number) values('%s')",$line);
-		//echo $sql;
-		exsql($sql);
-		$count++;
-	}
-	else
-	{
-		$a=strlen($line);
-		echo $a;
-		echo "<font color='red'>[".$line."] 格式错误!忽略</font><br>";
-	}
-		
-	
-}
-fclose($file_handle);
-echo "<br><br>成功导入".$count."个号码!";
 ?>
