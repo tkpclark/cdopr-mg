@@ -84,15 +84,15 @@
 	if($query_type=='result_info')
 	{	
 		//生成实时统计数据到statistic表
-		$cmd='python /home/tkp/cdopr/src/stat/stat.py 1';
-		exec($cmd, $output, $result_py);
-		setcookie("result_py",$result_py);
-		if($result_py != 0)
-		{
-			$row['count']=''; 
-		}
-		else
-		{
+		//$cmd='python /home/tkp/cdopr/src/stat/stat.py 1';
+		//exec($cmd, $output, $result_py);
+		//setcookie("result_py",$result_py);
+		//if($result_py != 0)
+		//{
+		//	$row['count']=''; 
+		//}
+		//else
+		//{
 			$sql="select $sql_field from $tbl  ";
 			$sql.=$sql_condition;
 			if($group_flag==1)
@@ -102,7 +102,7 @@
 			}
 			$result=mysqli_query($mysqli,$sql);
 			$row['count']=mysqli_num_rows($result); 
-		}
+		//}
 		echo json_encode($row);
 		exit;
 		
@@ -120,13 +120,13 @@
 				<th>Mr转发量</th>
 				<th>总金额(元)</th>
 				</tr>";
-		if(isset($_COOKIE['result_py'])&&$_COOKIE['result_py'] != 0)
-		{
-			echo "<tr><td colspan=7>加载失败！</td></tr>"; 
+		//if(isset($_COOKIE['result_py'])&&$_COOKIE['result_py'] != 0)
+		//{
+		//	echo "<tr><td colspan=7>加载失败！</td></tr>"; 
 			//print_r($output.'---output');
-		}
-		else
-		{
+		//}
+		//else
+		//{
 			//渠道业务
 			$sql_cpProdID="select id,name from mtrs_cp_product";
 			$result_cpProdID=exsql($sql_cpProdID);
@@ -200,7 +200,7 @@
 			   echo "</tr>";
 				//mysqli_free_result($result);
 			}
-		}
+		//}
 		echo "</table>";
 		
 		
