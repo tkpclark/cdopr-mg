@@ -177,15 +177,15 @@
 	if($query_type=='result_info')
 	{	
 		//生成实时统计数据到statistic表
-		$cmd='python /home/tkp/cdopr/src/stat/stat.py 1';
-		exec($cmd, $output, $result_py);
-		setcookie("result_py",$result_py);
-		if($result_py != 0)
-		{
-			$row['count']=''; 
-		}
-		else
-		{
+		//$cmd='python /home/tkp/cdopr/src/stat/stat.py 1';
+		//exec($cmd, $output, $result_py);
+		//setcookie("result_py",$result_py);
+		//if($result_py != 0)
+		//{
+		//	$row['count']=''; 
+		//}
+		//else
+		//{
 			$sql="select $sql_field from $tbl  ";
 			$sql.=$sql_condition;
 			if($group_flag==1)
@@ -195,7 +195,7 @@
 			}
 			$result=mysqli_query($mysqli,$sql);
 			$row['count']=mysqli_num_rows($result); 
-		}
+		//}
 		echo json_encode($row);
 		exit;
 		
@@ -203,7 +203,7 @@
 	if($query_type=='result_page')
 	{
 		echo "<table width=100%>";
-		echo "<tr>
+		echo "<tr id='tab-head'>
 				<th>ID</th>
 				<th>日期</th>
 				<th>通道</th>
@@ -228,12 +228,12 @@
 				<th>Mo转发量</th>
 				<th>Mr转发量</th>
 				</tr>";
-		if(isset($_COOKIE['result_py'])&&$_COOKIE['result_py'] != 0)
-		{
-			echo "<tr><td colspan=22>加载失败！</td></tr>"; 
-		}
-		else
-		{
+		//if(isset($_COOKIE['result_py'])&&$_COOKIE['result_py'] != 0)
+		//{
+		//	echo "<tr><td colspan=22>加载失败！</td></tr>"; 
+		//}
+		//else
+		//{
 			//通道
 			$sql_spID="select ID,spname from mtrs_sp";
 			$result_spID=exsql($sql_spID);
@@ -449,8 +449,7 @@
 			   echo "</tr>";
 				//mysqli_free_result($result);
 			}
-		}
+		//}
 		echo "</table>";
-		
 		
 	}

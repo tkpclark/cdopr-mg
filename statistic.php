@@ -95,10 +95,13 @@
 					$('#pagination').pagination('refresh',{	// change options and refresh pager bar information
 						total: result.count
 					});
-
+					//$('#tab-head').append("<th>ID</th><th>日期</th><th>通道</th><th>通道业务</th><th>渠道</th><th>渠道业务</th><th>是否代计费业务</th><th>计费类型</th><th>网关</th><th>省份</th><th>指令</th><th>消息总量</th><th>合法消息总量</th><th>成功消息总量</th><th>成功百分比</th><th>结算后消息总量</th><th>结算后成功消息总量</th><th>结算百分比</th><th>成功计费金额</th><th>结算后金额</th><th>Mo转发量</th><th>Mr转发量</th></tr>");
 					$('#result_records').panel('refresh',compose_url('result_page',1,pageSize));
 				});
         	})
+
+			
+
         })
         
 		function change(type){ 
