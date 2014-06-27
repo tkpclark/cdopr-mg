@@ -1,8 +1,5 @@
 <?php
-
 include("check.php");
-include "PHPExcel/PHPExcel.php";
-include "PHPExcel/PHPExcel/Writer/Excel2007.php";
 
 if(!isset($_FILES['userfile']))
 	exit;
@@ -39,7 +36,7 @@ if ($first_file['error'] == UPLOAD_ERR_OK){
 		$phone_numbers=substr($phone_numbers,0,strlen($phone_numbers)-1);
 		$sql="set names utf8";
 		exsql($sql);
-		$sql="select distinct phone_number , cpname from wraith_message where phone_number in ($phone_numbers) union select distinct phone_number , cpname from wraith_message_history where phone_number in ($phone_numbers)";
+		$sql="select distinct phone_number , cpname , province from wraith_message where phone_number in ($phone_numbers) union select distinct phone_number , cpname , province from wraith_message_history where phone_number in ($phone_numbers)";
 		//echo $sql; exit;
 		$result=exsql($sql);
 		$rows=array();
@@ -55,10 +52,10 @@ if ($first_file['error'] == UPLOAD_ERR_OK){
         header("Content-Type: application/vnd.ms-excel;charset=GBK"); 
         header("Content-Disposition:attachment;filename=$name");   
         //表头
-        echo iconv("UTF-8", "GBK","手机号码\t");echo iconv("UTF-8", "GBK","渠道名称\t\n");
+        echo iconv("UTF-8", "GBK","手机号码\t");echo iconv("UTF-8", "GBK","渠道名称\t");echo iconv("UTF-8", "GBK","省份\t\n");
         //内容
         foreach($rows as $v){
-            echo iconv("UTF-8", "GBK",$v[0]."\t".$v[1]."\t\n");
+            echo iconv("UTF-8", "GBK",$v[0]."\t".$v[1]."\t".$v[2]."\t\n");
         }
         exit;
 		
