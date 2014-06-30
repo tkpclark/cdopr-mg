@@ -9,7 +9,7 @@ $type=$_GET['type'];
 if($type == '1')
 {
 	echo "<font size=4 color=red>加载结果:<br><br></font>";
-	$cmd = "/home/tkp/restart_cdopr.sh";
+	$cmd = "/home/tkp/stop_cdopr.sh";
 	//$cmd='python /home/sms/MsgTunnel/src/msgforward/config_maker.py';
 	//echo "cmd: ".$cmd."<br>";
 	exec($cmd, $output, $result);
