@@ -1,10 +1,3 @@
-<style>
-.impor{
-width:50% !important;
-float:left;
-}
-</style>
-
 <script>
 	$(document).ready(function(){	
 		 $('.update').click(function() {
@@ -44,7 +37,7 @@ ini_set('default_socket_timeout', -1);
 
 //redis缓存
 $redis = new redis();  
-//$redis->connect('127.0.0.1', 6379);
+$redis->connect('127.0.0.1', 6379);
 $redis->connect('42.62.78.248', 6379);
 
 $cmd_ids = $_GET['cmd_ids'];
@@ -98,7 +91,7 @@ if(!empty($cmd_ids)){
 
 
 	foreach($rows as $v){
-		echo "<table class='impor'>";
+		echo "<table>";
 		echo "<tr><td>";
 		foreach($sp_rows as $s){
 			if($v[4]==$s[0]){

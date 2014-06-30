@@ -2,7 +2,7 @@
 include("check.php");
 
 $parameter = isset($_GET['parameter'])?$_GET['parameter']:'';
-$limit = (isset($_GET['num']) && trim($_GET['num']!='无限制'))?$_GET['num']:'';
+$limit = (isset($_GET['num']) && intval(trim($_GET['num'])!=0))?$_GET['num']:'';
 if(empty($limit)){
 	echo 1;exit;
 }

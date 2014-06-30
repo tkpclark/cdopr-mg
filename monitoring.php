@@ -19,36 +19,59 @@
 			}
 		 });
 
-		$('#p').panel({           
+		$('#p').panel({ 
 			href:url,
+			
 		}); 
+		$('#tb').hide(); 
 	
 	})
 	var int=self.setInterval("$('#p').panel('refresh')", 10000);
 
 	});
 </script>
+<style>
+#p{
+ width:auto !important;
+}
+</style>
 <?php 
 	include("check.php"); 
 	include("style.php");
-	$sql="select ID,sp_number,mo_cmd from mtrs_cmd";
+	$sql="select ID,sp_number,mo_cmd,cpProdID from mtrs_cmd";
 	$result=exsql($sql);
 	while($row=mysqli_fetch_row($result)){
 		$rows[]=$row;
+	}
+	$sql = "select t1.id,t1.`name`,t2.ID,t2.cpname from mtrs_cp_product t1,mtrs_cp t2 where t1.cpID=t2.ID";
+	$result = exsql($sql);
+	while($row=mysqli_fetch_row($result)){
+		$cp_rows[]=$row;
 	}
 ?>
  </head>
 
  <body>
-	<table width='100%'><tr><td>指令选择</td><td>
+	<table width='100%' id='tb'><tr><td colspan=5>指令选择</td></tr>
 	  <?php
+		$i=1;
 		foreach($rows as $row){
-			echo "(".$row[0].")".$row[1]."+".$row[2]."<input type='checkbox' id='spID_group' name='cmd_ids' value='$row[0]'>&nbsp;&nbsp;&nbsp;";
+			if($i==1){echo "<tr>";}
+			echo "<td>";
+			foreach($cp_rows as $cp){
+				if($cp[0]==$row[3]){
+					echo "(".$cp[2].")".$cp[3]."--(".$cp[0].")".$cp[1];
+				}
+			}
+			echo "<br>(".$row[0].")".$row[1]."+".$row[2]."<br><input type='checkbox' id='spID_group' name='cmd_ids' value='$row[0]'>";
+			echo "</td>";
+			if(($i%5)==0 && $i!=1){echo "</tr></tr>";}
+			$i++;
 		}
 	  ?>
-	  </td><td><button id=query type=button>查询</button></td></tr></table>
+	  <tr><td colspan=5><button id=query type=button>查询</button></td></tr></table>
 
-	<div id="p" style="padding:10px;">    
+	<div id="p">    
 		<p>请选择监控的指令......</p>    
 	</div>    
    

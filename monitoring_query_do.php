@@ -14,12 +14,14 @@
 			var org = obj.html();
 			var wid = obj.css('width');
 			obj.html('');
+			if(org=='无限制'){org=0;}
 			obj.append("<input type='text' style='width:50px;height:10px' value='"+org+"'/>"); 
 			var input = obj.find('input');
 			input.focus();
 
 			input.blur(function(){
 			  var inputval = input.val();
+			  if(parseInt(inputval)==0 || isNaN(parseInt(inputval))){inputval='无限制'}
 			  obj.empty();
 			  obj.html(inputval);
 			  $.ajax({
@@ -27,7 +29,8 @@
 				   url: "monitoring_query_do_ajax.php?parameter="+parameter+"&num="+inputval,
 				   cache:false,
 				   success: function(msg){
-					 if(msg!=1){alert("失败")}
+					if(msg!=1){alert("失败")}
+					// alert(msg)
 				   }
 				});
 			});
