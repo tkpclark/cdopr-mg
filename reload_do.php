@@ -17,8 +17,7 @@ if($type == '1')
 		echo "加载失败!<br>";
 	else
 	{
-		foreach($output as $line)
-			echo $line."<br>";
+		echo "加载成功!<br>";
 	}	
 }
 else if($type == '2')
