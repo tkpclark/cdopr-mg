@@ -201,9 +201,16 @@
 		
 	}
 	if($query_type=='result_page')
-	{
-		echo "<table width=100%>";
-		echo "<tr id='tab-head'>
+	{	
+		echo '<script>$(document).ready(function(){
+				$("#yourTableID2").chromatable({
+						width: "100%",
+						height: "400px",
+						scrolling: "yes"
+					})});</script>';
+
+		echo "<table width=100% id='yourTableID2'>";
+		echo "<thead><tr >
 				<th>ID</th>
 				<th>日期</th>
 				<th>通道</th>
@@ -227,7 +234,7 @@
 				<th>结算后金额</th>
 				<th>Mo转发量</th>
 				<th>Mr转发量</th>
-				</tr>";
+				</tr></thead>";
 		//if(isset($_COOKIE['result_py'])&&$_COOKIE['result_py'] != 0)
 		//{
 		//	echo "<tr><td colspan=22>加载失败！</td></tr>"; 

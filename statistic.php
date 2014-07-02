@@ -7,6 +7,8 @@
         <link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
         <script type="text/javascript" src="easyui/jquery.min.js"></script>
         <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="jquery.chromatable.js"></script>
         <script>
         
 		
@@ -102,6 +104,10 @@
 
 			
 
+			
+	
+
+
         })
         
 		function change(type){ 
@@ -116,6 +122,11 @@
 				  });
 		}
         </script>
+<style>
+#result_records{
+ width:auto !important;
+}
+</style>
 </head>
 <body>
 
@@ -289,7 +300,7 @@
 	 <td id='result_info'></td>  
 	</tr>
 	</table>
-	<div id='result_records' class='easyui-panel' style='height:500px'></div>'
+	<div id='result_records' class='easyui-panel' style='width:auto !important'></div>'
 	
 </body>
 </html>
