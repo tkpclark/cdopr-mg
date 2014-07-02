@@ -61,13 +61,36 @@ $(document).ready(function(){
 <body>
 
 <?php
+$where=" 1";
+if(isset($_POST['spID']) && !empty($_POST['spID'])){
+	$sql="select id from mtrs_service where spID=".$_POST['spID'];
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{
+ 		$cp_pro[]=$row[0];
+ 	}
+	$where = " serviceID in (".implode(',',$cp_pro).")";
+}
 echo "<body>";
 echo "<font size=4><caption>指令列表>></caption></font>
 <br><br>
-<font size=3><a href='cmd_edit.php'>添加</a></font><br>
+<font size=3><a href='cmd_edit.php'>添加</a></font><br>";
 
-<table border='1' cellspacing='0' cellpadding='1' width='90%' class='tabs'>
+echo '<form name=pn_inq action="cmd_list.php" method=post>';
+ echo "<table><tr><td>通道<select name=spID onchange=>";
 
+ 	$sql="select ID,spname from mtrs_sp";
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{
+ 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
+ 	}
+
+echo "</select><input type=submit name=submit value=查询></td></tr></table></from>";
+
+
+
+echo "<table border='1' cellspacing='0' cellpadding='1' width='90%' class='tabs'>
 <tr>
 <th>序号</th>
 <th>指令</th>
@@ -87,7 +110,7 @@ echo "<font size=4><caption>指令列表>></caption></font>
 <th>编辑</th>
 <th>删除</th>
 </tr>";
-$buf= "SELECT * FROM mtrs_cmd";
+$buf= "SELECT * FROM mtrs_cmd where ".$where;
 //echo $buf;
 $result=exsql($buf);
 

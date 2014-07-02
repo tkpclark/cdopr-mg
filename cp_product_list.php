@@ -37,6 +37,27 @@ include("style.php");
 <font size=4><caption>渠道业务管理列表>></caption></font>
 <br><br>
 
+<form name=pn_inq action="cp_product_list.php" method=post>
+ <table><tr><td>渠道<select name=cp_pro onchange=>
+<?php
+	$where=" 1";
+	if(isset($_POST['cp_pro']) && !empty($_POST['cp_pro'])){
+
+		$where = " id = ".$_POST['cp_pro'];
+	}
+
+ 	$sql="select ID,name from mtrs_cp_product";
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{	if(isset($_POST['cp_pro']) && !empty($_POST['cp_pro']) && $_POST['cp_pro']==$row[0]){
+			echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
+		}else{
+			echo "<option value=$row[0]>($row[0])$row[1]</option>";
+		}
+ 		
+ 	}
+?>
+</select><input type=submit name=submit value=查询></td></tr></table></form>
 
 <font size=3><a href='cp_product_edit.php'>添加</a></font><br>
 <!--<table border=1 cellspacing="0">-->
@@ -45,7 +66,7 @@ include("style.php");
 <tr><th>序号</th><th>产品名称</th><th>所属渠道</th><th>上行转发地址</th><th>报告转发地址</th><th>扣量</th><th>备注</th><th>创建时间</th><th>编辑</th><th>删除</th></tr>
 <?php
 
-  $buf= "select * from mtrs_cp_product";
+  $buf= "select * from mtrs_cp_product where ".$where;
   $result=exsql($buf);
   echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
   while($row=mysqli_fetch_row($result))
