@@ -37,8 +37,8 @@ ini_set('default_socket_timeout', -1);
 
 //redis缓存
 $redis = new redis();  
-//$redis->connect('127.0.0.1', 6379);
-$redis->connect('42.62.78.248', 6379);
+$redis->connect('127.0.0.1', 6379);
+//$redis->connect('42.62.78.248', 6379);
 
 $cmd_ids = $_GET['cmd_ids'];
 //$cmd_ids= '54,67,';
@@ -116,7 +116,7 @@ if(!empty($cmd_ids)){
 
 			echo "<tr><td>";
 			echo "<table>";
-			echo "<tr><td>省份</td><td>总数日量</td><td>总数下发日限</td><td>百分比</td><td>单用户下发日限</td><td>总转发日限</td><td>总数月量</td><td>总数下发月限</td><td>百分比</td><td>单用户下发月限</td><td>总转发月限</td><td>状态</td></tr>";
+			echo "<tr><td>省份</td><td>总数日量</td><td>总数下发日限</td><td>百分比</td><td>单用户下发日限</td><td>总同步日限</td><td>总数月量</td><td>总数下发月限</td><td>百分比</td><td>单用户下发月限</td><td>总同步月限</td><td>状态</td></tr>";
 			//全部,默认--总数下发日月限、单用户下发日月限、转发日月限
 			$default_visit_day=$default_visit_mon=$default_visit_day_one=$default_visit_mon_one=$default_visit_day_forward=$default_visit_mon_forward='';
 			$daily_limit_all=$monthly_limit_all='无限制';
@@ -181,24 +181,24 @@ if(!empty($cmd_ids)){
 					
 				}
 				}
-				echo "<td>".($visit_day!=null?$visit_day_true=$visit_day:($default_visit_day!=null&&$default_visit_day!='0'?$visit_day_true=$default_visit_day:$visit_day_true='无限制'))."</td>";
+				echo "<td>".(($visit_day!=null&&$visit_day!=0)?$visit_day_true=$visit_day:($default_visit_day!=null&&$default_visit_day!='0'?$visit_day_true=$default_visit_day:$visit_day_true='无限制'))."</td>";
 				//百分比
 				echo "<td>".($visit_day_true!=null&&$visit_day_true!='无限制'&&$visit_day_true!='0'?number_format(100*$redis_day/$visit_day_true,2)."%":"0.00%")."</td>";
 				//单用户下发日限
-				echo "<td>".($visit_day_one!=null?$visit_day_one:($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制'))."</td>";
+				echo "<td>".(($visit_day_one!=null&&$visit_day_one!=0)?$visit_day_one:($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制'))."</td>";
 				//总转发日限
-				echo "<td>".($visit_day_forward!=null?$visit_day_forward:($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制'))."</td>";
+				echo "<td>".(($visit_day_forward!=null&&$visit_day_forward!=0)?$visit_day_forward:($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制'))."</td>";
 				//总数月量p2_54_山东_201406
 				$p2_mon = "p2_".$v[0]."_".$area."_".date('Ym',time());
 				echo "<td>".($redis->get($p2_mon)!=null?$redis_mon=$redis->get($p2_mon):$redis_mon='0')."</td>";
 				//总数下发月限
-				echo "<td>".($visit_mon!=null?$visit_mon_true=$visit_mon:($default_visit_mon!=null&&$default_visit_mon!='0'?$visit_mon_true=$default_visit_mon:$visit_mon_true='无限制'))."</td>";
+				echo "<td>".(($visit_mon!=null&&$visit_mon!=0)?$visit_mon_true=$visit_mon:($default_visit_mon!=null&&$default_visit_mon!='0'?$visit_mon_true=$default_visit_mon:$visit_mon_true='无限制'))."</td>";
 				//百分比
 				echo "<td>".($visit_mon_true!=null&&$visit_mon_true!='无限制'&&$visit_mon_true!='0'?number_format(100*$redis_mon/$visit_mon_true,2)."%":"0.00%")."</td>";
 				//单用户下发月限
-				echo "<td>".($visit_mon_one!=null?$visit_mon_one:($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制'))."</td>";
+				echo "<td>".(($visit_mon_one!=null&&$visit_mon_one!=0)?$visit_mon_one:($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制'))."</td>";
 				//总转发月限
-				echo "<td>".($visit_mon_forward!=null?$visit_mon_forward:($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制'))."</td>";
+				echo "<td>".(($visit_mon_forward!=null&&$visit_mon_forward!=0)?$visit_mon_forward:($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制'))."</td>";
 				//状态
 				echo "<td>";
 				if(strpos($v[5],$area)!==false){echo "已开通";}else{echo "未开通";}

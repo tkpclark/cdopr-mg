@@ -14,22 +14,23 @@
 			var org = obj.html();
 			var wid = obj.css('width');
 			obj.html('');
-			if(org=='无限制'){org=0;}
-			obj.append("<input type='text' style='width:50px;height:10px' value='"+org+"'/>"); 
+			if(org=='无限制'){ var org_obj=0;}else{ var org_obj=org;}
+			obj.append("<input type='text' style='width:50px;height:10px' value='"+org_obj+"'/>"); 
 			var input = obj.find('input');
 			input.focus();
 
 			input.blur(function(){
 			  var inputval = input.val();
-			  if(parseInt(inputval)==0 || isNaN(parseInt(inputval))){inputval='无限制'}
+			  if(parseInt(inputval)==0 || isNaN(parseInt(inputval))){ var inputval_obj='无限制';}else{ var inputval_obj=inputval;}
+			  if((parseInt(inputval)==0 || isNaN(parseInt(inputval))) && org=='无限制'){inputval='无限制'}
 			  obj.empty();
-			  obj.html(inputval);
+			  obj.html(inputval_obj);
 			  $.ajax({
 				   type: "GET",
 				   url: "monitoring_query_do_ajax.php?parameter="+parameter+"&num="+inputval,
 				   cache:false,
 				   success: function(msg){
-					if(msg!=1){alert("失败")}
+					if(msg!=1 && msg!=3){alert("失败")}
 					// alert(msg)
 				   }
 				});
@@ -128,7 +129,7 @@ if(!empty($cmdid)){
 
 		echo "<tr><td>";
 		echo "<table>";
-		echo "<tr><td>省份</td><td>总数下发日限</td><td>单用户下发日限</td><td>总转发日限</td><td>总数下发月限</td><td>单用户下发月限</td><td>总转发月限</td></tr>";
+		echo "<tr><td>省份</td><td>总数下发日限</td><td>单用户下发日限</td><td>总同步日限</td><td>总数下发月限</td><td>单用户下发月限</td><td>总同步月限</td></tr>";
 		//全部,默认--总数下发日月限、单用户下发日月限、转发日月限
 		$default_visit_day=$default_visit_mon=$default_visit_day_one=$default_visit_mon_one=$default_visit_day_forward=$default_visit_mon_forward='';
 		$daily_limit_all=$monthly_limit_all='无限制';
@@ -187,17 +188,17 @@ if(!empty($cmdid)){
 			}
 			}
 			//总数下发日限
-			echo "<td class='update_num' _num='$v[0]-$area-2-1'>".($visit_day!=null?$visit_day_true=$visit_day:($default_visit_day!=null&&$default_visit_day!='0'?$visit_day_true=$default_visit_day:$visit_day_true='无限制'))."</td>";
+			echo "<td class='update_num' _num='$v[0]-$area-2-1'>".(($visit_day!=null&&$visit_day!=0)?$visit_day_true=$visit_day:($default_visit_day!=null&&$default_visit_day!='0'?$visit_day_true=$default_visit_day:$visit_day_true='无限制'))."</td>";
 			//单用户下发日限
-			echo "<td class='update_num' _num='$v[0]-$area-1-1'>".($visit_day_one!=null?$visit_day_one:($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制'))."</td>";
+			echo "<td class='update_num' _num='$v[0]-$area-1-1'>".(($visit_day_one!=null&&$visit_day_one!=0)?$visit_day_one:($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制'))."</td>";
 			//总转发日限
-			echo "<td class='update_num' _num='$v[0]-$area-3-1'>".($visit_day_forward!=null?$visit_day_forward:($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制'))."</td>";
+			echo "<td class='update_num' _num='$v[0]-$area-3-1'>".(($visit_day_forward!=null&&$visit_day_forward!=0)?$visit_day_forward:($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制'))."</td>";
 			//总数下发月限
-			echo "<td class='update_num' _num='$v[0]-$area-2-2'>".($visit_mon!=null?$visit_mon_true=$visit_mon:($default_visit_mon!=null&&$default_visit_mon!='0'?$visit_mon_true=$default_visit_mon:$visit_mon_true='无限制'))."</td>";
+			echo "<td class='update_num' _num='$v[0]-$area-2-2'>".(($visit_mon!=null&&$visit_mon!=0)?$visit_mon_true=$visit_mon:($default_visit_mon!=null&&$default_visit_mon!='0'?$visit_mon_true=$default_visit_mon:$visit_mon_true='无限制'))."</td>";
 			//单用户下发月限
-			echo "<td class='update_num' _num='$v[0]-$area-1-2'>".($visit_mon_one!=null?$visit_mon_one:($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制'))."</td>";
+			echo "<td class='update_num' _num='$v[0]-$area-1-2'>".(($visit_mon_one!=null&&$visit_mon_one!=0)?$visit_mon_one:($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制'))."</td>";
 			//总转发月限
-			echo "<td class='update_num' _num='$v[0]-$area-3-2'>".($visit_mon_forward!=null?$visit_mon_forward:($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制'))."</td>";
+			echo "<td class='update_num' _num='$v[0]-$area-3-2'>".(($visit_mon_forward!=null&&$visit_mon_forward!=0)?$visit_mon_forward:($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制'))."</td>";
 			echo "</tr>";
 		}
 		echo "</table>";

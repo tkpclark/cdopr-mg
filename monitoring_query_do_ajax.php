@@ -2,14 +2,14 @@
 include("check.php");
 
 $parameter = isset($_GET['parameter'])?$_GET['parameter']:'';
-$limit = (isset($_GET['num']) && intval(trim($_GET['num'])!=0))?$_GET['num']:'';
-if(empty($limit)){
-	echo 1;exit;
+$limit = (isset($_GET['num']) && (trim($_GET['num'])!='无限制'))?$_GET['num']:'';
+if($limit == ''){
+	echo 3;exit;
 }
 $arr = explode('-',$parameter); 
 list($cmdid,$area,$limit_type,$day_mon)=$arr;
 
-if(!empty($cmdid) && !empty($area) && !empty($limit_type) && !empty($limit) &&!empty($day_mon)){
+if(!empty($cmdid) && !empty($area) && !empty($limit_type) && $limit!='' &&!empty($day_mon)){
 	
 	$sql = "select * from wraith_visit_limit where cmdID='$cmdid' and province='$area' and limit_type='$limit_type'";
 	$result=exsql($sql);
