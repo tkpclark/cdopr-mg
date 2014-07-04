@@ -172,7 +172,7 @@
 				echo "<td>".$row['report_orig']."</td>";
 				echo "<td>".$row['report_time']."</td>";
 
-				//转发过程0：没转过 1：转过上行 2：转过下行 3：转过整条 4：上行被扣量  5： 报告被扣量 6：转发mo失败 7：转发mr失败
+				//转发过程0：没转过 1：转过上行 2：转过下行 3：转过整条 4：上行被扣量  5： 报告被扣量 6：转发mo失败 7：转发mr失败  13：转发超省日量 14：转发超省月量 15：转发超总日量 16：转发超总月量
 				switch ($row['forward_status'])
 				{
 				case 0: echo "<td>没转过</td>";
@@ -190,6 +190,14 @@
 				case 6: echo "<td>转发mo失败</td>";
 				  break;
 				case 7: echo "<td>转发mr失败</td>";
+				  break;
+				 case 13: echo "<td>转发超省日量</td>";
+				  break;
+				 case 14: echo "<td>转发超省月量</td>";
+				  break;
+				 case 15: echo "<td>转发超总日量</td>";
+				  break;
+				 case 16: echo "<td>转发超总月量</td>";
 				  break;
 				default: echo "<td></td>";
 				}
