@@ -22,16 +22,16 @@ include("style.php");
  <table><tr><td>通道<select name=serverid onchange=>
 <?php
 	$where=" 1";
-	if(isset($_POST['serverid']) && !empty($_POST['serverid'])){
+	if(isset($_REQUEST['serverid']) && !empty($_REQUEST['serverid'])){
 
-		$where = " ID = ".$_POST['serverid'];
+		$where = " ID = ".$_REQUEST['serverid'];
 	}
 
  	$sql="select ID,name,sp_number,mo_cmd from mtrs_service";
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{	
-		if(isset($_POST['serverid']) && !empty($_POST['serverid']) && $_POST['serverid']==$row[0]){
+		if(isset($_REQUEST['serverid']) && !empty($_REQUEST['serverid']) && $_REQUEST['serverid']==$row[0]){
  			echo "<option value=$row[0] selected>($row[0])$row[1]-$row[2]-$row[3]</option>";
 		}else{
 			echo "<option value=$row[0]>($row[0])$row[1]-$row[2]-$row[3]</option>";

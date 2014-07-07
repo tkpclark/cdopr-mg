@@ -41,15 +41,15 @@ include("style.php");
  <table><tr><td>渠道<select name=cp_pro onchange=>
 <?php
 	$where=" 1";
-	if(isset($_POST['cp_pro']) && !empty($_POST['cp_pro'])){
+	if(isset($_REQUEST['cp_pro']) && !empty($_REQUEST['cp_pro'])){
 
-		$where = " id = ".$_POST['cp_pro'];
+		$where = " id = ".$_REQUEST['cp_pro'];
 	}
 
  	$sql="select ID,name from mtrs_cp_product";
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
- 	{	if(isset($_POST['cp_pro']) && !empty($_POST['cp_pro']) && $_POST['cp_pro']==$row[0]){
+ 	{	if(isset($_REQUEST['cp_pro']) && !empty($_REQUEST['cp_pro']) && $_REQUEST['cp_pro']==$row[0]){
 			echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
 		}else{
 			echo "<option value=$row[0]>($row[0])$row[1]</option>";

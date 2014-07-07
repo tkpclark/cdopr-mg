@@ -22,5 +22,6 @@ echo $sql;
 
 
 exsql($sql);
+$serviceID = !empty($serviceID)?$serviceID:mysql_insert_id();
 
-Header("Location:service_list.php");
+Header("Location:service_list.php?serverid=$serviceID");

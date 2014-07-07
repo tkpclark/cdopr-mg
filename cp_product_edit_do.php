@@ -19,4 +19,5 @@ echo $sql;
 
 
 exsql($sql);
-Header("Location:cp_product_list.php");
+$id = !empty($id)?$id:mysql_insert_id();
+Header("Location:cp_product_list.php?cp_pro=$id");

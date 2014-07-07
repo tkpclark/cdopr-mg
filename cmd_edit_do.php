@@ -15,6 +15,10 @@ $forbidden_area = isset($_REQUEST['forbidden_area'])?$_REQUEST['forbidden_area']
 $checkblk = isset($_REQUEST['checkblk'])?$_REQUEST['checkblk']:"";
 $is_agent = isset($_REQUEST['is_agent'])?$_REQUEST['is_agent']:"";
 
+//获取通道
+$sql="select spID from mtrs_service where ID=".$serviceID;
+ $result=exsql($sql);
+ $row=mysqli_fetch_row($result);
 
 if($cmd_id=="")
 {
@@ -45,5 +49,5 @@ else
 }
 
 
-
-Header("Location:cmd_list.php");
+$cmd_id = !empty($cmd_id)?$cmd_id:mysql_insert_id();
+Header("Location:cmd_list.php?spID=$row[0]&cmd_id=$cmd_id ");

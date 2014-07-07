@@ -62,14 +62,17 @@ $(document).ready(function(){
 
 <?php
 $where=" 1";
-if(isset($_POST['spID']) && !empty($_POST['spID'])){
-	$sql="select id from mtrs_service where spID=".$_POST['spID'];
+if(isset($_REQUEST['spID']) && !empty($_REQUEST['spID'])){
+	$sql="select id from mtrs_service where spID=".$_REQUEST['spID'];
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
  		$cp_pro[]=$row[0];
  	}
 	$where = " serviceID in (".implode(',',$cp_pro).")";
+}
+if(isset($_REQUEST['cmd_id']) && !empty($_REQUEST['cmd_id'])){
+	$where = " ID=".$_REQUEST['cmd_id'];
 }
 echo "<body>";
 echo "<font size=4><caption>指令列表>></caption></font>
@@ -82,8 +85,13 @@ echo '<form name=pn_inq action="cmd_list.php" method=post>';
  	$sql="select ID,spname from mtrs_sp";
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
+ 	{	
+		if(isset($_REQUEST['spID']) && !empty($_REQUEST['spID']) && $_REQUEST['spID']==$row[0]){
+			echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
+		}else{
+			echo "<option value=$row[0]>($row[0])$row[1]</option>";
+		}
+ 		
  	}
 
 echo "</select><input type=submit name=submit value=查询></td></tr></table></from>";
@@ -101,8 +109,6 @@ echo "<table border='1' cellspacing='0' cellpadding='1' width='90%' class='tabs'
 <th>代计费</th>
 <th>使用渠道</th>
 <th>使用渠道业务</th>
-<th>总量限制</th>
-<th>单用户限制</th>
 <th>查看下行</th>
 <th>开通省份</th>
 <th>禁止地区</th>
@@ -194,7 +200,7 @@ while($row=mysqli_fetch_row($result))
 	*/
 	//deduction
 
-	echo "<td align=center>";
+	/*echo "<td align=center>";
 	//display deduction
 	echo "<display_deduction></display_deduction>";
 	echo "<see_deductions style=''><a href='#'><img src='images/chakan.png' alt='总量限制' width=16 height=16></a></see_deductions>";
@@ -208,7 +214,7 @@ while($row=mysqli_fetch_row($result))
 	echo "<see_deduction style=''><a href='#'><img src='images/chakan.png' alt='单用户限制' width=16 height=16></a></see_deduction>";
 	//echo "&nbsp;";
 	//echo "<add_deduction_commit value='$row[0]'><a href='#'>提交</a></add_deduction_commit>";
-	echo "</td>";
+	echo "</td>";*/
 
 	echo "<td align=center>";
 	//display cmd_mt
