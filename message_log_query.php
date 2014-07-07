@@ -92,9 +92,16 @@
 		
 	}
 	if($query_type=='result_page')
-	{
-		echo "<table width=100%>";
-		echo "<tr>
+	{	
+		echo '<script>$(document).ready(function(){
+				$("#yourTableID2").chromatable({
+						width: "100%",
+						height: "400px",
+						scrolling: "yes"
+					})});</script>';
+
+		echo "<table width=100%  id='yourTableID2'>";
+		echo "<thead><tr>
 				<th>ID</th>
 				<th>上行时间</th>
 				<th>电话号码</th>
@@ -116,7 +123,7 @@
 				<th>渠道</th>
 				<th>渠道业务</th>
 				<th>指令</th>
-				</tr>";
+				</tr></thead><tbody>";
 		
 		$sql="select id,motime,phone_number,mo_message,sp_number,gwid,mo_status,fee,feetype,mt_message,service_id,msgtype,is_agent,report,province,area,spID,spname,serviceID,service_name,cpID,cpname,cp_productID,cp_product_name,cmdID from $tb ";
 		$sql.=$sql_condition;
@@ -239,7 +246,7 @@
 			}
 			mysqli_free_result($result);
 		}
-		echo "</table>";
+		echo "</tbody></table>";
 		
 		
 	}

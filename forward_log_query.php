@@ -92,9 +92,15 @@
 		
 	}
 	if($query_type=='result_page')
-	{
-		echo "<table width=100%>";
-		echo "<tr>
+	{	
+		echo '<script>$(document).ready(function(){
+				$("#yourTableID2").chromatable({
+						width: "100%",
+						height: "400px",
+						scrolling: "yes",
+					})});</script>';
+		echo "<table id='yourTableID2' style='width:auto'>";
+		echo "<thead><tr>
 				<th>ID</th>
 				<th>上行时间</th>
 				<th>电话号码</th>
@@ -114,7 +120,7 @@
 				<th>mr转发状态</th>
 				<th>mr转发应答</th>
 				<th>mr转发的实际url</th>
-				</tr>";
+				</tr></thead>";
 
 		
 		$sql="select id,motime,phone_number,mo_status,is_agent,report,report_orig,report_time,cpID,cpname,cp_productID,cp_product_name,forward_status,forward_mo_time,forward_mo_result,forward_mo_resp,forward_mo_url,forward_mr_time,forward_mr_result,forward_mr_resp,forward_mr_url from $tb ";
@@ -212,7 +218,7 @@
 				echo "<td>".$v."</td>";
 
 				echo "<td>".$row['forward_mo_resp']."</td>";
-				echo "<td>".$row['forward_mo_url']."</td>";
+				echo "<td width=110 style='word-wrap:break-word;word-break:break-all;'>".$row['forward_mo_url']."</td>";
 				echo "<td>".$row['forward_mr_time']."</td>";
 
 				//mr转发状态1:成功 2：失败 3：超时
@@ -223,7 +229,7 @@
 				echo "<td>".$v."</td>";
 
 				echo "<td>".$row['forward_mr_resp']."</td>";
-				echo "<td>".$row['forward_mr_url']."</td>";
+				echo "<td  width=110 style='word-wrap:break-word;word-break:break-all;'>".$row['forward_mr_url']."</td>";
 
 
 
