@@ -122,8 +122,24 @@ $result=exsql($buf);
 
 echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
 while($row=mysqli_fetch_row($result))
-{
-	echo"<tr>";
+{	
+	if($row[5]==1){$rows1[]=$row;}
+	if($row[5]==2){$rows2[]=$row;}
+	
+}
+if(!empty($rows2)){
+	foreach($rows2 as $row2){
+		array_push($rows1,$row2); 
+	}
+}
+
+foreach($rows1 as $row)
+{	
+	if($row[5]==2){
+		echo "<tr class='bg'>";
+	}else{
+		echo"<tr>";
+	}
 	//seq
 	echo "<td align=center>$row[0]</td>";
 

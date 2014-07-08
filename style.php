@@ -34,6 +34,9 @@
             color: #4f6b72;  
             text-align:center;
         }
+		.bg td{
+			background: #d0d0d0;
+		}
 		th{
 			background: #D3E9FF	;
 			color: black;
