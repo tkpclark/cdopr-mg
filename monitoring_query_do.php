@@ -207,7 +207,7 @@ if(!empty($cmdid)){
 
 		echo "<tr><td>";
 		echo "<table>";
-		echo "<tr><td>省份</td><td>总数下发日限</td><td>单用户下发日限</td><td>总同步日限</td><td>总数下发月限</td><td>单用户下发月限</td><td>总同步月限</td><td>扣量(%)</td><td>状态</td></tr>";
+		echo "<tr><td>省份</td><td>状态</td><td>总数下发日限</td><td>单用户下发日限</td><td>总同步日限</td><td>总数下发月限</td><td>单用户下发月限</td><td>总同步月限</td><td>扣量(%)</td></tr>";
 		//全部,默认--总数下发日月限、单用户下发日月限、转发日月限
 		$default_visit_day=$default_visit_mon=$default_visit_day_one=$default_visit_mon_one=$default_visit_day_forward=$default_visit_mon_forward='';
 		$daily_limit_all=$monthly_limit_all=$default_deduction='无限制';
@@ -242,9 +242,9 @@ if(!empty($cmdid)){
 				}
 			}
 		}
-		echo "<tr><td>全部</td><td class='update_num' _num='$v[0]-全部-2-1'>$daily_limit_all</td><td>--</td><td>--</td><td class='update_num' _num='$v[0]-全部-2-2'>$monthly_limit_all</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>";
+		echo "<tr><td>全部</td><td>--</td><td class='update_num' _num='$v[0]-全部-2-1'>$daily_limit_all</td><td>--</td><td>--</td><td class='update_num' _num='$v[0]-全部-2-2'>$monthly_limit_all</td><td>--</td><td>--</td><td>--</td></tr>";
 		//默认
-		echo "<tr><td>默认</td><td class='update_num' _num='$v[0]-默认-2-1'>".($default_visit_day!=null&&$default_visit_day!='0'?$default_visit_day:'无限制')."</td><td class='update_num' _num='$v[0]-默认-1-1'>".($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制')."</td><td class='update_num' _num='$v[0]-默认-3-1'>".($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制')."</td><td class='update_num' _num='$v[0]-默认-2-2'>".($default_visit_mon!=null&&$default_visit_mon!='0'?$default_visit_day:'无限制')."</td><td class='update_num' _num='$v[0]-默认-1-2'>".($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制')."</td><td class='update_num' _num='$v[0]-默认-3-2'>".($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制')."</td><td class='update_deduction' _num='$v[3]-默认'>".($default_deduction!=null&&$default_deduction!='0'?$default_deduction:'无限制')."</td><td>--</td></tr>";
+		echo "<tr><td>默认</td><td>--</td><td class='update_num' _num='$v[0]-默认-2-1'>".($default_visit_day!=null&&$default_visit_day!='0'?$default_visit_day:'无限制')."</td><td class='update_num' _num='$v[0]-默认-1-1'>".($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制')."</td><td class='update_num' _num='$v[0]-默认-3-1'>".($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制')."</td><td class='update_num' _num='$v[0]-默认-2-2'>".($default_visit_mon!=null&&$default_visit_mon!='0'?$default_visit_day:'无限制')."</td><td class='update_num' _num='$v[0]-默认-1-2'>".($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制')."</td><td class='update_num' _num='$v[0]-默认-3-2'>".($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制')."</td><td class='update_deduction' _num='$v[3]-默认'>".($default_deduction!=null&&$default_deduction!='0'?$default_deduction:'无限制')."</td></tr>";
 		
 		$i=0;
 		foreach($area_code as $area){
@@ -256,7 +256,11 @@ if(!empty($cmdid)){
 			$i++;
 			//省份
 			echo "<td>$area</td>";
-
+			//状态
+			echo "<td>";
+			if(strpos($v[5],$area)!==false){echo '<a class="onoff" href="javascript:void(0)"  _num="'.$v[0].'-'.$area.'-2">关闭</a>';}else{echo '<a class="onoff" href="javascript:void(0)"  _num="'.$v[0].'-'.$area.'-1">开通</a>';}
+			echo '&nbsp;<a class="see" href="javascript:void(0)"  _num="'.$v[0].'-'.$area.'">查看</a>';
+			echo "</td>";
 			//总数下发日月限、单用户下发日月限、转发日月限
 			$visit_day=$visit_mon=$visit_day_one=$visit_mon_one=$visit_day_forward=$visit_mon_forward='';
 			if(!empty($visit_rows)){
@@ -302,11 +306,7 @@ if(!empty($cmdid)){
 			}
 			}
 			echo "<td class='update_deduction' _num='$v[3]-$area'>".(($deduction!=null&&$deduction!=0)?$deduction:($default_deduction!=null&&$default_deduction!='0'?$default_deduction:'无限制'))."</td>";
-			//状态
-			echo "<td>";
-			if(strpos($v[5],$area)!==false){echo '<a class="onoff" href="javascript:void(0)"  _num="'.$v[0].'-'.$area.'-2">关闭</a>';}else{echo '<a class="onoff" href="javascript:void(0)"  _num="'.$v[0].'-'.$area.'-1">开通</a>';}
-			echo '&nbsp;<a class="see" href="javascript:void(0)"  _num="'.$v[0].'-'.$area.'">查看</a>';
-			echo "</td>";
+			
 			echo "</tr>";
 		}
 		echo "</table>";
