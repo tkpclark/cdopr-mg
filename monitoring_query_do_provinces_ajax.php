@@ -16,7 +16,7 @@ $row=mysqli_fetch_row($result);
 if(empty($row[0])){
 	$sql="update mtrs_cmd set forbidden_area='$forbidden_area' where ID=$cmdid";
 	exsql($sql);
-	echo 2;
+	echo 1;
 }else{
 	$res='';
 	$rows = explode(' ',$row[0]);
@@ -28,7 +28,7 @@ if(empty($row[0])){
 	}
 	$sql="update mtrs_cmd set forbidden_area='".$res.$forbidden_area."' where ID='$cmdid'";
 	exsql($sql);
-	echo 3;
+	echo 1;
 }
 
 

@@ -1,40 +1,3 @@
-<script>
-		$('strong').click(function(){
-			$('.see_area_open').replaceWith('<div class=see_area></div>');
-		})
-//修改禁止市区
-		$('.content').click(function(){
-			var cmdid = $(this).attr('_num');
-			var area = $(this).attr('_area');
-			var obj = $(this);
-			if(obj.has('textarea').length){
-				return;
-			}
-			var org = obj.html();
-			var wid = obj.css('width');
-			obj.html('');
-			if(org=='没有禁止市区'){ var org_obj='';}else{ var org_obj=org;}
-			obj.append("<textarea>"+org_obj+"</textarea>"); 
-			var input = obj.find('textarea');
-			input.focus();
-			input.blur(function(){
-			  var inputval = input.val();
-			  if(inputval==''){ var inputval_obj='没有禁止市区';}else{ var inputval_obj=inputval;}
-			  if(inputval=='' && org=='没有禁止市区'){inputval='没有禁止市区'}
-			  obj.empty();
-			  obj.html(inputval_obj);
-			  $.ajax({
-				   type: "GET",
-				   url: "monitoring_query_do_provinces_ajax.php?forbidden_area="+inputval+'&cmdid='+cmdid+'&area='+area,
-				   cache:false,
-				   success: function(msg){
-					
-					alert(msg)
-				   }
-				});
-			});
-		})
-</script>
 <?php
 include("check.php");
 
@@ -63,8 +26,47 @@ if(count($arr)==3){
 		}
 	}
 }elseif(count($arr)==2){
+
+	echo "<script>
+		$('strong').click(function(){
+			$('.see_area_open').replaceWith('<div class=see_area></div>');
+		})
+//修改禁止市区
+		$('.content').click(function(){
+			var cmdid = $(this).attr('_num');
+			var area = $(this).attr('_area');
+			var obj = $(this);
+			if(obj.has('textarea').length){
+				return;
+			}
+			var org = obj.html();
+			var wid = obj.css('width');
+			obj.html('');
+			if(org=='没有禁止市区'){ var org_obj='';}else{ var org_obj=org;}
+			obj.append('<textarea>'+org_obj+'</textarea>'); 
+			var input = obj.find('textarea');
+			input.focus();
+			input.blur(function(){
+			  var inputval = input.val();
+			  if(inputval==''){ var inputval_obj='没有禁止市区';}else{ var inputval_obj=inputval;}
+			  if(inputval=='' && org=='没有禁止市区'){inputval='没有禁止市区'}
+			  obj.empty();
+			  obj.html(inputval_obj);
+			  $.ajax({
+				   type: 'GET',
+				   url: 'monitoring_query_do_provinces_ajax.php?forbidden_area='+inputval+'&cmdid='+cmdid+'&area='+area,
+				   cache:false,
+				   success: function(msg){
+					if(msg!=1){
+						alert('失败');
+					}
+				   }
+				});
+			});
+		})
+	</script>";
+
 	list($cmdid,$area)=$arr;
-	
 	if(!empty($cmdid) && !empty($area)){
 		$sql = "select forbidden_area from mtrs_cmd where ID= ".$cmdid;	
 		$result=exsql($sql);

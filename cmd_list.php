@@ -110,8 +110,6 @@ echo "<table border='1' cellspacing='0' cellpadding='1' width='90%' class='tabs'
 <th>使用渠道</th>
 <th>使用渠道业务</th>
 <th>查看下行</th>
-<th>开通省份</th>
-<th>禁止地区</th>
 <th>状态</th>
 <th>编辑</th>
 <th>删除</th>
@@ -238,12 +236,12 @@ foreach($rows1 as $row)
 	echo "<see_cmd_mt style=''><a href='#'><img src='images/chakan.png' alt='查看下行' width=16 height=16></a></see_cmd_mt>";
 	echo "</td>";
 
-	//开通省份
+	/*开通省份
 	$open_province = $row[7]?$row[7]:"默认全部开通";
 	echo "<td align=center>$open_province</td>";
 	//禁止地区
 	echo "<td align=center>$row[8]</td>";
-	
+	*/
 	//状态
 	if($row[5]==1)
 		echo "<td align=center>正常</td>";
