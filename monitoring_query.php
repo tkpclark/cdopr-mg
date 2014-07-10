@@ -37,8 +37,8 @@ ini_set('default_socket_timeout', -1);
 
 //redis缓存
 $redis = new redis();  
-$redis->connect('127.0.0.1', 6379);
-//$redis->connect('42.62.78.248', 6379);
+//$redis->connect('127.0.0.1', 6379);
+$redis->connect('42.62.78.248', 6379);
 
 $cmd_ids = $_GET['cmd_ids'];
 //$cmd_ids= '54,67,';
@@ -65,9 +65,19 @@ if(!empty($cmd_ids)){
 			while($cp_row=mysqli_fetch_row($result)){
 				$cp_rows[]=$cp_row;
 			}
-		}
-		//print_r($cp_rows);exit;	
 
+			/*
+			//扣量mtrs_deduction
+			*/
+			$sql = "select * from mtrs_deduction where cpProdID in ($cpProdID)";
+			$result=exsql($sql);
+			while($deduction_row=mysqli_fetch_row($result)){
+				$deduction_rows[]=$deduction_row;
+			}
+		}
+		//print_r($cp_rows);exit;
+		
+		
 
 		/*
 		//通道mtrs_service|mtrs_sp
@@ -116,10 +126,10 @@ if(!empty($cmd_ids)){
 
 			echo "<tr><td>";
 			echo "<table>";
-			echo "<tr><td>省份</td><td>总数日量</td><td>总数下发日限</td><td>百分比</td><td>单用户下发日限</td><td>总同步日限</td><td>总数月量</td><td>总数下发月限</td><td>百分比</td><td>单用户下发月限</td><td>总同步月限</td><td>状态</td></tr>";
+			echo "<tr><td>省份</td><td>总数日量</td><td>总数下发日限</td><td>百分比</td><td>单用户下发日限</td><td>总同步日限</td><td>总数月量</td><td>总数下发月限</td><td>百分比</td><td>单用户下发月限</td><td>总同步月限</td><td>扣量</td><td>状态</td></tr>";
 			//全部,默认--总数下发日月限、单用户下发日月限、转发日月限
 			$default_visit_day=$default_visit_mon=$default_visit_day_one=$default_visit_mon_one=$default_visit_day_forward=$default_visit_mon_forward='';
-			$daily_limit_all=$monthly_limit_all='无限制';
+			$daily_limit_all=$monthly_limit_all=$default_deduction='无限制';
 			if(!empty($visit_rows)){
 			foreach($visit_rows as $visit_all){
 				if($visit_all[2]=='全部' && $visit_all[1]==$v[0]){
@@ -143,13 +153,21 @@ if(!empty($cmd_ids)){
 			
 			}
 			}
+			if(!empty($deduction_rows)){
+				foreach($deduction_rows as $ded){
+					if($v[3]==$ded[1] && $ded[2]=='默认'){
+						$default_deduction=$ded[3]*100;
+						$default_deduction=$default_deduction.'%';
+					}
+				}
+			}
 			//总数日、月量
 			//echo $redis->get('a1_cmdID_date'); exit;
 			$a1="a1_".$v[0]."_".date("Ymd",time());
 			$a2="a2_".$v[0]."_".date("Ym",time());
-			echo "<tr><td>全部</td><td>".($redis->get($a1)!=null?$redis_day_all=$redis->get($a1):$redis_day_all='0')."</td><td>$daily_limit_all</td><td>".($daily_limit_all!=null&&$daily_limit_all!='无限制'?number_format(100*$redis_day_all/$daily_limit_all,2)."%":"0.00%")."</td><td>--</td><td>--</td><td>".($redis->get($a2)!=null?$redis_mon_all=$redis->get($a2):$redis_mon_all='0')."</td><td>$monthly_limit_all</td><td>".($monthly_limit_all!=null&&$monthly_limit_all!='无限制'?number_format(100*$redis_mon_all/$monthly_limit_all,2)."%":"0.00%")."</td><td>--</td><td>--</td><td>--</td></tr>";
+			echo "<tr><td>全部</td><td>".($redis->get($a1)!=null?$redis_day_all=$redis->get($a1):$redis_day_all='0')."</td><td>$daily_limit_all</td><td>".($daily_limit_all!=null&&$daily_limit_all!='无限制'?number_format(100*$redis_day_all/$daily_limit_all,2)."%":"0.00%")."</td><td>--</td><td>--</td><td>".($redis->get($a2)!=null?$redis_mon_all=$redis->get($a2):$redis_mon_all='0')."</td><td>$monthly_limit_all</td><td>".($monthly_limit_all!=null&&$monthly_limit_all!='无限制'?number_format(100*$redis_mon_all/$monthly_limit_all,2)."%":"0.00%")."</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>";
 			//默认
-			echo "<tr><td>默认</td><td>--</td><td>".($default_visit_day!=null&&$default_visit_day!='0'?$default_visit_day:'无限制')."</td><td>--</td><td>".($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制')."</td><td>".($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制')."</td><td>--</td><td>".($default_visit_mon!=null&&$default_visit_mon!='0'?$default_visit_day:'无限制')."</td><td>--</td><td>".($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制')."</td><td>".($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制')."</td><td>--</td></tr>";
+			echo "<tr><td>默认</td><td>--</td><td>".($default_visit_day!=null&&$default_visit_day!='0'?$default_visit_day:'无限制')."</td><td>--</td><td>".($default_visit_day_one!=null&&$default_visit_day_one!='0'?$default_visit_day_one:'无限制')."</td><td>".($default_visit_day_forward!=null&&$default_visit_day_forward!='0'?$default_visit_day_forward:'无限制')."</td><td>--</td><td>".($default_visit_mon!=null&&$default_visit_mon!='0'?$default_visit_day:'无限制')."</td><td>--</td><td>".($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制')."</td><td>".($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制')."</td><td>".($default_deduction!=null&&$default_deduction!='0'?$default_deduction:'无限制')."</td><td>--</td></tr>";
 			
 			foreach($area_code as $area){
 				echo "<tr>";
@@ -199,6 +217,17 @@ if(!empty($cmd_ids)){
 				echo "<td>".(($visit_mon_one!=null&&$visit_mon_one!=0)?$visit_mon_one:($default_visit_mon_one!=null&&$default_visit_mon_one!='0'?$default_visit_mon_one:'无限制'))."</td>";
 				//总转发月限
 				echo "<td>".(($visit_mon_forward!=null&&$visit_mon_forward!=0)?$visit_mon_forward:($default_visit_mon_forward!=null&&$default_visit_mon_forward!='0'?$default_visit_mon_forward:'无限制'))."</td>";
+				//扣量
+				$deduction='无限制';
+				if(!empty($deduction_rows)){
+				foreach($deduction_rows as $ded){
+					if($v[3]==$ded[1] && $area==$ded[2]){
+						$deduction=$ded[3]*100;
+						$deduction=$deduction.'%';
+					}
+				}
+				}
+				echo "<td>".(($deduction!=null&&$deduction!=0)?$deduction:($default_deduction!=null&&$default_deduction!='0'?$default_deduction:'无限制'))."</td>";
 				//状态
 				echo "<td>";
 				if(strpos($v[5],$area)!==false){echo "已开通";}else{echo "未开通";}

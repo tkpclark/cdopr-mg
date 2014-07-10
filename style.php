@@ -37,6 +37,10 @@
 		.bg td{
 			background: #d0d0d0;
 		}
+		.diff td{
+			background: #A4D3EE;
+		}
+		
 		th{
 			background: #D3E9FF	;
 			color: black;
