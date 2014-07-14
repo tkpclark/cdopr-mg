@@ -3,8 +3,6 @@
      $user="tkp";
      $pwd="qepapap";
      $db="cdopr";
-
-      
       $mysqli = new mysqli($ip, $user, $pwd, $db);
 			if($mysqli->connect_error)
 			{
