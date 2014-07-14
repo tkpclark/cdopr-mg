@@ -86,7 +86,7 @@
 						if(txt==1){
 							self.html('关闭');
 						}else{
-							self.html('开启');
+							self.html('开通');
 						}
 					}else{
 						alert('失败');
