@@ -10,7 +10,7 @@
 				 $.blockUI({ message: msg ,
 							 css: { 
 								width: '800px',  
-								left: ($(window).width() - 1000) / 2 + 'px', 
+								left: ($(window).width() - 700) / 2 + 'px', 
 								top: '0px', 
 								border: 'none' 
 								}  	 
@@ -37,8 +37,8 @@ ini_set('default_socket_timeout', -1);
 
 //redis缓存
 $redis = new redis();  
-//$redis->connect('127.0.0.1', 6379);
-$redis->connect('42.62.78.248', 6379);
+$redis->connect('127.0.0.1', 6379);
+//$redis->connect('42.62.78.248', 6379);
 
 $cmd_ids = $_GET['cmd_ids'];
 //$cmd_ids= '54,67,';
