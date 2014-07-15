@@ -17,7 +17,11 @@
 
             function compose_url(query_type,pageNumber,pageSize){
                 var url="";
-                url += "statistic_query.php?";
+				if(pageNumber!='res'){
+					 url += "statistic_query.php?";
+				}else{
+					url += "statistic_query_excel.php?";
+				}
                 url += "&query_type="+query_type;
                 url += "&products="+$("#products").val();
                 url += "&date1="+$('#date1').datebox('getValue');
@@ -101,7 +105,14 @@
 					$('#result_records').panel('refresh',compose_url('result_page',1,pageSize));
 				});
         	})
-
+			
+			//导出渠道分省合计
+			$("#exce").click(function(){
+				//$.getJSON(compose_url('result_info','res'), function(result){ alert(result)});
+				var url = compose_url('result_info','res');
+				location.href=url;
+			});
+			
 			
 
 			
@@ -272,7 +283,7 @@
 				?>
 			</select>
 		</td>
-	<td><button id=query type=button>查询</button></td>
+	<td><button id=query type=button>查询</button>&nbsp;&nbsp;&nbsp;&nbsp<button id='exce' type=button>导出渠道分省合计</button></td>
  	</tr>
 	<tr>
 		<td colspan=4>
