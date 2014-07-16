@@ -1,5 +1,8 @@
 <?php
 	require_once 'mysql.php';
+	require_once 'PHPExcel/PHPExcel.php';
+	require_once 'PHPExcel/PHPExcel/Writer/Excel2007.php';
+	include("area_code.php");
 	$tbl="wraith_statistic";
 
 	/***********condition***********/
@@ -159,7 +162,7 @@
 	{
 		$sql_field.="'All', ";
 	}
-	$sql_field.=" sum(amount_deduction),sum(msg_count_deduction_suc)";
+	$sql_field.=" sum(msg_count_suc),sum(amount_suc)";
 
 	
 
@@ -193,25 +196,54 @@
 				{
 					$rows[]=$row;
 				}
+				//print_r($rows);exit;
 				//导出
-				$name=("渠道省份合计.xls");
-				iconv("UTF-8", "GBK", $name);
-				header("Content-Type: application/vnd.ms-excel;charset=GBK"); 
-				header("Content-Disposition:attachment;filename=$name"); 
+				$objPHPExcel = new PHPExcel();
+				$i=0;
 				foreach($row_cpIDs as $c)
 				{	
 					//渠道名
-					echo iconv("UTF-8", "GBK","$c[1]\t\n");
+					if($i>0){
+						$objPHPExcel->createSheet();
+					}
+					$objPHPExcel->setActiveSheetIndex($i);
+					$objPHPExcel->getActiveSheet()->setTitle("$c[1]");
 					//表头
-					 echo iconv("UTF-8", "GBK","省份\t");echo iconv("UTF-8", "GBK","条数\t");echo iconv("UTF-8", "GBK","金额\t\n");
-					foreach($rows as $row)
-					{
-						if($c[0]==$row[3]){
-							 echo iconv("UTF-8", "GBK",$row[8]."\t".$row[11]."\t".$row[10]."\t\n");
+					 $objPHPExcel->getActiveSheet()->setCellValue('A1', "省份");
+					$objPHPExcel->getActiveSheet()->setCellValue('B1', "条数");
+					$objPHPExcel->getActiveSheet()->setCellValue('C1', "金额");
+
+					$n=2;
+					
+					foreach($area_code as $a)
+					{	
+						$objPHPExcel->getActiveSheet()->setCellValue('A'.$n, "$a");
+						foreach($rows as $row)
+						{
+							if($c[0]==$row[3] && $row[8]==$a){
+								 //$objPHPExcel->getActiveSheet()->setCellValue('A'.$n, "$row[8]");
+								$objPHPExcel->getActiveSheet()->setCellValue('B'.$n, "$row[10]");
+								$objPHPExcel->getActiveSheet()->setCellValue('C'.$n, number_format($row[11]/100,2));
+								
+							}
+							
 						}
 						
+						$n++;	
 					}
-					echo iconv("UTF-8", "GBK","\t\n\t\n\t\n");
+					unset($n);
+					$i++;
 				}
+				$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
+				header("Pragma: public");
+				header("Expires: 0");
+				header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+				header("Content-Type:application/force-download");
+				header("Content-Type:application/vnd.ms-execl");
+				header("Content-Type:application/octet-stream");
+				header("Content-Type:application/download");;
+				header('Content-Disposition:attachment;filename="resume.xls"');
+				header("Content-Transfer-Encoding:binary");
+				$objWriter->save('php://output');
 			}
 		
