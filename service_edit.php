@@ -182,7 +182,8 @@ if(isset($serviceID))
 	<td align="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		按条点播<input type=radio name=feetype value=1 <?php if($feetype==1) echo "checked=\"checked\""?>/> 
-		包月<input type=radio name=feetype value=2 <?php if($feetype==2) echo "checked=\"checked\""?>/> 
+		包月<input type=radio name=feetype value=2 <?php if($feetype==2) echo "checked=\"checked\""?>/>
+		包月话单<input type=radio name=feetype value=3 <?php if($feetype==3) echo "checked=\"checked\""?>/> 
 	</td>
 </tr>
 

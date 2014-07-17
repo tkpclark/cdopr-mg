@@ -110,6 +110,8 @@ include("style.php");
 			echo "<td align=center>点播</td>";
 		else if($row[8]==2)
 			echo "<td align=center>包月</td>";
+		else if($row[8]==3)
+			echo "<td align=center>包月话单</td>";
 
 	  //belong which sp
 	  //get spname
