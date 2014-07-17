@@ -163,7 +163,7 @@ if(isset($cmd_id))
 			</select>
 	</th>
 </tr>
-
+ -->
 <th>允许访问的省份&nbsp;</th>
 <td><input type=text name=open_province value='<?php echo $open_province;?>' size=170></td>
 </tr>
@@ -171,7 +171,7 @@ if(isset($cmd_id))
 <th>禁止的地区&nbsp;</th>
 <td><input type=text name=forbidden_area value='<?php echo $forbidden_area;?>' size=170></td>
 <tr>
- -->				
+				
 
 <tr>	
 	<th> 状态 </th>

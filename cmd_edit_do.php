@@ -9,8 +9,8 @@ $sp_number = isset($_REQUEST['cmd_spnumber'])?$_REQUEST['cmd_spnumber']:"";
 $mo_cmd = isset($_REQUEST['cmd_mocmd'])?$_REQUEST['cmd_mocmd']:"";
 $deduction = isset($_REQUEST['deduction'])?round($_REQUEST['deduction']/100,2):"";
 $status = isset($_REQUEST['status'])?$_REQUEST['status']:"";
-//$open_province = isset($_REQUEST['open_province'])?$_REQUEST['open_province']:"";
-//$forbidden_area = isset($_REQUEST['forbidden_area'])?$_REQUEST['forbidden_area']:"";
+$open_province = isset($_REQUEST['open_province'])?$_REQUEST['open_province']:"";
+$forbidden_area = isset($_REQUEST['forbidden_area'])?$_REQUEST['forbidden_area']:"";
 //$fee = isset($_REQUEST['fee'])?$_REQUEST['fee']:0;
 $checkblk = isset($_REQUEST['checkblk'])?$_REQUEST['checkblk']:"";
 $is_agent = isset($_REQUEST['is_agent'])?$_REQUEST['is_agent']:"";
@@ -22,8 +22,8 @@ $sql="select spID from mtrs_service where ID=".$serviceID;
 
 if($cmd_id=="")
 {
-		$sql = "insert into mtrs_cmd (sp_number,mo_cmd,cpProdID,serviceID,status,checkblk,is_agent) 
-						values('$sp_number','$mo_cmd','$cpProdID','$serviceID','$status','$checkblk','$is_agent')";
+		$sql = "insert into mtrs_cmd (sp_number,mo_cmd,cpProdID,serviceID,status,checkblk,is_agent,open_province,forbidden_area) 
+						values('$sp_number','$mo_cmd','$cpProdID','$serviceID','$status','$checkblk','$is_agent','$open_province','$forbidden_area')";
 		//echo $sql;
 		exsql($sql);
 		
@@ -36,8 +36,7 @@ if($cmd_id=="")
 }
 else
 {
-		$sql = "update mtrs_cmd set cpProdID='$cpProdID',serviceID='$serviceID', sp_number='$sp_number', mo_cmd='$mo_cmd',status='$status',checkblk='$checkblk',is_agent='$is_agent'
-						where ID=$cmd_id";
+		$sql = "update mtrs_cmd set cpProdID='$cpProdID',serviceID='$serviceID', sp_number='$sp_number', mo_cmd='$mo_cmd',status='$status',checkblk='$checkblk',is_agent='$is_agent',open_province='$open_province',forbidden_area='$forbidden_area' where ID=$cmd_id";
 		//echo $sql;
 		exsql($sql);
 		
