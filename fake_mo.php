@@ -8,7 +8,7 @@
 $(document).ready(function(){	
 	$("input[name='button']").click(function(){
 		var phone_number = $("input[name='phone_number']").val();
-		var mo_message = $("input[name='mo_message']").val(); 
+		var mo_message = window.escape($("input[name='mo_message']").val()); 
 		var spnumber = $("input[name='spnumber']").val(); 
 		var linkid = $("input[name='linkid']").val(); 
 		var gwid = $("select[name='gwid']").find("option:selected").val();

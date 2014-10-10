@@ -21,6 +21,8 @@
                 url += "&date2="+$('#date2').datebox('getValue');
                 url += "&pageSize="+pageSize;
                 url += "&pageNumber="+pageNumber;
+				url += "&totalFee="+$("#totalFee").val();
+				
 
                 return url;
                 
@@ -73,7 +75,7 @@
 	
 	
 	<table width='100%'>
-	<tr><td colspan=3 style="font-weight:bold">wo+sdk统计查询</td></tr>
+	<tr><td colspan=4 style="font-weight:bold">wo+sdk统计查询</td></tr>
 	<tr>
  	<td>开始时间&nbsp;<input id="date1" type="text" class="easyui-datebox" data-options="formatter:myformatter" required="required" value=""></input></td>
  	<td>结束时间&nbsp;<input id='date2' type="text" class="easyui-datebox" data-options="formatter:myformatter" required="required" value=""></input></td>
@@ -94,7 +96,13 @@
 		
 		
 	</script>
+	<td>价格&nbsp;&nbsp;
+ 	<select id=totalFee>
+		<option value="">全部</option>
+		<option value="5">5元</option>
+		<option value="10">10元</option>
 
+ 	</select></td>
 	<td><button id=query type=button>查询</button></td>
  	</tr>
 	</table>

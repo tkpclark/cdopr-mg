@@ -24,7 +24,8 @@
 		$query_type=$_REQUEST["query_type"];
 	}
 	if(isset($_REQUEST["phone_number"])&&!empty($_REQUEST["phone_number"]))
-	{
+	{	
+		if($_COOKIE['role']==16){$_REQUEST["phone_number"]=md5($_REQUEST["phone_number"]."Linktech");}
 		$sql_condition.="and phone_number='".$_REQUEST["phone_number"]."' ";
 	}
 	if(isset($_REQUEST["date1"]) && !empty($_REQUEST["date1"]))
@@ -114,7 +115,6 @@
 				<th>下行内容</th>
 				<th>计费代码</th>
 				<th>业务类型</th>
-				<th>代计费</th>
 				<th>状态报告</th>
 				<th>归属省</th>
 				<th>归属地</th>
@@ -122,6 +122,7 @@
 				<th>通道业务</th>
 				<th>渠道</th>
 				<th>渠道业务</th>
+				<th>代计费</th>
 				<th>指令</th>
 				</tr></thead><tbody>";
 		
@@ -151,7 +152,7 @@
 				echo "<tr align='center'>";
 				echo "<td>".$row['id']."</td>";
 				echo "<td>".$row['motime']."</td>";
-				echo "<td>".$row['phone_number']."</td>";
+				echo "<td>".substr($row['phone_number'],0,11)."</td>";
 				echo "<td>".$row['mo_message']."</td>";
 				echo "<td>".$row['sp_number']."</td>";
 
@@ -171,6 +172,7 @@
 				//包月、点播
 				if($row['feetype']==1) $v='按条点播';
 				elseif ($row['feetype']==2) $v='包月';
+				elseif ($row['feetype']==3) $v='包月话单';
 				else $v='';
 				echo "<td>".$v."</td>";
 				
@@ -186,11 +188,6 @@
 				else $v='';
 				echo "<td>".$v."</td>";
 				
-				//是否代计费
-				if($row['is_agent']==1) $v='否';
-				elseif ($row['is_agent']==2) $v='是';
-				else $v='';
-				echo "<td>".$v."</td>";
 				
 				//状态报告
 				if($row['report']==1) $v='成功';
@@ -232,6 +229,11 @@
 					$v='';
 				echo "<td>".$v."</td>";
 				
+				//是否代计费
+				if($row['is_agent']==1) $v='否';
+				elseif ($row['is_agent']==2) $v='是';
+				else $v='';
+				echo "<td>".$v."</td>";
 
 				//指令
 				$cmdIDs=array(0=>'',1=>'',2=>'');

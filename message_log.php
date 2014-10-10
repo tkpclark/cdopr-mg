@@ -102,10 +102,14 @@
 	
 	<table width='100%'>
 	 <tr><td>通道&nbsp;&nbsp;
- 	<select id=spID onchange="change('sp')">
-		<option value="">全部</option>
+ 	<select id=spID onchange="change('sp')">	
 <?php
- 	$sql="select ID,spname from mtrs_sp";
+	if($_COOKIE['role']!=16){echo "<option value=''>全部</option>";}
+	$sql="select ID,spname from mtrs_sp";
+	if($_COOKIE['role']==16){
+		$sql="select ID,spname from mtrs_sp where id=23";
+	}
+ 	
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
@@ -161,6 +165,7 @@
 		<option value="">全部</option>
 		<option value="1">点播 </option>
 		<option value="2">包月</option>
+		<option value="3">包月话单</option>
  	</select></td>
 
 

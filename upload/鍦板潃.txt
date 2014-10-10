@@ -1,0 +1,23 @@
+42.62.78.248    tkp/qepapap     /management                               管理平台
+
+42.62.78.247    tkp/qepapap     /home/tkp/cdopr/src/interface             接口  http://42.62.78.247/if/*.php
+
+
+114.113.146.18  app/tengyewudi  /marine                                    phpcms二次开发    
+
+
+
+112.124.98.113  xuguishuang/xuguishuang                                     下载用服务器    
+
+
+
+
+http://42.62.78.247/redis/?view   redis管理界面
+
+
+
+
+42.62.67.82  wo/x_pp23xxp#r                                           wo+数据库
+     
+
+

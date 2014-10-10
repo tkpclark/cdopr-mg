@@ -5,7 +5,7 @@
   $md5_password=md5($password);
   $sql="set names utf8";
   exsql($sql);
-  $sql="select ID , type , membername ,role ,cpID from wraith_users where username='$username' and password='$md5_password'";
+  $sql="select ID , type , membername ,role ,cpID , username from wraith_users where username='$username' and password='$md5_password'";
   
   $result=mysqli_query($mysqli,$sql);
   if(mysqli_num_rows($result)==1)
@@ -13,7 +13,8 @@
      setcookie("username",$username);
      setcookie("password",$md5_password);
      $row=mysqli_fetch_assoc($result);
-
+	
+	 setcookie("uname",$row['username']);
      setcookie("type",$row['type']);
 	 setcookie("role",$row['role']);
 	 setcookie("id",$row['ID']);

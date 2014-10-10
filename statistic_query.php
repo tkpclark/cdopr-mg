@@ -59,7 +59,17 @@
 	{
 		$sql_condition.="and cmdID='".$_REQUEST["cmdID"]."' ";
 	}
-
+	if(isset($_REQUEST["serviceIDs"])&&!empty($_REQUEST["serviceIDs"]))
+	{
+		$sql1="select ID from mtrs_service where name like '$_REQUEST[serviceIDs]%'";
+		$result1=exsql($sql1);
+		while($row=mysqli_fetch_row($result1))
+		{
+			$serviceids[] = $row[0];
+		}
+		$serviceids = '('.implode(',',$serviceids).') ';
+		$sql_condition.="and serviceID in ".$serviceids;
+	}
 
 	//查询字段/group
 	$group_flag=0;

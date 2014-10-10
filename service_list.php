@@ -1,3 +1,4 @@
+<script type="text/javascript" src="jquery.js"></script>
 <script Language="JavaScript">
 function ask(id)
 {
@@ -7,6 +8,17 @@ function ask(id)
 		return true;
 	else 
 		return false;
+}
+function change(type){ 
+	var val = $("#"+type+"ID").val();
+	  $.get("message_log_json.php", { type: type, id: val },
+		  function(data){
+			if(type=='sp'){
+				$("#serverid").html(data);
+			}else{
+				$("#serverid").html(data);
+			}
+		  });
 }
 </script>
 <?php
@@ -19,15 +31,36 @@ include("style.php");
 <font size=3><a href='service_edit.php'>添加</a></font><br>
 
 <form name=pn_inq action="service_list.php" method=post>
- <table><tr><td>通道<select name=serverid onchange=>
+ <table><tr><td>
+ 
+ 通道<select id='spID' name='spID' onchange="change('sp')">
+		<option value="">全部</option>
 <?php
 	$where=" 1";
-	if(isset($_REQUEST['serverid']) && !empty($_REQUEST['serverid'])){
+	if(isset($_POST['spID']) && !empty($_POST['spID'])){
 
-		$where = " ID = ".$_REQUEST['serverid'];
+		$where .= " and spID = ".$_POST['spID'];
 	}
 
- 	$sql="select ID,name,sp_number,mo_cmd from mtrs_service";
+ 	$sql="select ID,spname from mtrs_sp";
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{
+ 		if(isset($_POST['spID']) && !empty($_POST['spID']) && $_POST['spID']==$row[0]){
+ 			echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
+		}else{
+			echo "<option value=$row[0]>($row[0])$row[1]</option>";
+		}
+ 	}
+?>
+ 	</select>
+ 
+ 通道业务<select id='serverid' name='serverid' onchange=><option value="">全部</option>
+<?php
+	
+	
+
+ 	$sql="select ID,name,sp_number,mo_cmd from mtrs_service where ".$where;
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{	
@@ -37,6 +70,12 @@ include("style.php");
 			echo "<option value=$row[0]>($row[0])$row[1]-$row[2]-$row[3]</option>";
 		}
  	}
+
+
+	if(isset($_REQUEST['serverid']) && !empty($_REQUEST['serverid'])){
+
+		$where .= " and ID = ".$_REQUEST['serverid'];
+	}
 ?>
 </select><input type=submit name=submit value=查询></td></tr></table></form>
 
@@ -61,6 +100,7 @@ include("style.php");
 <?php
 
   $buf= "select * from mtrs_service where ".$where;
+  //echo $buf;
   $result=exsql($buf);
   echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
   while($row=mysqli_fetch_row($result))

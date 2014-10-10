@@ -38,7 +38,33 @@
 <?php 
 	include("check.php"); 
 	include("style.php");
-	$sql="select ID,sp_number,mo_cmd,cpProdID from mtrs_cmd";
+	//检索通道
+	$where=" 1";
+	if($_COOKIE['role']==16){
+		$_POST['spID']=23;
+	}
+	if(isset($_POST['spID']) && !empty($_POST['spID'])){
+		$sql="select id from mtrs_service where spID=".$_POST['spID'];
+		$result=exsql($sql);
+		while($row=mysqli_fetch_row($result))
+		{
+			$sp_pro[]=$row[0];
+		}
+		$where .= " and serviceID in (".implode(',',$sp_pro).")";
+	}
+
+	if(isset($_POST['cpID']) && !empty($_POST['cpID'])){
+		$sql="select id from mtrs_cp_product where cpID=".$_POST['cpID'];
+		$result=exsql($sql);
+		while($row=mysqli_fetch_row($result))
+		{
+			$cp_pro[]=$row[0];
+		}
+		$where .= " and cpProdID in (".implode(',',$cp_pro).")";
+	}
+
+	$sql="select ID,sp_number,mo_cmd,cpProdID from mtrs_cmd where ".$where;
+	//echo $sql;
 	$result=exsql($sql);
 	while($row=mysqli_fetch_row($result)){
 		$rows[]=$row;
@@ -53,8 +79,49 @@
 
  <body>
 	<table width='100%' id='tb'><tr><td colspan=5>指令选择</td></tr>
+	<form name=pn_inq action="monitoring.php" method=post>
+	<tr>
+	<td  colspan=5>通道<select name='spID'>
+		<?php
+			if($_COOKIE['role']!=16){echo "<option value=''>全部</option>";}
+			$sql="select ID,spname from mtrs_sp";
+			if($_COOKIE['role']==16){
+				$sql="select ID,spname from mtrs_sp where id=23";
+			}
+			$result=exsql($sql);
+			while($row=mysqli_fetch_row($result))
+			{	
+				if(isset($_POST['spID']) && !empty($_POST['spID']) && $_POST['spID']==$row[0]){
+					echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
+				}else{
+					echo "<option value=$row[0]>($row[0])$row[1]</option>";
+				}
+				
+			}
+		?>
+		</select>
+	
+	渠道<select name='cpID'>
+		<option value=''>全部</option>
+		<?php
+			$sql="select ID,cpname from mtrs_cp";
+			$result=exsql($sql);
+			while($row=mysqli_fetch_row($result))
+			{	
+				if(isset($_POST['cpID']) && !empty($_POST['cpID']) && $_POST['cpID']==$row[0]){
+					echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
+				}else{
+					echo "<option value=$row[0]>($row[0])$row[1]</option>";
+				}
+				
+			}
+		?>
+		</select><input type=submit name=submit value=查询></td>
+
+	</tr></form>
 	  <?php
 		$i=1;
+		if(isset($rows) && !empty($rows)){
 		foreach($rows as $row){
 			if($i==1){echo "<tr>";}
 			echo "<td>";
@@ -67,7 +134,7 @@
 			echo "</td>";
 			if(($i%5)==0 && $i!=1){echo "</tr></tr>";}
 			$i++;
-		}
+		}}
 	  ?>
 	  <tr><td colspan=5><button id=query type=button>查询</button></td></tr></table>
 

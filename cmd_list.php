@@ -62,17 +62,31 @@ $(document).ready(function(){
 
 <?php
 $where=" 1";
-if(isset($_REQUEST['spID']) && !empty($_REQUEST['spID'])){
-	$sql="select id from mtrs_service where spID=".$_REQUEST['spID'];
+if($_COOKIE['role']==16){
+		$_POST['spID']=23;
+	}
+if(isset($_POST['spID']) && !empty($_POST['spID'])){
+	$sql="select id from mtrs_service where spID=".$_POST['spID'];
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{
+ 		$sp_pro[]=$row[0];
+ 	}
+	$where .= " and serviceID in (".implode(',',$sp_pro).")";
+}
+
+if(isset($_POST['cpID']) && !empty($_POST['cpID'])){
+	$sql="select id from mtrs_cp_product where cpID=".$_POST['cpID'];
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
  		$cp_pro[]=$row[0];
  	}
-	$where = " serviceID in (".implode(',',$cp_pro).")";
+	$where .= " and cpProdID in (".implode(',',$cp_pro).")";
 }
+
 if(isset($_REQUEST['cmd_id']) && !empty($_REQUEST['cmd_id'])){
-	$where = " ID=".$_REQUEST['cmd_id'];
+	$where .= " and ID=".$_REQUEST['cmd_id'];
 }
 echo "<body>";
 echo "<font size=4><caption>指令列表>></caption></font>
@@ -81,12 +95,15 @@ echo "<font size=4><caption>指令列表>></caption></font>
 
 echo '<form name=pn_inq action="cmd_list.php" method=post>';
  echo "<table><tr><td>通道<select name=spID onchange=>";
-
- 	$sql="select ID,spname from mtrs_sp";
+	if($_COOKIE['role']!=16){echo "<option value=''>全部</option>";}
+	$sql="select ID,spname from mtrs_sp";
+	if($_COOKIE['role']==16){
+		$sql="select ID,spname from mtrs_sp where id=23";
+	}
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{	
-		if(isset($_REQUEST['spID']) && !empty($_REQUEST['spID']) && $_REQUEST['spID']==$row[0]){
+		if(isset($_POST['spID']) && !empty($_POST['spID']) && $_POST['spID']==$row[0]){
 			echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
 		}else{
 			echo "<option value=$row[0]>($row[0])$row[1]</option>";
@@ -94,7 +111,25 @@ echo '<form name=pn_inq action="cmd_list.php" method=post>';
  		
  	}
 
-echo "</select><input type=submit name=submit value=查询></td></tr></table></from>";
+echo "</select>";
+
+ echo "渠道<select name=cpID onchange=><option value=''>全部</option>";
+			
+ 	$sql="select ID,cpname from mtrs_cp";
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{	
+		if(isset($_POST['cpID']) && !empty($_POST['cpID']) && $_POST['cpID']==$row[0]){
+			echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
+		}else{
+			echo "<option value=$row[0]>($row[0])$row[1]</option>";
+		}
+ 		
+ 	}
+
+echo "</select>";
+
+echo "<input type=submit name=submit value=查询></td></tr></table></from>";
 
 
 
@@ -119,7 +154,7 @@ echo "<table border='1' cellspacing='0' cellpadding='1' width='90%' class='tabs'
 $buf= "SELECT * FROM mtrs_cmd where ".$where;
 //echo $buf;
 $result=exsql($buf);
-
+$rows1=array();
 echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
 while($row=mysqli_fetch_row($result))
 {	
@@ -127,6 +162,7 @@ while($row=mysqli_fetch_row($result))
 	if($row[5]==2){$rows2[]=$row;}
 	
 }
+
 if(!empty($rows2)){
 	foreach($rows2 as $row2){
 		array_push($rows1,$row2); 

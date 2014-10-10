@@ -37,6 +37,7 @@
 				url += "&cpProdID="+$("#cpProdID").val();
 				url += "&is_agent="+$("#is_agent").val();
 				url += "&cmdID="+$("#cmdID").val();
+				url += "&serviceIDs="+$("#serviceIDs").val();
 				//分组
 				if($("#date_group").is(':checked')==true)
 					url += "&date_group="+$("#date_group").val();
@@ -208,7 +209,21 @@
 
 
 	 <tr>
-	 
+
+	 <td>通道业务&nbsp;&nbsp;
+ 	<select id=serviceIDs>
+		<option value="">全部</option>
+<?php
+ 	$sql="select DISTINCT(substring_index(`name`,'-',1))  from mtrs_service";
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{
+ 		echo "<option value=$row[0]>$row[0]</option>";
+ 	}
+?>
+ 	</select></td>
+
+
 	 <td>代计费业务&nbsp;&nbsp;
  	<select id=is_agent>
 		<option value="">全部</option>
@@ -238,17 +253,7 @@
  	</select></td>
 
 
-	<td>所属省&nbsp;&nbsp;
- 	<select id=province>
-	<option value=''>全部</option>
-<?php
-		while($key = key($area_code))
-		{
-			echo "<option value='$area_code[$key]'>$area_code[$key]</option>";
-			next($area_code);
-		}
-?>
- 	</select></td>
+
 	</tr>
 	<tr>
  	<td>开始时间&nbsp;<input id="date1" type="text" class="easyui-datebox" data-options="formatter:myformatter" required="required" value=""></input></td>
@@ -283,7 +288,20 @@
 				?>
 			</select>
 		</td>
-	<td><button id=query type=button>查询</button>&nbsp;&nbsp;&nbsp;&nbsp<button id='exce' type=button>导出渠道分省合计</button></td>
+	<td>所属省&nbsp;&nbsp;
+ 	<select id=province>
+	<option value=''>全部</option>
+<?php
+		while($key = key($area_code))
+		{
+			echo "<option value='$area_code[$key]'>$area_code[$key]</option>";
+			next($area_code);
+		}
+?>
+ 	</select></td>
+ 	</tr>
+	<tr>
+		<td colspan='4'><button id=query type=button>查询</button>&nbsp;&nbsp;&nbsp;&nbsp<button id='exce' type=button>导出渠道分省合计</button></td>
  	</tr>
 	<tr>
 		<td colspan=4>
@@ -311,7 +329,7 @@
 	 <td id='result_info'></td>  
 	</tr>
 	</table>
-	<div id='result_records' class='easyui-panel' style='width:auto !important'></div>'
+	<div id='result_records' class='easyui-panel' style='width:auto !important'></div>
 	
 </body>
 </html>

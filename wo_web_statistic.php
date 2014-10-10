@@ -1,5 +1,3 @@
-
-<!DOCTYPE html>
 <html>
 <head>
         <meta charset="UTF-8">
@@ -8,31 +6,43 @@
         <link rel="stylesheet" type="text/css" href="easyui/demo/demo.css">
         <script type="text/javascript" src="easyui/jquery.min.js"></script>
         <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="jquery.chromatable.js"></script>
         <script>
         
 		
         $(document).ready(function(){
-            pageSize=20;
+            pageSize=50;
 
             function compose_url(query_type,pageNumber,pageSize){
                 var url="";
-                url += "message_complaint_query.php?tb=1";
+                url += "wo_web_statistic_query.php?";
                 url += "&query_type="+query_type;
-                url += "&phone_number="+$("#phone_number").val();
-                url += "&products="+$("#products").val();
                 url += "&date1="+$('#date1').datebox('getValue');
                 url += "&date2="+$('#date2').datebox('getValue');
                 url += "&pageSize="+pageSize;
                 url += "&pageNumber="+pageNumber;
-
-				url += "&feetype="+$("#feetype").val();
-				url += "&gwid="+$("#gwid").val();
 				url += "&province="+$("#province").val();
-				url += "&spID="+$("#spID").val();
-				url += "&serviceID="+$("#serviceID").val();
-				url += "&cpID="+$("#cpID").val();
-				url += "&cp_productID="+$("#cp_productID").val();
-				url += "&cmdID="+$("#cmdID").val();
+				url += "&price="+$("#price").val();
+				url += "&ditchId="+$("#ditchId").val();
+
+				//分组
+				if($("#date_group").is(':checked')==true)
+					url += "&date_group="+$("#date_group").val();
+					url += "&date_type="+$("#date_type").val();
+
+				//if($("#cpProdID_group").is(':checked')==true)
+					//url += "&cpProdID_group="+$("#cpProdID_group").val();
+
+
+				if($("#province_group").is(':checked')==true)
+					url += "&province_group="+$("#province_group").val();
+
+				if($("#price_group").is(':checked')==true)
+					url += "&price_group="+$("#price_group").val();
+
+				if($("#ditchId_group").is(':checked')==true)
+					url += "&ditchId_group="+$("#ditchId_group").val();
 
                 return url;
                 
@@ -54,7 +64,8 @@
         		
             //$('#result_records').panel('refresh',compose_url('result_page',pageNumber,pageSize));
         	var date= new Date(1);
-    		$('#date1').datebox('setValue', yesterday(date));
+			var date1= new Date(1);
+    		$('#date1').datebox('setValue', yesterday(date1));
     		$('#date2').datebox('setValue', yesterday(date));
     		
 			$("#query").click(function(){
@@ -70,109 +81,24 @@
 				});
         	})
         })
-        
-		function change(type){ 
-			var val = $("#"+type+"ID").val();
-			  $.get("message_complaint_json.php", { type: type, id: val },
-				  function(data){
-					if(type=='sp'){
-						$("#serviceID").html(data);
-					}else{
-						$("#cp_productID").html(data);
-					}
-				  });
-		}
         </script>
 </head>
 <body>
-<font size=4><caption>投诉查询>></caption></font>
-<br><br>
-
 
 <?php 
 	include("check.php"); 
 	include("style.php");
 	include("area_code.php");
+	$username = @$_COOKIE["uname"];
+	$role = @$_COOKIE["role"];
+	
 ?>
 
 	
 	
 	<table width='100%'>
-	 <tr><td>通道&nbsp;&nbsp;
- 	<select id=spID onchange="change('sp')">
-		<option value="">全部</option>
-<?php
- 	$sql="select ID,spname from mtrs_sp";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-
-	<td>通道业务&nbsp;&nbsp;
- 	<select id=serviceID>
-		<option value="">全部</option>
-<?php
- 	$sql="select ID,name from mtrs_service";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-
-
-	<td>渠道&nbsp;&nbsp;
- 	<select id=cpID onchange="change('cp')">
-		<option value="">全部</option>
-<?php
- 	$sql="select ID,cpname from mtrs_cp";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-
-	<td>渠道业务&nbsp;&nbsp;
- 	<select id=cp_productID>
-		<option value="">全部</option>
-<?php
- 	$sql="select id,name from mtrs_cp_product";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>($row[0])$row[1]</option>";
- 	}
-?>
- 	</select></td>
-	</tr>
-
-
-	 <tr><td>计费类型&nbsp;&nbsp;
- 	<select id=feetype>
-		<option value="">全部</option>
-		<option value="1">点播 </option>
-		<option value="2">包月</option>
- 	</select></td>
-
-
-	<td>网关&nbsp;&nbsp;
- 	<select id=gwid>
-		<option value="">全部</option>
-<?php
- 	$sql="select id,comment from wraith_gw where status=1";
- 	$result=exsql($sql);
- 	while($row=mysqli_fetch_row($result))
- 	{
- 		echo "<option value=$row[0]>$row[1]</option>";
- 	}
-?>
- 	</select></td>
+	<tr><td colspan=3 style="font-weight:bold">wo+web统计查询</td></tr>
+	<tr>
 
 
 	<td>所属省&nbsp;&nbsp;
@@ -186,20 +112,37 @@
 		}
 ?>
  	</select></td>
-	<td>指令&nbsp;&nbsp;
-		<select id=cmdID>
-			<option value="">全部</option>
-			<?php
-				$sql="select ID,sp_number,mo_cmd from mtrs_cmd";
-				$result=exsql($sql);
-				while($row=mysqli_fetch_row($result))
-				{
-					echo "<option value=$row[0]>($row[0])$row[1]+$row[2]</option>";
-				}
-			?>
-		</select>
+
+	<td>价格&nbsp;&nbsp;
+	<select id=price>
+	<option value=''>全部</option>
+<?php
+$sql = 'select DISTINCT(price) from wraith_wo_web_statistic ';
+$result=exsql($sql);
+while($row=mysqli_fetch_row($result)){
+	echo "<option value='".$row[0]."'>".$row[0]."元</option>";
+}
+?>
+	</select>
 	</td>
-	 	
+	<td>渠道&nbsp;&nbsp;
+	<select id=ditchId>
+	
+<?php
+if(isset($username) && $username!='' && $role==18){
+	$sql = "select DISTINCT(ditchId) from wraith_wo_web_statistic where ditchId='$username'";
+}else{
+	echo "<option value=''>全部</option>";
+	$sql = "select DISTINCT(ditchId) from wraith_wo_web_statistic";
+}
+//echo $sql;exit;
+$result=exsql($sql);
+while($row=mysqli_fetch_row($result)){
+	echo "<option value='".$row[0]."'>".$row[0]."</option>";
+}
+?>
+	</select>
+	</td>
 	</tr>
 	<tr>
  	<td>开始时间&nbsp;<input id="date1" type="text" class="easyui-datebox" data-options="formatter:myformatter" required="required" value=""></input></td>
@@ -221,9 +164,20 @@
 		
 		
 	</script>
- 	<td>手机号码<input id=phone_number name=phone_number type=text value='' /></td>
+
 	<td><button id=query type=button>查询</button></td>
  	</tr>
+	<tr>
+		<td colspan=3>
+			<input type='checkbox' id="date_group" name='date_group' value="on">
+			<select name='date_type' id="date_type"><option value='day'>日期分组</option><option value='hour'>小时分组</option></select>&nbsp;&nbsp;&nbsp;&nbsp;
+			<!--<input type='checkbox' id="cpProdID_group" name='cpProdID_group' value="on">渠道业务分组&nbsp;&nbsp;&nbsp;//-->
+			<input type='checkbox' id="province_group" name='province_group' value="on">省分组&nbsp;&nbsp;&nbsp;
+			<input type='checkbox' id="price_group" name='price_group' value="on">价格分组&nbsp;&nbsp;&nbsp;
+			<input type='checkbox' id="ditchId_group" name='ditchId_group' value="on">渠道分组&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+
 	</table>
 	
  	

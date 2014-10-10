@@ -18,7 +18,7 @@
 <table>
 
 <?php
-	$sql= "select c.mo_cmd,c.sp_number from mtrs_cmd c ,mtrs_service s where s.gwid=40 and s.ID=c.serviceID";
+	$sql= "select c.mo_cmd,c.sp_number,s.name,s.ID,c.ID,c.cpProdID from mtrs_cmd c ,mtrs_service s where s.gwid=40 and s.ID=c.serviceID";
 	$result=exsql($sql);
 	while($row=mysqli_fetch_row($result))
 	{
@@ -43,13 +43,12 @@
 		<?php
 			foreach($rows as $r)
 			{
-				echo "<option value='$r[1]-$r[0]'>$r[1]+$r[0]</option>";
+				echo "<option value='$r[1]-$r[0]-$r[3]-$r[4]-$r[5]'>($r[3])$r[2]+$r[1]+$r[0]</option>";
 			}
 		?>
 		</select>
 	</td>
 </tr>
-	
 </table>
  <br>
 

@@ -38,21 +38,54 @@ include("style.php");
 <br><br>
 
 <form name=pn_inq action="cp_product_list.php" method=post>
- <table><tr><td>渠道<select name=cp_pro onchange=>
+ <table><tr><td>
+ 渠道<select name='id' onchange=><option value=''>全部</option>
 <?php
 	$where=" 1";
-	if(isset($_REQUEST['cp_pro']) && !empty($_REQUEST['cp_pro'])){
+	if($_COOKIE['role']==16){
+		$where.=" and (name like '游戏斗牛%' or name like '开森呆萌兔%')";
+	}
+	if(isset($_GET['cp_pro']) && !empty($_GET['cp_pro'])){
 
-		$where = " id = ".$_REQUEST['cp_pro'];
+		$where .= " and id = ".$_GET['cp_pro'];
 	}
 
- 	$sql="select ID,name from mtrs_cp_product";
+	if(isset($_POST['id']) && !empty($_POST['id'])){
+
+		$where .= " and cpID = ".$_POST['id'];
+	}
+
+ 	$sql="select id,cpname from mtrs_cp";
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
- 	{	if(isset($_REQUEST['cp_pro']) && !empty($_REQUEST['cp_pro']) && $_REQUEST['cp_pro']==$row[0]){
+ 	{	if(isset($_POST['id']) && !empty($_POST['id']) && $_POST['id']==$row[0]){
 			echo "<option value=$row[0] selected>($row[0])$row[1]</option>";
 		}else{
 			echo "<option value=$row[0]>($row[0])$row[1]</option>";
+		}
+ 		
+ 	}
+?>
+</select>
+ 
+ 
+ 渠道业务<select name='cpname' onchange=><option value=''>全部</option>
+<?php
+	if(isset($_POST['cpname']) && !empty($_POST['cpname'])){
+
+		$where .= " and name like '".$_POST['cpname']."%'";
+	}
+
+ 	$sql="select DISTINCT(substring_index(`name`,'-',1))  from mtrs_cp_product";
+	if($_COOKIE['role']==16){
+		$sql.=" where name like '游戏斗牛%' or name like '开森呆萌兔%'";
+	}
+ 	$result=exsql($sql);
+ 	while($row=mysqli_fetch_row($result))
+ 	{	if(isset($_POST['cpname']) && !empty($_POST['cpname']) && $_POST['cpname']==$row[0]){
+			echo "<option value=$row[0] selected>$row[0]</option>";
+		}else{
+			echo "<option value=$row[0]>$row[0]</option>";
 		}
  		
  	}
@@ -67,6 +100,7 @@ include("style.php");
 <?php
 
   $buf= "select * from mtrs_cp_product where ".$where;
+  //echo $buf;
   $result=exsql($buf);
   echo "<div align=left><font size=2>共<font color=red>".mysqli_num_rows($result)."</font>条记录";
   while($row=mysqli_fetch_row($result))

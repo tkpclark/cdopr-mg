@@ -1,8 +1,13 @@
 <?php
-     $ip="42.62.78.249";
+     /*$ip="42.62.78.249";
      $user="tkp";
      $pwd="qepapap";
+     $db="cdopr";*/
+	$ip="127.0.0.1";
+     $user="root";
+     $pwd="";
      $db="cdopr";
+      
       $mysqli = new mysqli($ip, $user, $pwd, $db);
 			if($mysqli->connect_error)
 			{
