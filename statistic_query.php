@@ -410,7 +410,7 @@
 								$cmdIDs=$v;
 							}
 						}
-						echo "<th>".'('.$cmdIDs[0].')'.$cmdIDs[1].'+'.$cmdIDs[2]."</th>";
+						echo "<th>".'('.$cmdIDs[0].')'.$cmdIDs[1].'+<br>'.$cmdIDs[2]."</th>";
 					}else{
 						echo "<th>".$row[9]."</th>";
 					}

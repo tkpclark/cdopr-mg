@@ -174,7 +174,7 @@
  	$result=exsql($sql);
  	while($row=mysqli_fetch_row($result))
  	{
- 		echo "<option value=$row[0]>($row[0])$row[1]-$row[2]+$row[3]</option>";
+ 		echo "<option value=$row[0]>($row[0])$row[1]-$row[2]+".substr("$row[3]",0,10)."</option>";
  	}
 ?>
  	</select></td>
@@ -236,6 +236,7 @@
 		<option value="">全部</option>
 		<option value="1">点播 </option>
 		<option value="2">包月</option>
+		<option value="3">包月话单</option>
  	</select></td>
 
 
@@ -283,7 +284,7 @@
 					$result=exsql($sql);
 					while($row=mysqli_fetch_row($result))
 					{
-						echo "<option value=$row[0]>($row[0])$row[1]+$row[2]</option>";
+						echo "<option value=$row[0]>($row[0])$row[1]+".substr("$row[2]",0,10)."</option>";
 					}
 				?>
 			</select>
